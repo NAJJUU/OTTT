@@ -23,6 +23,8 @@ img의 class인 poster의 부모 태그 posterzip1에 overflow: hidden;을 주�
 
 ![image](https://user-images.githubusercontent.com/122864238/231426229-407dd3d0-934b-4719-82dd-7a2bb8483298.png)
 
+![image](https://user-images.githubusercontent.com/122864238/231614255-1930942d-dda8-46c5-956e-c91c75f9c449.png)
 
-![image](https://user-images.githubusercontent.com/122864238/231426278-36fd9542-4b20-4182-9e7a-f6c27e747348.png)
-![image](https://user-images.githubusercontent.com/122864238/231426316-569f9960-4afb-4a1c-acec-0786ca84b11a.png)
+display: none;과 display: block;을 이용하여 class="work-review"를 class="work-info"를 hover할 때만 보이게 해주었다.
+display: none;과 display: block;는 부모와 자식관계에서만 사용할 수 있어서 부모와 자식관계를 만들어주기 위해서 div태그로 자식관계되는 부분을 다 묶어주었다.
+그리고 poster 호버와 class="work-info" 호버를 따로 주었더니 두 개가 따로 놀아서 두 개의 호버를 같이 주었다.
