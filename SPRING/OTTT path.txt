@@ -1,0 +1,94 @@
+*community 경로
+freecommunity: /community
+	-community post: /community/post
+endmovie: /community/endmovie(/coupang, /disney, /netflix, /tving, /watcha, /wavve)
+	-더보기: /community/endmovie/more
+notice: /community/notice
+priceInfo: /community(/priceInfoTving, /priceInfoCoupang, /priceInfoDisney, /priceInfoNetflix, /priceInfoWatcha, /priceInfoWavve)
+QnA: /community/QnA(글작성:/create 추가 )
+
+*genre 경로
+animation: /genre/animation
+drama: /genre/drama
+interest: /genre/interest
+movie: /genre/movie
+
+*mycommunity 경로
+내가 쓴 댓글 보기: /mycommynity/comment
+내가 좋아요누른 글 보기: /mycommynity/likecommunity
+내가 작성한 게시글 보기: /mycommynity/postcommu
+
+*mypage 경로
+mypage main: /mypage
+1. follower/following 확인
+follower: /mypage/follower
+following: /mypage/following
+2. setting: /mypage/setting
+1) 프로필 변경: /mypage/setting/myprofile
+2) 내정보 변경: /mypage/setting/myinfo
+3) 회원탈퇴
+3. mypage var
+1) record(다이어리, 리뷰)
+-다이어리: /mypage/mydiary
+	-작성글 보기페이지: /mypage/mydiary/poster
+	-글작성 페이지: /mypage/mydiary/create
+-리뷰: /mypage/myreview
+2) 알림함: /mypage/alarm
+3) 쪽지함: /mypage/message
+	-셋팅: /mypage/messagesetting
+4) 찜목록: /mypage/wishlist
+5) 봤어요: /mypage/watched
+ 
+* search: /search
+
+* workDetailPage 경로
+workDetailPage: /detailPage
+workReview: /detailPage/review
+reviewReply: /detailPage/reply
+
+
+좋아요 누른 리뷰??
+댓글 작성 리뷰??
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
