@@ -1,5 +1,6 @@
 package com.ottt.ottt.dto;
 
+import java.util.Date;
 import java.util.Objects;
 
 /*
@@ -19,6 +20,8 @@ import java.util.Objects;
 	,user_gen		int				not null
 	--이메일
 	,user_email		varchar(150)	not null
+	--가입일
+	,reg_date		timestamptz		not null
 	--관리자 여부
 	,admin			char(1)			not null
 	--프로필 이미지
@@ -40,6 +43,7 @@ public class UserDTO {
 	private String user_nicknm;
 	private int user_gen;
 	private String user_email;
+	private Date reg_date;
 	private char admin;
 	private String image;
 	private int following;
@@ -110,6 +114,16 @@ public class UserDTO {
 
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
+	}
+	
+	
+
+	public Date getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 
 	public char getAdmin() {

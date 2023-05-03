@@ -1,13 +1,32 @@
 package com.ottt.ottt.controller.login;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.ottt.ottt.dao.login.LoginUserDao;
+import com.ottt.ottt.dto.UserDTO;
 
 @Controller
 @RequestMapping("/signin")
 public class SigninController {
+	
+	@Autowired
+	LoginUserDao userDao;
 
 	//약간동의 페이지 
 	@GetMapping(value = "/term")
@@ -27,8 +46,13 @@ public class SigninController {
 	}
 	
 	@PostMapping(value = "/register")
-	public String registerPost() {
-	return "/login/register";		
+	public String registerPost(UserDTO user, BindingResult result, Model m) {
+		if(!result.hasErrors()) {
+			int rowCnt = userDao.insert(user);
+			if(rowCnt != 0) return "redirect:/signin/complete";
+		}
+		
+	return "redirect:/login/register";		
 	}
 	
 	//필수정보 입력
@@ -60,7 +84,47 @@ public class SigninController {
 	}
 	
 	@PostMapping(value = "/complete")
-	public String signinCompletePost() {
-		return "/login/registerComple";		
+	public String signinCompletePost(String user_id, String user_pwd,
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		//1. id와 pw를 확인
+		if(!loginCheck(user_id, user_pwd)) {
+		//2-1. 일치하지 않으면, loginForm으로 이동
+		String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다", "utf-8");
+		return "redirect:/signin/complete?msg="+msg;
+		}
+					
+		//3. 세션
+		//	세션 객체 얻어오기
+		HttpSession session = request.getSession();
+		//	세션 객체에 id를 저장
+		session.setAttribute("id", user_id);
+		return "redirect:/signin/addInfo";		
+	}
+	
+	//닉네임 중복검사
+	@RequestMapping(value = "/nnameIdChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String nnameIdChk(String user_nicknm) {
+		UserDTO user = userDao.selectNickname(user_nicknm);	
+		
+		if(user != null && user.getUser_nicknm().equals(user_nicknm)) return "success";		
+		return "fail";		
+	}
+	
+	//아이디 중복검사
+	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String memberIdChk(String user_id) {
+		UserDTO user = userDao.select(user_id);	
+		
+		if(user != null && user.getUser_id().equals(user_id)) return "success";		
+		return "fail";		
+	}
+	
+	//DB꺼 가져와서 CHECK해야함
+	private boolean loginCheck(String id, String pwd) {
+		UserDTO user = userDao.select(id);
+		if(user == null) return false;
+		return user.getUser_pwd().equals(pwd);
 	}
 }

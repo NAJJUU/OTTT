@@ -164,8 +164,8 @@
 		  		</section>
 		  	
 			  	<div class="back" style="display: inline-block; pointer-events: none;">
-					<a href="<c:url value="/signin/register" />" style="pointer-events: none;">
-						<input type="button" value="이전" style="pointer-events: auto;">
+					<a href="<c:url value="/" />" style="pointer-events: none;">
+						<input type="button" value="건너뛰기" style="pointer-events: auto;">
 		  			</a>
 				</div>
 				

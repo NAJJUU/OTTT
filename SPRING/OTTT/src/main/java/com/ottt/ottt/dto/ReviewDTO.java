@@ -11,7 +11,7 @@ import java.util.Objects;
 	--작성자(프로필번호) FK
 	,user_no			BIGINT			not null
 	--별점
-	,rating			 	int				not null
+	,rating			 	float				not null
 	--내용
 	,review_content		varchar(65535)	not null
 	--등록날짜
@@ -22,7 +22,7 @@ public class ReviewDTO {
 	private Integer review_no;
 	private int content_no;
 	private int user_no;
-	private int rating;
+	private float rating;
 	private String review_content;
 	private Date review_create_dt;
 	
@@ -52,11 +52,11 @@ public class ReviewDTO {
 		this.user_no = user_no;
 	}
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 

@@ -3,13 +3,14 @@ package com.ottt.ottt.dto;
 import java.util.Objects;
 
 /*게시판 종류
- * article_index_no	char(1)	primary key
+ *article_index_no	char(1)	primary key
+	,article_index_nm	varchar(10)	not null
  */
 
 public class ArticleIndexDTO {
 	
 	private Character article_index_no;
-	
+	private String article_index_nm;
 	
 	
 	
@@ -30,11 +31,23 @@ public class ArticleIndexDTO {
 	}
 
 
+	public String getArticle_index_nm() {
+		return article_index_nm;
+	}
+
+
+
+
+	public void setArticle_index_nm(String article_index_nm) {
+		this.article_index_nm = article_index_nm;
+	}
+
+
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(article_index_no);
+		return Objects.hash(article_index_nm, article_index_no);
 	}
 
 
@@ -49,7 +62,8 @@ public class ArticleIndexDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		ArticleIndexDTO other = (ArticleIndexDTO) obj;
-		return Objects.equals(article_index_no, other.article_index_no);
+		return Objects.equals(article_index_nm, other.article_index_nm)
+				&& Objects.equals(article_index_no, other.article_index_no);
 	}
 
 
@@ -57,8 +71,10 @@ public class ArticleIndexDTO {
 
 	@Override
 	public String toString() {
-		return "ArticleIndexDTO [article_index_no=" + article_index_no + "]";
+		return "ArticleIndexDTO [article_index_no=" + article_index_no + ", article_index_nm=" + article_index_nm + "]";
 	}
+
+
 
 	
 	

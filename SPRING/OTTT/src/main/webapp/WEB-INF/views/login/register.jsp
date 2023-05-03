@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import= "java.net.URLDecoder"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!doctype html>
 <html lang="ko">
@@ -63,20 +64,21 @@
 		</header>
         
 		<section class="sec00">
-		    <form method="post" action="<c:url value="/signin/addInfo" />">
+		    <form:form modelAttribute="userDTO" method="post" >
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
-						<input type="text" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" required pattern="^[a-zA-Z0-9]+$">
-					    <span class="errorMsg" id="idErrorMsg"></span> 
+							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" required pattern="^[a-zA-Z0-9]+$">
+					    <span class="errorMsg" id="idErrorMsg" style="position: absolute; left: 910px;"></span> 
 					    <div class="idChk">
-		              	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-						<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
-					  </div>
+					    	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+							<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+					    </div>
+					  
 					</div>
 					
 					<div class="password">
-					    <input type="password" id="password" title="PW" maxlength="20" placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[^\da-zA-Z])(.{8,20})$">
+					    <input type="password" name="user_pwd" id="password" title="PW" maxlength="20" placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[^\da-zA-Z])(.{8,20})$">
 					    <span class="errorMsg" id="passwordErrorMsg"></span>
 					</div>
 					
@@ -92,22 +94,22 @@
 		    	//아이디 중복검사
 				$('.id_input').on("propertychange change keyup paste input", function(){
 					
-					var memberId = $('.id_input').val();			// .id_input에 입력되는 값
-				  	var data = {memberId : memberId};				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+					var user_id = $('.id_input').val();			// .id_input에 입력되는 값
+				  	var data = {user_id : user_id};				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
 				  
 				  	$.ajax({
 				  		type : "post",
-					    url : "/member/memberIdChk",
+					    url : "/ottt/signin/memberIdChk",
 					    data : data,
 					    success : function(result){
 					    	
-					    	// console.log("성공 여부" + result);					    	
-							if(result != 'fail'){
-							  $('.id_input_re_1').css("display","inline-block");
-							  $('.id_input_re_2').css("display", "none");				
+					    	//console.log("성공 여부" + result);					    	
+							if(result != 'success'){
+								$('.id_input_re_1').css("display","inline-block");
+								$('.id_input_re_2').css("display", "none");
 							} else {
-							  $('.id_input_re_2').css("display","inline-block");
-							  $('.id_input_re_1').css("display", "none");				
+								$('.id_input_re_2').css("display","inline-block");
+								$('.id_input_re_1').css("display", "none");	
 							}
 				     
 						}// success 종료
@@ -172,37 +174,22 @@
             			}
 	            	});
 		        });
-		
-		     
-		        $(document).ready(function(){
-		        	
-		        	$(".join_button").click(function(){
-		        		//회원가입 버튼(회원가입 기능 작동)
-		        		if(idValue&&passwordValue&&passwordCheckValue&&passwordRegex&&nameValue&&nameRegex){
-		        			$("#membership").attr("action", "/member/join");
-		        			$("#membership").submit();
-	        			}
-		        		
-		        		return false;
-	        		});
-	        	});
-		        
 		        </script>
 		        
 		        <div class="name">
-		        	<input type="text" id="name" title="NM" maxlength="10" placeholder="이름" >
+		        	<input type="text" name="user_nm" id="name" title="NM" maxlength="10" placeholder="이름" >
 		        	<span>
-		        		<select name="성별">
+		        		<select name="user_gen">
 				            <option value="">선택</option>
-				            <option value="남자">남자</option>
-				            <option value="여자">여자</option>
-				            <option value="비공개">비공개</option>
+				            <option value="1">남자</option>
+				            <option value="2">여자</option>
+				            <option value="0">비공개</option>
 			            </select>
 		            </span>
 		            
 		            <script>
 			            const form = document.querySelector('form');
-			            const genderSelect = form.querySelector('select[name="성별"]');
+			            const genderSelect = form.querySelector('select[name="user_gen"]');
 			
 			            form.addEventListener('submit', (event) => {
 			            	if (genderSelect.value === '') {
@@ -213,8 +200,71 @@
 					</script>
 		
 					<div class="nname">
-						<input type="text" id="nname" title="NNM" maxlength="10" placeholder="닉네임" >
+						<input type="text" name="user_nicknm" class="nnmame_input" id="nname" title="NNM" maxlength="10" placeholder="닉네임" >
+						
+						<div class="nicknameChk">
+							<span class="errorMsg" id="nnameErrorMsg" style="position: absolute; left: 910px;"></span>
+					    	<span class="nickname_input_re_1">사용 가능한 닉네임입니다.</span>
+							<span class="nickname_input_re_2">닉네임이 이미 존재합니다.</span>
+					    </div>
 					</div>
+					
+					<script>
+		    	//닉네임 중복검사
+				$('.nnmame_input').on("propertychange change keyup paste input", function(){
+					
+					var user_nicknm = $('.nnmame_input').val();			// .id_input에 입력되는 값
+				  	var data = {user_nicknm : user_nicknm};				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+				  
+				  	$.ajax({
+				  		type : "post",
+					    url : "/ottt/signin/nnameIdChk",
+					    data : data,
+					    success : function(result){
+					    	
+					    	//console.log("성공 여부" + result);					    	
+							if(result != 'success'){
+								$('.nickname_input_re_1').css("display","inline-block");
+								$('.nickname_input_re_2').css("display", "none");
+							} else {
+								$('.nickname_input_re_2').css("display","inline-block");
+								$('.nickname_input_re_1').css("display", "none");	
+							}
+				     
+						}// success 종료
+				
+					}); // ajax 종료
+				
+				});// function 종료
+				
+			        //닉네임 유효성검사
+			        $("#nname").on("blur",function(){
+					    var nameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/;
+					    var nameValue = $(this).val();
+					    
+					    if(!nameRegex.test(nameValue)){
+					        $('#nnameErrorMsg').text('1글자 이상 8글자 이하의 한글, 영문, 숫자만 사용 가능합니다.');
+					    } else{
+					        $('#nnameErrorMsg').text('');
+					    }
+					});
+		
+		     
+		        $(document).ready(function(){
+		        	
+		        	$(".join_button").click(function(){
+		        		//회원가입 버튼(회원가입 기능 작동)
+		        		if(user_id&&idValue&&passwordValue&&passwordCheckValue&&passwordRegex&&nameValue&&nameRegex){
+		        			$("#membership").attr("action", "/member/join");
+		        			$("#membership").submit();
+	        			}
+		        		
+		        		return false;
+	        		});
+	        	});
+		        
+		        </script>
+					
 					
 					<script>
 			            const form2 = document.querySelector('form2');
@@ -235,7 +285,7 @@
 		            </script>
 		
 		          	<div class="email">
-		           		<input type="email" id="email" title="EM" maxlength="20"  placeholder="이메일" >
+		           		<input type="email" name="user_email" id="email" title="EM" maxlength="20"  placeholder="이메일" >
 		           		<span>
 		            		<select id="domain" name="직접입력">
 								<option value="select">직접입력</option>
@@ -266,10 +316,10 @@
 	          		</div>
 	          		
 	          		<div class="complate">
-	          			<input type="submit" value="다음">
+	          			<input type="submit" value="회원가입">
           			</div>
        			</div>
-   			</form>
+   			</form:form>
 		</section>
 	</div>
 	
