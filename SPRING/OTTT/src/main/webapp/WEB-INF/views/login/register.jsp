@@ -4,6 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="loginout" value="${sessionScope.id == null ? 'logout' : 'login'}" />
+<c:set var="loginoutlink" value="${sessionScope.id==null ? '/login' : '/mypage'}" />
 <!doctype html>
 <html lang="ko">
 <head>
@@ -55,7 +57,7 @@
               </a>
             </li>
             <li>
-              <a href="<c:url value='/mypage' />">
+              <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
                 <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
               </a>
             </li>
@@ -239,8 +241,8 @@
 				
 			        //닉네임 유효성검사
 			        $("#nname").on("blur",function(){
-					    var nameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/;
-					    var nameValue = $(this).val();
+					    var nnameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/;
+					    var nnameValue = $(this).val();
 					    
 					    if(!nameRegex.test(nameValue)){
 					        $('#nnameErrorMsg').text('1글자 이상 8글자 이하의 한글, 영문, 숫자만 사용 가능합니다.');
@@ -254,7 +256,7 @@
 		        	
 		        	$(".join_button").click(function(){
 		        		//회원가입 버튼(회원가입 기능 작동)
-		        		if(user_id&&idValue&&passwordValue&&passwordCheckValue&&passwordRegex&&nameValue&&nameRegex){
+		        		if(idRegex&&idValue&&passwordValue&&passwordCheckValue&&passwordRegex&&nameValue&&nameRegex&&nnameRegex&&nnameValue&&emailInput){
 		        			$("#membership").attr("action", "/member/join");
 		        			$("#membership").submit();
 	        			}

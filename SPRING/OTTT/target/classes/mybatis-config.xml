@@ -6,5 +6,6 @@
 <configuration>
   	<typeAliases>
   		<typeAlias type="com.ottt.ottt.dto.UserDTO" alias="UserDTO"/>
+  		<typeAlias type="com.ottt.ottt.dto.UserOTTDTO" alias="UserOTTDTO"/>
   	</typeAliases>
   </configuration>
