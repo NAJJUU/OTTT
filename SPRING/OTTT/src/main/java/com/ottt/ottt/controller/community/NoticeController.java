@@ -1,16 +1,72 @@
 package com.ottt.ottt.controller.community;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ottt.ottt.dao.login.LoginUserDao;
+import com.ottt.ottt.domain.PageResolver;
+import com.ottt.ottt.domain.SearchItem;
+import com.ottt.ottt.dto.ArticleDTO;
+import com.ottt.ottt.dto.UserDTO;
+import com.ottt.ottt.service.community.notice.ArticleService;
+
+
 
 @Controller
 @RequestMapping("/community")
 public class NoticeController {
+	
+	@Autowired
+	ArticleService articleService;
+	@Autowired
+	LoginUserDao loginUserDao;
+	
 	//notice
 	@GetMapping(value = "/notice")
-	public String notice() {
+	public String notice(HttpSession session, SearchItem sc, Model m) {
+		
+		try {
+			int totalCnt = articleService.getCount(sc);
+			m.addAttribute("totalCnt", totalCnt);
+			
+			PageResolver pageResolver =  new PageResolver(totalCnt, sc);
+			
+			List<ArticleDTO> list = articleService.getPage(sc);
+			m.addAttribute("list", list);
+			m.addAttribute("pr", pageResolver);
+			
+			if(session.getAttribute("id") != null) {
+				UserDTO userDTO = loginUserDao.select((String) session.getAttribute("id"));
+				m.addAttribute("userDTO", userDTO);
+//				if(userDTO.getAdmin()=='Y') {
+//					m.addAttribute("mode", 'Y');
+//				}
+				
+			}
+		} catch (Exception e) {e.printStackTrace();}
+		
 			return "/community/notice/notice";		
+	}
+	
+	@GetMapping("/notice/read")
+	public String read(Integer article_no, SearchItem sc, Model m) {
+
+		try {
+			ArticleDTO articleDTO = articleService.getArticle(article_no);
+			m.addAttribute(articleDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "redirect:/community/notice";
+		}
+		return "/community/notice/noticeboard";
 	}
 		
 }

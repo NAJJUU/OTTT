@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>  
+<c:set var="loginout" value="${sessionScope.id == null ? 'logout' : 'login'}" />
+<c:set var="loginoutlink" value="${sessionScope.id==null ? '/login' : '/mypage'}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +53,7 @@
               </a>
             </li>
             <li>
-              <a href="<c:url value='/mypage' />">
+              <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
                 <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
               </a>
             </li>
@@ -78,68 +81,63 @@
           <input  type="text" class="search-input"/>
           <button type="button" class="btn btn-outline-success">검색</button>
         </div>
+        
+        <c:if test="${userDTO.admin.toString() == 'Y' }">
+	        <div style="margin-top:30px; justify-content: flex-end; display: flex;">
+	          <button type="button" class="btn btn-outline-success" style="position: relative; left: -100px;">글작성</button> 
+	        </div>
+        </c:if>
+        
     
         <!-- 글목록 배너-->
         <div class="title-region">
-          <div class="title-mainline">
-            <span style="position: absolute; left: 120px;">번호</span>
-            <span style="position: absolute; left: 450px;">제목</span>
-            <span style="position: absolute; left: 900px;">날짜</span>
-          </div>
+          	<div class="title-mainline" style="display: flex; justify-content: space-around; font-size: 20px;">
+            	<div>제목</div>
+        	    <div>날짜</div>
+    	     </div>		
+    	     <c:forEach var="articleDTO" items="${list}">
+				<div class="title-line" style="display: flex; justify-content: space-around; font-size: 20px;">
+			        <div><a href="<c:url value="/community/notice/read${pr.sc.queryString}&article_no=${articleDTO.article_no }" />">${articleDTO.article_title}</a></div>
+		           	<div><fmt:formatDate value="${articleDTO.article_create_dt}" pattern="yyyy-MM-dd" type="date"/></div>
+		       	</div>					
+			</c:forEach>
+	         
+		     <c:if test="${totalCnt == null || totalCnt == 0}">
+				<div class="title-line" style="text-align: center;">
+	  	         	등록된 공지사항이 없습니다.
+	    	   	</div>
+			</c:if>    
+			<c:if test="${totalCnt != null || totalCnt != 0}">
+				<!-- 페이지 번호 배너-->
+		        <div class="page-num" style="margin-top: 20px;">
+		          <nav aria-label="Page navigation example" class="d-flex flex-row justify-content-center">
+		            <ul class="pagination">
+		            <c:if test="${pr.showPrev}">
+			            <li class="page-item">
+			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.beginPage-1)}" />' aria-label="Previous">
+			                  <span aria-hidden="true">&laquo;</span>
+			                </a>
+			              </li>
+		            </c:if>
+		            <c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+		            	<li class="page-item"><a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(i)}" />'>${i}</a></li>
+		            </c:forEach>
+		              <c:if test="${pr.showNext}">
+			              <li class="page-item">
+			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
+			                  <span aria-hidden="true">&raquo;</span>
+			                </a>
+			              </li>
+		              </c:if>
+		              
+		            </ul>
+		          </nav>
+		        </div>
+			</c:if>
+		</div>
 
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">1</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">2</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">3</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">4</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">5</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-          <div class="title-line">
-            <span style="position: absolute; left: 140px;">6</span>
-            <span style="position: absolute; left: 300px;"><a href="../QnA, notice/noticeboard.html">공지사항 제목</a></span>
-            <span style="position: absolute; left: 875px;">2023-04-04</span>
-          </div>
-        </div>
-    
-        <!-- 페이지 번호 배너-->
-        <div class="page-num">
-          <nav aria-label="Page navigation example" class="d-flex flex-row justify-content-center">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        
       </div>
-    </div>
+
   </body>
 </html>

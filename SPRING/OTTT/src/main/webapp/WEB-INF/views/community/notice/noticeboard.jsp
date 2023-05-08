@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>  
+<c:set var="loginout" value="${sessionScope.id == null ? 'logout' : 'login'}" />
+<c:set var="loginoutlink" value="${sessionScope.id==null ? '/login' : '/mypage'}" />
 <!DOCTYPE html>
 <html>
   <head>
@@ -51,7 +54,7 @@
               </a>
             </li>
             <li>
-              <a href="<c:url value='/mypage' />">
+              <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
                 <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
               </a>
             </li>
@@ -76,11 +79,11 @@
         <!-- 글목록 배너-->
         <div class="title-region">
           <div class="title-mainline">
-            <span>공지사항 제목</span>
+            <span>${articleDTO.article_title}</span>
           </div>
 
           <div class="title-line">
-            <span >여기는 공지사항 내용이 보이는 곳 입니다.</span>
+            <span >${articleDTO.article_content }</span>
           </div>
           
         </div>
