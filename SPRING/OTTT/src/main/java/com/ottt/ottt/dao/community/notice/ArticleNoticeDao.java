@@ -11,4 +11,6 @@ public interface ArticleNoticeDao {
 	int insert(ArticleDTO articleDTO);
 	int count(SearchItem sc) throws Exception;
 	ArticleDTO select(Integer article_no) throws Exception;
+	int update(ArticleDTO articleDTO) throws Exception;
+	int delete(Integer article_no) throws Exception;
 }

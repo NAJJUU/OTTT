@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ottt.ottt.dao.login.LoginUserDao;
 import com.ottt.ottt.domain.PageResolver;
@@ -56,11 +58,20 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/notice/read")
-	public String read(Integer article_no, SearchItem sc, Model m) {
+	public String read(Integer article_no, SearchItem sc, Model m, HttpSession session) {
 
 		try {
 			ArticleDTO articleDTO = articleService.getArticle(article_no);
-			m.addAttribute(articleDTO);
+			m.addAttribute("articleDTO", articleDTO);
+			
+			if(session.getAttribute("id") != null) {
+				UserDTO userDTO = loginUserDao.select((String) session.getAttribute("id"));
+				m.addAttribute("userDTO", userDTO);
+//				if(userDTO.getAdmin()=='Y') {
+//					m.addAttribute("mode", 'Y');
+//				}
+				
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,5 +79,66 @@ public class NoticeController {
 		}
 		return "/community/notice/noticeboard";
 	}
+	
+	@PostMapping("/notice/modify")
+	public String modify(ArticleDTO articleDTO, RedirectAttributes rattr, Model m
+			, HttpSession session, Integer page, Integer pageSize) {
+		try {
+			int a = articleService.modify(articleDTO);
+			if(a != 1) {
+				throw new Exception("Modify failed");
+			}
+			rattr.addAttribute("page", page);
+			rattr.addAttribute("pageSize", pageSize);
+			rattr.addFlashAttribute("msg", "MOD_OK");
+			return "redirect:/community/notice/read?page="+page+"&pageSize="+pageSize+"&article_no="+articleDTO.getArticle_no();
+		} catch (Exception e) {
+			e.printStackTrace();
+			m.addAttribute(articleDTO);
+			m.addAttribute("page", page);
+			m.addAttribute("pageSize", pageSize);
+			m.addAttribute("msg", "MOD_ERR");		
+			return "/community/notice/noticeboard";
+		}
+		
+	}
+	
+	@PostMapping("/notice/remove")
+	public String remove(Integer article_no, Integer page, Integer pageSize, RedirectAttributes rattr) {	
+		String msg = "DEL_OK";
+		try {
+			if(articleService.remove(article_no) != 1) {
+				throw new Exception("Delete failed");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			msg = "DEL_ERR";
+		}
+		
+		rattr.addAttribute("page", page);
+		rattr.addAttribute("pageSize", pageSize);
+		rattr.addFlashAttribute("msg", msg);
+		
+		return "redirect:/community/notice";
+	}
 		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

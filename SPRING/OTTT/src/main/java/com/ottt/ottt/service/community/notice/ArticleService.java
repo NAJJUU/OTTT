@@ -11,4 +11,6 @@ public interface ArticleService {
 	int write(ArticleDTO articleDTO) throws Exception;
 	int getCount(SearchItem sc) throws Exception;
 	ArticleDTO getArticle(Integer article_no) throws Exception;
+	int modify(ArticleDTO articleDTO) throws Exception;
+	int remove(Integer article_no) throws Exception;
 }

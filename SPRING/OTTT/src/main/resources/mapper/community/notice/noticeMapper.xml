@@ -6,7 +6,7 @@
   <mapper namespace="com.ottt.ottt.dao.community.noticeMapper">
   
   	<select id="selectList" parameterType="SearchItem" resultType="ArticleDTO" >
-  		SELECT article_title, article_create_dt
+  		SELECT article_title, article_create_dt, article_no
 		FROM tb_article
 		where article_index_no = '3'
 		order by article_no desc 
@@ -29,5 +29,16 @@
   		select * from tb_article
   		where article_no = #{article_no}
   	</select>
+  	
+  	<update id="update" parameterType="ArticleDTO">
+  		update tb_article
+  		set article_content=#{article_content}, article_title=#{article_title}, article_mod_dt=now()
+  		where article_no = #{article_no}
+  	</update>
+  	
+  	<delete id="delete" parameterType="int">
+  		delete from tb_article
+  		where article_no = #{article_no}
+  	</delete>
   	
   </mapper>

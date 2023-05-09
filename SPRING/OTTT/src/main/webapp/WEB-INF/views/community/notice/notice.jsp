@@ -72,6 +72,19 @@
         </div>
 
 
+	<script type="text/javascript">
+	   	$(document).ready(function() {
+	   	    let msg = "${msg}";
+	   	    if(msg == 'DEL_OK') {
+	   	        $(".modal-body").html("삭제가 완료되었습니다.");
+	   	    	$('#Modal').modal('show');
+	   	    } else if(msg == 'DEL_ERR') {
+	   	        $(".modal-body").html("삭제 실패했습니다. 다시 시도해주세요.");
+	   	     	$('#Modal').modal('show');
+	   	    }
+	   	    
+	   	});
+   	</script>
 
         <!--글작성 관련 시작-->
       <div class="qa-main">
@@ -91,14 +104,14 @@
     
         <!-- 글목록 배너-->
         <div class="title-region">
-          	<div class="title-mainline" style="display: flex; justify-content: space-around; font-size: 20px;">
-            	<div>제목</div>
-        	    <div>날짜</div>
+          	<div class="title-mainline" style="display: flex; font-size: 20px;">
+            	<div style="position: absolute; left: 150px;">제목</div>
+        	    <div style="position: absolute; left: 900px;">날짜</div>
     	     </div>		
     	     <c:forEach var="articleDTO" items="${list}">
-				<div class="title-line" style="display: flex; justify-content: space-around; font-size: 20px;">
-			        <div><a href="<c:url value="/community/notice/read${pr.sc.queryString}&article_no=${articleDTO.article_no }" />">${articleDTO.article_title}</a></div>
-		           	<div><fmt:formatDate value="${articleDTO.article_create_dt}" pattern="yyyy-MM-dd" type="date"/></div>
+				<div class="title-line" style="display: flex; font-size: 20px;">
+			        <div style="position: absolute; left: 100px;"><a href="<c:url value="/community/notice/read${pr.sc.queryString}&article_no=${articleDTO.article_no}" />">${articleDTO.article_title}</a></div>
+		           	<div style="position: absolute; left: 850px;"><fmt:formatDate value="${articleDTO.article_create_dt}" pattern="yyyy-MM-dd" type="date"/></div>
 		       	</div>					
 			</c:forEach>
 	         
@@ -138,6 +151,24 @@
 
         
       </div>
+      
+      
+      <!-- Modal -->
+	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	          <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content">
+	              <div class="modal-header">
+	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body">
+	              </div>
+	              <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
 
   </body>
 </html>

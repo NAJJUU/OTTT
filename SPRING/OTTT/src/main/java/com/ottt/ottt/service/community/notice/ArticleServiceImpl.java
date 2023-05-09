@@ -38,6 +38,18 @@ public class ArticleServiceImpl implements ArticleService {
 		ArticleDTO articleDTO = articleNoticeDao.select(article_no);
 		return articleDTO;
 	}
+
+	@Override
+	public int modify(ArticleDTO articleDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return articleNoticeDao.update(articleDTO);
+	}
+
+	@Override
+	public int remove(Integer article_no) throws Exception {
+		// TODO Auto-generated method stub
+		return articleNoticeDao.delete(article_no);
+	}
 	
 	
 }

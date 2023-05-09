@@ -37,4 +37,16 @@ public class ArticleNoticeDaoImpl implements ArticleNoticeDao {
 		return session.selectOne(namespace+"selectOne", article_no);
 	}
 
+	@Override
+	public int update(ArticleDTO articleDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return session.update(namespace+"update", articleDTO);
+	}
+
+	@Override
+	public int delete(Integer article_no) throws Exception {
+		// TODO Auto-generated method stub
+		return session.delete(namespace+"delete", article_no);
+	}
+
 }

@@ -66,6 +66,10 @@ public class SearchItem {
 		this.option = option;
 	}
 	
+	public String getQueryString() {
+		return getQueryString(page);
+	}
+	
 	//?page=10&pageSize=10&option=A&keyword=title 
 	public String getQueryString(Integer page) {
 		return UriComponentsBuilder.newInstance()
