@@ -14,8 +14,50 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="${path}/resources/css/community/notice/notice.css" >
     <script type="text/javascript" src="${path}/resources/js/community/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
+<style type="text/css">
+/* 모달 */
+.modal-content{
+    background-color: #202020;
+}
+
+.modal-body{
+    font-size: 26px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.modal-header{
+    border: 1px solid #fff;
+}
+
+.modal-footer{
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+.btn{
+    color: #fff;
+    background-color: transparent;
+    border-color: #fff; 
+    font-size: 23px; 
+    text-decoration: none;
+}
+
+
+.btn:hover{
+    border-color: #33FF33;
+    background-color: transparent;
+    border-style: solid;
+    color: #33FF33; 
+}
+
+
+
+</style>
 </head>
 <body style="background-color: #202020;">
      
@@ -72,32 +114,47 @@
         </div>
 
 
+
 	<script type="text/javascript">
 	   	$(document).ready(function() {
 	   	    let msg = "${msg}";
 	   	    if(msg == 'DEL_OK') {
-	   	        $(".modal-body").html("삭제가 완료되었습니다.");
+	   	        $(".body").html("삭제가 완료되었습니다.");
 	   	    	$('#Modal').modal('show');
-	   	    } else if(msg == 'DEL_ERR') {
-	   	        $(".modal-body").html("삭제 실패했습니다. 다시 시도해주세요.");
+	   	    } 
+	   	    if(msg == 'DEL_ERR') {
+	   	        $(".body").html("삭제 실패했습니다. 다시 시도해주세요.");
 	   	     	$('#Modal').modal('show');
 	   	    }
-	   	    
+	   	if(msg == 'WRT_OK') {
+   	        $(".body").html("글이 등록되었습니다.");
+   	     	$('#Modal').modal('show');
+   	    }
 	   	});
    	</script>
+   	
+   	<script type="text/javascript">
+   		$(document).ready(function() {
+			$("#writeBtn").on("click", function() {
+				location.href="<c:url value='/community/notice/write' />"
+			})
+		})
+   	</script>
+
 
         <!--글작성 관련 시작-->
       <div class="qa-main">
         <!-- 검색 배너-->
-        <div class="search-var">
-          <span>제목+내용</span>
-          <input  type="text" class="search-input"/>
-          <button type="button" class="btn btn-outline-success">검색</button>
-        </div>
-        
+        <form action="<c:url value="/community/notice" />" method="get">
+	        <div class="search-var">
+	          <span>제목+내용</span>
+	          <input  type="text" class="search-input" name="keyword" value="${param.keyword }"/>
+	          <button type="button" class="btn btn-outline-success" id="btn">검색</button>
+	        </div>
+        </form>    
         <c:if test="${userDTO.admin.toString() == 'Y' }">
-	        <div style="margin-top:30px; justify-content: flex-end; display: flex;">
-	          <button type="button" class="btn btn-outline-success" style="position: relative; left: -100px;">글작성</button> 
+	        <div style="justify-content: flex-end; display: flex;">
+	          <button type="button" id="writeBtn" class="btn btn-outline-success" style="position: relative; left: -100px;">글작성</button> 
 	        </div>
         </c:if>
         
@@ -161,7 +218,7 @@
 	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	              </div>
-	              <div class="modal-body">
+	              <div class="modal-body body">
 	              </div>
 	              <div class="modal-footer">
 	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
