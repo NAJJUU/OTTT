@@ -17,48 +17,49 @@ public class QnAServiceImpl implements ArticleService {
 	ArticleQnADao articleQnADao;
 
 	public List<ArticleDTO> getPage(SearchItem sc, Integer user_no) throws Exception {
-		// TODO Auto-generated method stub
 		return articleQnADao.selectPage(sc, user_no);
 	}
-
-	@Override
-	public int write(ArticleDTO articleDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return articleQnADao.insert(articleDTO);
+	
+	public List<ArticleDTO> getAllPage(SearchItem sc) throws Exception {
+		return articleQnADao.selectAll(sc);
 	}
 
 	public int getCount(SearchItem sc, Integer user_no) throws Exception {
-		// TODO Auto-generated method stub
 		return articleQnADao.count(sc, user_no);
 	}
+	
+	public int getAllCount(SearchItem sc) throws Exception {
+		return articleQnADao.countAll(sc);
+	}
+	
+	@Override
+	public int write(ArticleDTO articleDTO) throws Exception {
+		return articleQnADao.insert(articleDTO);
+	}
+
 
 	@Override
 	public ArticleDTO getArticle(Integer article_no) throws Exception {
-		// TODO Auto-generated method stub
 		return articleQnADao.select(article_no);
 	}
 
 	@Override
 	public int modify(ArticleDTO articleDTO) throws Exception {
-		// TODO Auto-generated method stub
 		return articleQnADao.update(articleDTO);
 	}
 
 	@Override
 	public int remove(Integer article_no) throws Exception {
-		// TODO Auto-generated method stub
 		return articleQnADao.delete(article_no);
 	}
 
 	@Override
 	public List<ArticleDTO> getPage(SearchItem sc) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int getCount(SearchItem sc) throws Exception {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }
