@@ -35,15 +35,22 @@ public class QnAController {
 			
 			try {
 				UserDTO userDTO = loginUserDao.select((String) session.getAttribute("id"));
-				int totalCnt = serviceImpl.getCount(sc, userDTO.getUser_no());
-				m.addAttribute("totalCnt", totalCnt);
-				
-				PageResolver pageResolver = new PageResolver(totalCnt, sc);
-				
-				List<ArticleDTO> list = serviceImpl.getPage(sc, userDTO.getUser_no());
-				m.addAttribute("list", list);
-				m.addAttribute("pr", pageResolver);
-				
+				char admin = (char) session.getAttribute("admin");
+				if(admin=='Y') {
+					int totalCnt = serviceImpl.getAllCount(sc);
+					m.addAttribute("totalCnt", totalCnt);
+					List<ArticleDTO> list = serviceImpl.getAllPage(sc);
+					PageResolver pageResolver = new PageResolver(totalCnt, sc);
+					m.addAttribute("list", list);
+					m.addAttribute("pr", pageResolver);
+				}else {
+					int totalCnt = serviceImpl.getCount(sc, userDTO.getUser_no());
+					m.addAttribute("totalCnt", totalCnt);
+					List<ArticleDTO> list = serviceImpl.getPage(sc, userDTO.getUser_no());
+					PageResolver pageResolver = new PageResolver(totalCnt, sc);
+					m.addAttribute("list", list);
+					m.addAttribute("pr", pageResolver);
+				}	
 			} catch (Exception e) {e.printStackTrace();}
 			return "/community/QnA/QnA";		
 		}
@@ -133,8 +140,6 @@ public class QnAController {
 				return "/community/QnA/QnA board";
 			}
 		}
-		
-
 }
 
 

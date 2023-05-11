@@ -13,17 +13,29 @@
 		limit #{pageSize} offset #{offset}
   	</select>
   	
-  	<insert id="insert" parameterType="ArticleDTO">
-		INSERT INTO tb_article
-		(article_index_no, article_content, article_title, article_create_dt, user_no)
-		VALUES('2', #{article_content}, #{article_title}, now(), #{user_no})  		
-  	</insert>
-  	
   	<select id="count" parameterType="map" resultType="int">
   		select count(*) 
 		from tb_article 
 		where article_index_no = '2' and user_no = #{user_no}
   	</select>
+  	
+  	<select id="selectAll" parameterType="SearchItem" resultType="ArticleDTO">
+  		select * 
+		from tb_article
+		where article_index_no = '2'
+  	</select>
+  	
+  	<select id="countAll" parameterType="SearchItem" resultType="int">
+  		select count(*) 
+		from tb_article
+		where article_index_no = '2'
+  	</select>
+  	 	
+  	<insert id="insert" parameterType="ArticleDTO">
+		INSERT INTO tb_article
+		(article_index_no, article_content, article_title, article_create_dt, user_no)
+		VALUES('2', #{article_content}, #{article_title}, now(), #{user_no})  		
+  	</insert>
   	
   	<select id="select" parameterType="int" resultType="ArticleDTO">
   		select * from tb_article
