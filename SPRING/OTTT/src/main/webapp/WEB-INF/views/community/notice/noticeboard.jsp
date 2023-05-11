@@ -270,6 +270,8 @@
       <form action="" id="form" class="frm" method="post">
       <div class="modi-del">
 			<c:if test="${userDTO.admin.toString() == 'Y'}">
+				
+	
 	          <!-- Button trigger modal -->
 	        <button type="button" class="btn btn-secondary" id="modi" data-bs-toggle="modal" data-bs-target="#exampleModal">
 	          수정

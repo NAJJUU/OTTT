@@ -354,14 +354,14 @@
           <div class="title-mainline">
             <input type="hidden" name="article_no" value="${articleDTO.article_no}"/>
             <div style="display: flex; justify-content: space-between;">
-            	<div><input type="text" placeholder="제목을 입력해주세요." name="article_title" value="${articleDTO.article_title}" ${mode=="new" ? "" : "readonly='readonly'" } /></div>
+            	<div><input type="text" name="article_title" value="${articleDTO.article_title}" ${mode=="new" ? "" : "readonly='readonly'" } /></div>
             	<div style="font-size: 20px;"><fmt:formatDate value="${articleDTO.article_create_dt}" pattern="yyyy-MM-dd" type="date"/></div>
             </div>
             
           </div>
 		 
           <div class="title-line">
-            <textarea name="article_content" ${mode=="new" ? "" : "readonly='readonly'" } style="background-color: #202020; width: 100%; height: 100%; color: #fff; border: none; outline: none;" placeholder="내용을 입력해주세요.">${articleDTO.article_content}</textarea>
+            <textarea name="article_content" ${mode=="new" ? "" : "readonly='readonly'" } style="background-color: #202020; width: 100%; height: 100%; color: #fff; border: none; outline: none;">${articleDTO.article_content}</textarea>
           </div>
           
         </div>

@@ -154,7 +154,7 @@
         </form>    
         <c:if test="${userDTO.admin.toString() == 'Y' }">
 	        <div style="justify-content: flex-end; display: flex;">
-	          <button type="button" id="writeBtn" class="btn btn-outline-success" style="position: relative; left: -100px; margin-top: 10px;">글작성</button> 
+	          <button type="button" id="writeBtn" class="btn btn-outline-success" style="position: relative; left: -100px;">글작성</button> 
 	        </div>
         </c:if>
         
