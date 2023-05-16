@@ -353,7 +353,7 @@
           <div class="title-mainline">
             <input type="hidden" name="article_no" value="${articleDTO.article_no}"/>
             <div style="display: flex; justify-content: space-between;">
-            	<div><input type="text" name="article_title" value="${articleDTO.article_title}" ${mode=="new" ? "" : "readonly='readonly'" } /></div>
+            	<div><input type="text" name="article_title" value="${articleDTO.article_title}" ${mode=="new" ? "" : "readonly='readonly'" } style="width:900px;" /></div>
             	<div style="font-size: 20px;"><fmt:formatDate value="${articleDTO.article_create_dt}" pattern="yyyy-MM-dd" type="date"/></div>
             </div>
             

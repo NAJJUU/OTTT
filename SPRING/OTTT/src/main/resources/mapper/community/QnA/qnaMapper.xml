@@ -23,6 +23,8 @@
   		select * 
 		from tb_article
 		where article_index_no = '2'
+		order by article_no desc 
+		limit #{pageSize} offset #{offset}
   	</select>
   	
   	<select id="countAll" parameterType="SearchItem" resultType="int">

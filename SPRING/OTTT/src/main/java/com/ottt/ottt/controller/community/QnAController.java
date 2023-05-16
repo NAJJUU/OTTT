@@ -6,18 +6,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ottt.ottt.dto.CommentDTO;
 import com.ottt.ottt.dao.login.LoginUserDao;
 import com.ottt.ottt.domain.PageResolver;
 import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ArticleDTO;
 import com.ottt.ottt.dto.UserDTO;
+import com.ottt.ottt.service.community.QnA.QnACommentService;
 import com.ottt.ottt.service.community.QnA.QnAServiceImpl;
 
 @Controller
@@ -28,6 +33,8 @@ public class QnAController {
 	QnAServiceImpl serviceImpl;
 	@Autowired
 	LoginUserDao loginUserDao;
+	@Autowired
+	QnACommentService qnACommentService;
 	
 	//QnA
 		@GetMapping(value = "/QnA")
@@ -140,6 +147,22 @@ public class QnAController {
 				return "/community/QnA/QnA board";
 			}
 		}
+		
+		@GetMapping("/QnA/QnAcomments")
+		@ResponseBody
+		public ResponseEntity<List<CommentDTO>> list(Integer article_no){
+			List<CommentDTO> list = null;
+			
+			try {
+				list = qnACommentService.getList(article_no);
+				return new ResponseEntity<List<CommentDTO>>(list, HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<List<CommentDTO>>(HttpStatus.BAD_REQUEST);
+			}
+			//return list;
+		}
+		
 }
 
 

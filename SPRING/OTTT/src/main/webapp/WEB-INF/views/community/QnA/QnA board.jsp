@@ -242,6 +242,32 @@
 				}
 				return true
 			}
+			
+			let showList = function(article_no){
+				
+				$.ajax({
+					type: 'GET',
+					url: '/ottt/community/QnA/QnAcomments?article_no='+article_no,
+					success: function(result) {
+						$("#commentList").html(toHtml(result))
+					},
+					error: function() {alter("error")}
+				})
+			}
+			
+			let toHtml = function(comments) {
+				let tmp = "<ul style='display: block; background-color: #202020;'>"
+					comments.forEach(function(comment) {
+						tmp += '<li style="width: 100%; border-bottom: 1px solid #fff; color: #fff; background-color: #202020;" data-cmt_no='+comment.cmt_no
+						tmp += ' data-article_no='+comment.article_no
+						tmp += ' comment=<span class="comment">'+comment.cmt_content+'</span>'
+						tmp += ' commenter=<span class="commenter">'+comment.cmt_writer+'</span>'
+						tmp += ' <button class="btn delBtn"><i class="fa-solid fa-trash"></i>삭제</button>'
+						tmp += '</li>'
+					})			
+					return tmp + "</ul>" 
+			}
+			showList(article_no)
 		})
 	</script>
 	
@@ -366,6 +392,14 @@
           
         </div>
         </form>  
+	    
+	    <!--댓글-->  
+        <form action="" class="comment-form" method="post">
+        
+        	
+        	<button id="commentList"></button>
+        
+        </form>
           <!-- Modal -->
 	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	          <div class="modal-dialog modal-dialog-centered">
