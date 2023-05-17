@@ -10,9 +10,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -150,17 +154,36 @@ public class QnAController {
 		
 		@GetMapping("/QnA/QnAcomments")
 		@ResponseBody
-		public ResponseEntity<List<CommentDTO>> list(Integer article_no){
+		public ResponseEntity<List<CommentDTO>> list(Integer article_no, HttpSession session, Model m){
 			List<CommentDTO> list = null;
 			
 			try {
 				list = qnACommentService.getList(article_no);
+				String user_id = (String) session.getAttribute("id");
+				UserDTO userDTO = loginUserDao.select(user_id);
+				m.addAttribute("userDTO", userDTO);
 				return new ResponseEntity<List<CommentDTO>>(list, HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return new ResponseEntity<List<CommentDTO>>(HttpStatus.BAD_REQUEST);
 			}
 			//return list;
+		}
+		
+		@DeleteMapping("/QnA/QnAcomments/{cmt_no}")
+		public ResponseEntity<String> remove(@PathVariable Integer cmt_no, @RequestParam Integer article_no){
+			
+			try {
+				int rowCnt = qnACommentService.remove(cmt_no);
+				
+				if(rowCnt != 1)
+					throw new Exception("Delete Failed");
+				
+				return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<String>("삭제되지 않았습니다. 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
+			}
 		}
 		
 }

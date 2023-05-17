@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.context.annotation.SessionScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,6 +31,8 @@
     	input[name='article_title']{
     		font-size: 26px;
     	}
+    	
+    	
 
 /* 모달 */
 .modal-content{
@@ -174,8 +177,9 @@
 
 		<script type="text/javascript">
 		$(document).ready(function() {
+			let admin = '${userDTO.admin}'
 			let article_no = $("input[name=article_no]").val()
-			
+						
 			$("#modifyBtn").on("click", function() {
 				let form = $("#form")
 				let isReadonly = $("input[name=article_title]").attr('readonly')
@@ -244,30 +248,70 @@
 			}
 			
 			let showList = function(article_no){
-				
 				$.ajax({
 					type: 'GET',
 					url: '/ottt/community/QnA/QnAcomments?article_no='+article_no,
 					success: function(result) {
-						$("#commentList").html(toHtml(result))
+						if(result && result.length > 0){
+							$("#commentList").html(toHtml(result))
+						}							
+						else{
+							let tmp = '<div style="margin-bottom: 100px;"><div style="margin-left: 55px; margin-bottom: 10px; font-size:20px;">댓글</div>';
+					          tmp += "<div style='margin-left: 55px; margin-bottom: 10px; font-size:16px;'>작성된 댓글이 없습니다.</div>";
+					        $("#commentList").html(tmp+'</div>');
+						}
+							
 					},
 					error: function() {alter("error")}
 				})
 			}
 			
 			let toHtml = function(comments) {
-				let tmp = "<ul style='display: block; background-color: #202020;'>"
+				let tmp = '<div style="margin-bottom: 100px;"><div style="margin-left: 55px; margin-bottom: 10px; font-size:20px;">댓글</div>'
 					comments.forEach(function(comment) {
-						tmp += '<li style="width: 100%; border-bottom: 1px solid #fff; color: #fff; background-color: #202020;" data-cmt_no='+comment.cmt_no
-						tmp += ' data-article_no='+comment.article_no
-						tmp += ' comment=<span class="comment">'+comment.cmt_content+'</span>'
-						tmp += ' commenter=<span class="commenter">'+comment.cmt_writer+'</span>'
-						tmp += ' <button class="btn delBtn"><i class="fa-solid fa-trash"></i>삭제</button>'
-						tmp += '</li>'
-					})			
-					return tmp + "</ul>" 
+					    tmp += "<div class='comment_show'>";
+					    tmp += '<div class="pro-dan">';
+					    tmp += '<div style="display: flex;" data-cmt_no=' + comment.cmt_no;
+					    tmp += ' data-article_no=' + comment.article_no + '>';
+					    tmp += '<img class="profile" src="${path}/resources/images/icon/user01.png" alt="profile" >';
+					    tmp += '<div class="nickname commenter">관리자</div>';
+					    tmp += '</div>';
+					    tmp += '<div class="btn_warning_div">';
+					    if (admin == 'Y' && admin != null) {
+					      tmp += '<button class="btn modBtn" style="text-align: center; width: 56px; height: 35px; font-size: 16px;">수정</button>';
+					      tmp += '<button class="btn delBtn" style="text-align: center; width: 56px; height: 35px; font-size: 16px;">삭제</button>';
+					    } else {
+					      tmp += '<button class="btn modBtn" style="text-align: center; width: 56px; height: 35px; font-size: 16px; display: none;">수정</button>';
+					      tmp += '<button class="btn delBtn" style="text-align: center; width: 56px; height: 35px; font-size: 16px; display: none;">삭제</button>';
+					    }
+					    tmp += '</div>';
+					    tmp += '</div>';
+					    tmp += '<div class="comment comment_write_box"><input type="text" name="cmt_content" value='+comment.cmt_content+' /></div>';
+					    tmp += '</div>';
+					  });
+					  return tmp + '</div>';
 			}
 			showList(article_no)
+			
+			$("#commentList").on("click", ".delBtn",function(){
+				//alert("삭제버튼 클릭")
+				let cmt_no = $(this).parents('.pro-dan').attr("data-cmt_no");
+				let article_no = $(this).parents('.pro-dan').attr("data-article_no");
+				
+				$.ajax({
+					type: 'DELETE',							//요청메서드
+					url: '/ottt/community/QnA/QnAcomments/'+cmt_no+'?article_no='+article_no,	//요청URI
+					success: function(result) {				//서버로부터 응답이 도착하면 호출될 함수
+						$('#Modal').modal('show')	
+						$(".body").html("삭제되었습니다.");//result는 서버가 전송한 데이터
+						showList(article_no)
+					},
+					error: function() {
+						$('#Modal').modal('show')	
+						$(".body").html("삭제되지 않았습니다. 다시 시도해주세요.") 
+						}	//에러가 발생했을 때 호출될 함수
+				})
+			})
 		})
 	</script>
 	
@@ -394,12 +438,27 @@
         </form>  
 	    
 	    <!--댓글-->  
-        <form action="" class="comment-form" method="post">
+		<c:if test="${sessionScope.id != null && userDTO.admin.toString() == 'Y'}">	
+	    	<div class="comment_write_box" style="margin-top: 50px;">
+	    	<div style="display: flex; justify-content: space-between; width: 1100px;">
+		    	<div>
+		    		<img class="profile" src="${path}/resources/images/icon/user01.png" alt="profile" >
+	                <div class="nickname">관리자</div>
+		    	</div>
+	            <div>
+	            	<button type="button" id="sendBtn" class="btn" style="font-size: 16px; position: relative; left: -20px;">댓글 작성</button>
+	            </div>
+	    	</div>
+               <div>
+                <textarea class="writeHere" name="cmt_content" placeholder="댓글을 입력해주세요." onkeydown="resize(this)" onkeyup="resize(this)" ></textarea>              
+               </div>
+            </div>	    	
+		</c:if>
+              	
+        <div id="commentList" style="background-color: #202020;"></div>
+        	       	
         
-        	
-        	<button id="commentList"></button>
-        
-        </form>
+
           <!-- Modal -->
 	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	          <div class="modal-dialog modal-dialog-centered">
