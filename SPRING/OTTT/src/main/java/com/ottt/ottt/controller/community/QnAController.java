@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -171,7 +172,8 @@ public class QnAController {
 		}
 		
 		@DeleteMapping("/QnA/QnAcomments/{cmt_no}")
-		public ResponseEntity<String> remove(@PathVariable Integer cmt_no, @RequestParam Integer article_no){
+		public ResponseEntity<String> remove(@PathVariable Integer cmt_no, Integer article_no){
+			System.out.println(cmt_no+ article_no);
 			
 			try {
 				int rowCnt = qnACommentService.remove(cmt_no);
@@ -184,6 +186,41 @@ public class QnAController {
 				e.printStackTrace();
 				return new ResponseEntity<String>("삭제되지 않았습니다. 다시 시도해주세요.", HttpStatus.BAD_REQUEST);
 			}
+		}
+		
+		@PostMapping("/QnA/QnAcomments")
+		public ResponseEntity<String> write(@RequestBody CommentDTO commentDTO, Integer article_no, HttpSession session){
+			String user_id = (String) session.getAttribute("id");
+			UserDTO userDTO = loginUserDao.select(user_id);
+			
+			commentDTO.setUser_no(userDTO.getUser_no());
+			commentDTO.setCmt_writer(userDTO.getUser_nicknm());
+			commentDTO.setArticle_no(article_no);
+			
+			try {
+				if(qnACommentService.write(commentDTO) != 1) {
+					throw new Exception("Comment_wrtie Failed");
+				}
+				return new ResponseEntity<String>("WRT_OK", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
+			}
+		}
+		
+		@PatchMapping("/QnA/QnAcomments/{cmt_no}")
+		public ResponseEntity<String> modify(@PathVariable Integer cmt_no, @RequestBody CommentDTO commentDTO, HttpSession session){
+			commentDTO.setCmt_no(cmt_no);
+			try {
+				if(qnACommentService.modify(commentDTO) != 1) {
+					throw new Exception("Update Failed");
+				}
+				return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
+			}
+			
 		}
 		
 }

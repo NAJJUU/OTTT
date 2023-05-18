@@ -228,6 +228,35 @@
 				if(formCheck()){form.submit()}
 			})
 			
+			$("#sendBtn").click(function() {
+				let cmt_no = $(this).attr("data-cmt_no")
+				let cmt_content = $("textarea[name=cmt_content]").val()
+				
+				if(cmt_content.trim()==''){
+					$(".body").html("댓글을 입력해 주세요.")
+		   	    	$('#Modal').modal('show');
+					$("textarea[name=cmt_content]").focus()
+					return
+				}
+				
+				$.ajax({
+					type: 'post',
+					url: '/ottt/community/QnA/QnAcomments?article_no='+article_no,
+					headers: {"content-type":"application/json"},
+					data: JSON.stringify({article_no:article_no, cmt_content:cmt_content}),
+					success: function(result){
+						$(".body").html("댓글이 등록되었습니다.")
+			   	    	$('#Modal').modal('show');
+						$("textarea[name=cmt_content]").val('')
+						showList(article_no)
+					},
+					error: function() {
+						$(".body").html("댓글등록에 실패했습니다. 다시 시도해주세요.")
+			   	    	$('#Modal').modal('show');
+					}
+				})
+			})			
+			
 			let formCheck = function() {
 				let form = document.getElementById("form")
 				
@@ -271,7 +300,7 @@
 					comments.forEach(function(comment) {
 					    tmp += "<div class='comment_show'>";
 					    tmp += '<div class="pro-dan">';
-					    tmp += '<div style="display: flex;" data-cmt_no=' + comment.cmt_no;
+					    tmp += '<div class="cmt" style="display: flex;" data-cmt_no=' + comment.cmt_no;
 					    tmp += ' data-article_no=' + comment.article_no + '>';
 					    tmp += '<img class="profile" src="${path}/resources/images/icon/user01.png" alt="profile" >';
 					    tmp += '<div class="nickname commenter">관리자</div>';
@@ -286,21 +315,28 @@
 					    }
 					    tmp += '</div>';
 					    tmp += '</div>';
-					    tmp += '<div class="comment comment_write_box"><input type="text" name="cmt_content" value='+comment.cmt_content+' /></div>';
+					    tmp += '<div class="comment comment_write_box" name="cmt_content" ><textarea name="content-area" readonly = "readonly" style="background-color: #202020; width: 100%; height: 100%; color: #fff; border: none; outline: none;">'+comment.cmt_content+'</textarea></div>';
 					    tmp += '</div>';
 					  });
 					  return tmp + '</div>';
 			}
 			showList(article_no)
 			
+			
+			
+			
 			$("#commentList").on("click", ".delBtn",function(){
 				//alert("삭제버튼 클릭")
-				let cmt_no = $(this).parents('.pro-dan').attr("data-cmt_no");
-				let article_no = $(this).parents('.pro-dan').attr("data-article_no");
+				let cmt_no = $(this).closest('.comment_show').find('.cmt').attr('data-cmt_no')
+				let article_no = $(this).closest('.comment_show').find('.cmt').attr('data-article_no')
 				
+				if($(this).closest('.comment_show').find("textarea[name=content-area]").attr('readonly') != 'readonly'){
+					showList(article_no)
+					return
+				}
 				$.ajax({
 					type: 'DELETE',							//요청메서드
-					url: '/ottt/community/QnA/QnAcomments/'+cmt_no+'?article_no='+article_no,	//요청URI
+					url: '/ottt/community/QnA/QnAcomments/' + cmt_no + '?article_no=' + article_no,	//요청URI
 					success: function(result) {				//서버로부터 응답이 도착하면 호출될 함수
 						$('#Modal').modal('show')	
 						$(".body").html("삭제되었습니다.");//result는 서버가 전송한 데이터
@@ -312,8 +348,44 @@
 						}	//에러가 발생했을 때 호출될 함수
 				})
 			})
+			
+			$("#commentList").on("click", ".modBtn", function() {
+				let cmt_no = $(this).closest('.comment_show').find('.cmt').attr('data-cmt_no')
+				let cmt_content = $(this).closest('.comment_show').find("textarea[name=content-area]").val()
+
+				if($(this).closest('.comment_show').find("textarea[name=content-area]").attr('readonly') == 'readonly'){
+					$(this).closest('.comment_show').find("textarea[name=content-area]").attr('readonly', false)
+					$(this).closest(".modBtn").html("등록")
+					$(this).closest('.comment_show').find(".delBtn").html("취소")
+					return
+				}
+				
+				if(cmt_content.trim()==''){
+					$(".body").html("내용을 입력해 주세요.")
+		   	    	$('#Modal').modal('show');
+					$("div[name=cmt_content]").focus()
+					return
+				}
+				
+				$.ajax({
+					type: 'PATCH',
+					url: '/ottt/community/QnA/QnAcomments/'+cmt_no,
+					headers: {"content-type":"application/json"},
+					data: JSON.stringify({cmt_no:cmt_no, cmt_content:cmt_content}),
+					success: function(result) {
+						$(".body").html("수정되었습니다.")
+			   	    	$('#Modal').modal('show')
+						showList(article_no)
+					},
+					error: function() {
+						$(".body").html("댓글수정에 실패했습니다. 다시 시도해주세요.")
+			   	    	$('#Modal').modal('show');
+					}
+				})
+			})
 		})
 	</script>
+	
 	
    	<script type="text/javascript">
 	   	$(document).ready(function() {
@@ -431,7 +503,7 @@
           </div>
 		 
           <div class="title-line">
-            <textarea name="article_content" ${mode=="new" ? "" : "readonly='readonly'" } style="background-color: #202020; width: 100%; height: 100%; color: #fff; border: none; outline: none;" placeholder="내용을 입력해주세요.">${articleDTO.article_content}</textarea>
+            <textarea name="article_content" ${mode=="new" ? "" : "readonly='readonly'" } onkeydown="resize(this)" onkeyup="resize(this)" style="background-color: #202020; width: 100%; height: 100%; color: #fff; border: none; outline: none;" placeholder="내용을 입력해주세요.">${articleDTO.article_content}</textarea>
           </div>
           
         </div>
