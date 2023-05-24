@@ -106,34 +106,33 @@
                 <button class="left-button1"><img src="${path}/resources/images/img/왼쪽 화살표.png" /></button>
                 <div class="cont01">
                     <div class="posterzip1">
-                    <c:forEach var="contentDTO" items="${list}">
+                    <c:forEach var="contentDTO" items="${contentList}">
                     	<div class="work-info">
                             <a href="<c:url value="/detailPage" />">
                                 <img src="${contentDTO.thumbnail.toString() }" class="poster"/>
                                 <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
+                                    <div class="ott-img"  style="cursor: default;">
+                                    <c:forEach var="contentOttDTO" items="${ottList[contentDTO.content_no]}">
+									    <c:if test="${contentOttDTO.content_no == contentDTO.content_no}">
+									        <span><img src="${contentOttDTO.ott_img.toString()}"></span>
+									    </c:if>
+									</c:forEach> 
                                     </div>
-                                    
                                     <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>${contentDTO.country.toString()}</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
+                                        <div class="star-img">
+                                            <div><img src="${path}/resources/images/img/onestar.png"></div>
+                                            <div class="score">${contentDTO.rating}</div>
+                                        </div>
+                                        <div>
+                                            <img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px">
+                                        </div>
+                                    </div>                                    
+                                </div>  
                             </a>
-                        </div>                    
+                        </div>                                                   
                     </c:forEach>                       
                     </div>
-                </div>
-                
+                </div>               
                 <button class="right-button1"><img src="resources/images/img/오른쪽화살표.png"/></button>
             </div>
             <br />

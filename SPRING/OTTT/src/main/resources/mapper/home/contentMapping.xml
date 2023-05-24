@@ -6,10 +6,17 @@
   <mapper namespace="com.ottt.ottt.controller.ContentMapper">
   
   <select id="ratingSelect" resultType="ContentDTO">
-  	SELECT *
-	FROM tb_content
-	order by rating desc 
-	limit 14
+		SELECT a.content_no, a.thumbnail, a.country, a.rating, c.category_nm 
+		FROM tb_content a, tb_content_category b, tb_category c
+		where a.content_no = b.content_no and b.category_no = c.category_no
+		limit 14
   </select>
+  
+	<select id="ottNameSelect" parameterType="int" resultType="ContentOTTDTO">
+		SELECT a.content_no, b.ott_img 
+		FROM tb_content_ott a, tb_ott b 
+		where a.ott_no = b.ott_no 
+		and a.content_no = #{content_no}	
+	</select>
   
   </mapper>

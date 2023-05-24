@@ -22,8 +22,30 @@ public class ContentDTO {
 	private String thumbnail;
 	private Integer age;
 	private String country;
+	private String category_nm;
+	private float  rating;
 
 	public ContentDTO() {}
+	
+	public float getRating() {
+		return rating;
+	}
+
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+
+	public String getCategory_nm() {
+		return category_nm;
+	}
+
+
+
+	public void setCategory_nm(String category_nm) {
+		this.category_nm = category_nm;
+	}
+
+
 
 	public Integer getContent_no() {
 		return content_no;

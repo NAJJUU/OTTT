@@ -30,7 +30,11 @@ public class CommentDTO {
 	private int		report_cnt;
 	
 	
+	
 	public CommentDTO() {}
+
+	
+	
 
 
 	public Integer getCmt_no() {

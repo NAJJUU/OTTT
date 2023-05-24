@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ottt.ottt.dao.home.ContentDaoImpl;
 import com.ottt.ottt.dto.ContentDTO;
+import com.ottt.ottt.dto.ContentOTTDTO;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -18,6 +19,13 @@ public class ContentServiceImpl implements ContentService {
 	public List<ContentDTO> getRating() throws Exception {
 		return contentDao.ratingSelect();
 	}
+
+	@Override
+	public List<ContentOTTDTO> getOttImg(Integer content_no) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.ottNameSelect(content_no);
+	}
+
 
 	
 }

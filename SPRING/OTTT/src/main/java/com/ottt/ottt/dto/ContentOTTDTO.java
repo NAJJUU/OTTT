@@ -10,8 +10,17 @@ public class ContentOTTDTO {
 
 	private Integer content_no;
 	private Integer ott_no;
+	private String ott_img;
 	
 	public ContentOTTDTO() {}
+
+	public String getOtt_img() {
+		return ott_img;
+	}
+
+	public void setOtt_img(String ott_img) {
+		this.ott_img = ott_img;
+	}
 
 	public Integer getContent_no() {
 		return content_no;

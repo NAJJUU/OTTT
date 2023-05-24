@@ -11,7 +11,6 @@
   		<typeAlias type="com.ottt.ottt.dto.ArticleDTO" alias="ArticleDTO"/>
   		<typeAlias type="com.ottt.ottt.dto.CommentDTO" alias="CommentDTO"/>
   		<typeAlias type="com.ottt.ottt.dto.ContentDTO" alias="ContentDTO"/>
-  		<typeAlias type="com.ottt.ottt.dto.ContentGenreDTO" alias="ContentGenreDTO"/>
-  		<typeAlias type="com.ottt.ottt.dto.ContentCategoryDTO" alias="ContentCategoryDTO"/>
+		<typeAlias type="com.ottt.ottt.dto.ContentOTTDTO" alias="ContentOTTDTO"/>
   	</typeAliases>
   </configuration>

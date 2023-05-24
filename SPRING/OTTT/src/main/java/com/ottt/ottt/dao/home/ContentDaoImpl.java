@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ottt.ottt.dto.ContentDTO;
+import com.ottt.ottt.dto.ContentOTTDTO;
 
 @Repository
 public class ContentDaoImpl implements ContentDao {
@@ -20,5 +21,10 @@ public class ContentDaoImpl implements ContentDao {
 		return session.selectList(namespace+"ratingSelect");
 	}
 
+	@Override
+	public List<ContentOTTDTO> ottNameSelect(Integer content_no) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"ottNameSelect", content_no);
+	}
 	
 }
