@@ -9,6 +9,7 @@
 		SELECT a.content_no, a.thumbnail, a.country, a.rating, c.category_nm 
 		FROM tb_content a, tb_content_category b, tb_category c
 		where a.content_no = b.content_no and b.category_no = c.category_no
+		order by a.rating desc
 		limit 14
   </select>
   
