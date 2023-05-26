@@ -167,7 +167,10 @@
         	      success: function(result){
         	    	  document.location.reload(true)
         	        $(".body").html("찜 해제 되었습니다.")
-        	        $('#Modal').modal('show')        	        
+        	        $('#Modal').modal('show')
+        	        /* $('#checkBtn').on('click', function() {
+        	        	document.location.reload(true)
+					})*/ 	        
         	      },
         	      error: function() {
         	        $(".body").html("찜해제에 실패했습니다. 다시 시도해주세요.")
@@ -186,10 +189,13 @@
         	      url: '/ottt/jjim?content_no=' + content_no + '&user_no=' + user_no,
         	      headers: {"content-type":"application/json"},
         	      data: JSON.stringify({content_no:content_no, user_no:user_no}),
-        	      success: function(result){   
+        	      success: function(result){
         	    	  document.location.reload(true)
         	        $(".body").html("찜 등록 되었습니다.")
-        	        $('#Modal').modal('show')      	        
+        	        $('#Modal').modal('show') 
+        	        /* $('#checkBtn').on('click', function() {
+        	        	document.location.reload(true)
+					}) */ 
         	      },
         	      error: function() {
         	        $(".body").html("찜등록에 실패했습니다. 다시 시도해주세요.")
@@ -200,12 +206,11 @@
 
         	  $(document).on("click", "#nojjim", function(event) {
         		event.preventDefault()
-        	    $(".body").html("로그인이 필요합니다.")
-        	    $('#Modal').modal('show')
+        	    $(".body2").html("로그인이 필요합니다.")
+        	    $('#Modal2').modal('show')
         	  });
-        	});
-        
-        
+        	  
+        })       
         </script>
 
         <section class="sec_2">
@@ -216,7 +221,7 @@
                     <div class="posterzip1">
                     <c:forEach var="contentDTO" items="${contentList}">
                     	<div class="work-info">
-                            <a href="<c:url value="/detailPage" />">
+                            <a href="<c:url value="/detailPage?content_no=${contentDTO.content_no }" />">
                             	<input id="noInput" type="hidden" value="${contentDTO.content_no }" />
                                 <img src="${contentDTO.thumbnail.toString() }" class="poster"/>
                                 <div class="work-review">
@@ -232,21 +237,48 @@
                                             <div><img src="${path}/resources/images/img/onestar.png" style="cursor: default;"></div>
                                             <div class="score" style="cursor: default;">${contentDTO.rating}</div>
                                         </div>
-                                        <div id="jjim">
+                                        <%-- <div id="jjim">
                                         <c:choose>
                                         <c:when test="${sessionScope.id != null}">
-                                        	<c:forEach var="wishlistDTO" items="${wishcontentList}">
-                                        		<c:if test="wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no)">
-                                        			<button type="button" id="tonojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;" ></button>
-                                        		</c:if>
-                                        	</c:forEach>  
-                                        	 	<button type="button" id="tojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;" ></button>                 	          	
+                                        	<c:forEach var="wishlistDTO" items="${wishList}"> 
+                                        	<c:choose>
+                                        		<c:when test="${wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no) && sessionScope.no == wishlistDTO.user_no}">
+                                        			<button type="button" id="tonojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;" ></button> 
+                                        		</c:when>                               		    
+                                        	</c:choose>
+                                        	</c:forEach> 
+                                        	<c:if test="${isWishlistEmpty}">
+                                        		<button type="button" id="tojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;" ></button> 
+                                        	</c:if>       	 	                 	          	
                                         </c:when>
                                         <c:otherwise>
                                         	<button type="button" id="nojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;" ></button> 
                                         </c:otherwise>                                       
                                         </c:choose>                        
-                                        </div>
+                                        </div> --%>
+                                        <div id="jjim">
+										    <c:choose>
+										        <c:when test="${sessionScope.id != null}">
+										            <c:set var="isInWishlist" value="false" />
+										            <c:forEach var="wishlistDTO" items="${wishList}">
+										                <c:if test="${wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no) && sessionScope.no == wishlistDTO.user_no}">
+										                    <c:set var="isInWishlist" value="true" />
+										                </c:if>
+										            </c:forEach>
+										            <c:choose>
+										                <c:when test="${isInWishlist}">
+										                    <button type="button" id="tonojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;"></button>
+										                </c:when>
+										                <c:otherwise>
+										                    <button type="button" id="tojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										                </c:otherwise>
+										            </c:choose>
+										        </c:when>
+										        <c:otherwise>
+										            <button type="button" id="nojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										        </c:otherwise>
+										    </c:choose>
+										</div>                                        
                                     </div>                                    
                                 </div>  
                             </a>
@@ -961,8 +993,25 @@
 	              </div>
 	              <div class="modal-body body">
 	              </div>
-	              <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	              <div class="modal-footer" id="modal-footer" style="height: 60px;">
+	                <!-- <button type="button" id="checkBtn" class="btn btn-secondary" data-bs-dismiss="modal">확인</button> -->
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	        
+	        <!-- Modal -->
+	        <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	          <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content">
+	              <div class="modal-header">
+	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body body2">
+	              </div>
+	              <div class="modal-footer" id="modal-footer2">
+	                <button type="button" id="checkBtn" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 	              </div>
 	            </div>
 	          </div>

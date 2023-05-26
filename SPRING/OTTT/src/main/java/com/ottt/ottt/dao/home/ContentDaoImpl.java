@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ContentDTO;
 import com.ottt.ottt.dto.ContentOTTDTO;
 
@@ -25,6 +26,18 @@ public class ContentDaoImpl implements ContentDao {
 	public List<ContentOTTDTO> ottNameSelect(Integer content_no) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+"ottNameSelect", content_no);
+	}
+
+	@Override
+	public List<ContentDTO> movieSelect(SearchItem sc) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"movieSelect", sc);
+	}
+
+	@Override
+	public int movieCount(SearchItem sc) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+"movieCount", sc);
 	}
 	
 }

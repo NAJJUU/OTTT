@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ottt.ottt.dao.home.ContentDaoImpl;
+import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ContentDTO;
 import com.ottt.ottt.dto.ContentOTTDTO;
 
@@ -24,6 +25,18 @@ public class ContentServiceImpl implements ContentService {
 	public List<ContentOTTDTO> getOttImg(Integer content_no) throws Exception {
 		// TODO Auto-generated method stub
 		return contentDao.ottNameSelect(content_no);
+	}
+
+	@Override
+	public List<ContentDTO> getMovieList(SearchItem sc) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.movieSelect(sc);
+	}
+
+	@Override
+	public int getMovieTotalCount(SearchItem sc) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.movieCount(sc);
 	}
 
 

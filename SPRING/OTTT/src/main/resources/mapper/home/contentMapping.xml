@@ -19,5 +19,19 @@
 		where a.ott_no = b.ott_no 
 		and a.content_no = #{content_no}	
 	</select>
+	
+	<select id="movieSelect" parameterType="SearchItem" resultType="ContentDTO">
+		SELECT a.content_no, a.thumbnail, a.country, a.rating, c.category_nm 
+		FROM tb_content a, tb_content_category b, tb_category c
+		where a.content_no = b.content_no and b.category_no = c.category_no
+		and b.category_no = 1
+		order by a.content_no desc
+		limit #{pageSize} offset #{offset}
+  	</select>
+  	
+  	<select id="movieCount" parameterType="SearchItem" resultType="int">
+  		select count(*) 
+		from tb_content
+  	</select>
   
   </mapper>

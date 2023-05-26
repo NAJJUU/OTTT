@@ -56,15 +56,7 @@ public class HomeController {
 			if(session.getAttribute("no") != null) {
 				Integer user_no = (Integer) session.getAttribute("no");
 				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
-				List<Integer> content_no = new ArrayList<Integer>();
-				for(ContentDTO contentDTO : contentList) {
-					for(WishlistDTO wishlistDTO : wishList) {
-						if(wishlistDTO.getContent_no() == contentDTO.getContent_no()) {
-							content_no.add(wishlistDTO.getContent_no());
-						}
-					}
-					m.addAttribute("wishcontentList", content_no);
-				}
+				m.addAttribute("wishList", wishList);
 			}
 			
 			
