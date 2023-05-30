@@ -32,8 +32,7 @@ import com.ottt.ottt.service.home.WishlistService;
 
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
 	@Autowired 
 	ContentServiceImpl contentServiceImpl;
 	@Autowired

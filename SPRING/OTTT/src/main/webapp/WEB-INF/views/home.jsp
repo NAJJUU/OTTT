@@ -81,11 +81,11 @@
     <div class="wrap"> 
         <div style="background-color: black; text-align: center; height: 850px;">
 
-        	<div class="user">
+        	<%-- <div class="user">
                 <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
                     <img src="${path}/resources/images/img/profile.png" class="user-img">
                 </a>
-            </div>
+            </div> --%>
             <img src="${path}/resources/images/logo/메인이미지.png" style="width: 1200px; background-position: center; margin-top: 150px;"/>
             
             <div>
@@ -267,15 +267,15 @@
 										            </c:forEach>
 										            <c:choose>
 										                <c:when test="${isInWishlist}">
-										                    <button type="button" id="tonojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;"></button>
+										                    <button type="button" id="tonojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;"></button>
 										                </c:when>
 										                <c:otherwise>
-										                    <button type="button" id="tojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										                    <button type="button" id="tojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
 										                </c:otherwise>
 										            </c:choose>
 										        </c:when>
 										        <c:otherwise>
-										            <button type="button" id="nojjim" style="width: 25px; height: 30px; border: 1px solid red;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										            <button type="button" id="nojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
 										        </c:otherwise>
 										    </c:choose>
 										</div>                                        
