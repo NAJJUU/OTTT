@@ -1,6 +1,7 @@
 package com.ottt.ottt.service.home;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ContentDTO;
@@ -12,4 +13,6 @@ public interface ContentService {
 	List<ContentOTTDTO> getOttImg(Integer content_no) throws Exception;
 	List<ContentDTO> getMovieList(SearchItem sc) throws Exception;
 	int getMovieTotalCount(SearchItem sc) throws Exception;
+	List<ContentDTO> getSearchSelect(Map<String, Object> map) throws Exception;
+	int getSearchTotalCount(Map<String, Object> map) throws Exception;
 }

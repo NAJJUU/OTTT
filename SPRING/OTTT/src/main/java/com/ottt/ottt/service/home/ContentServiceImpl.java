@@ -1,6 +1,7 @@
 package com.ottt.ottt.service.home;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,18 @@ public class ContentServiceImpl implements ContentService {
 	public int getMovieTotalCount(SearchItem sc) throws Exception {
 		// TODO Auto-generated method stub
 		return contentDao.movieCount(sc);
+	}
+
+	@Override
+	public List<ContentDTO> getSearchSelect(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.searchSelect(map);
+	}
+
+	@Override
+	public int getSearchTotalCount(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.searchCount(map);
 	}
 
 

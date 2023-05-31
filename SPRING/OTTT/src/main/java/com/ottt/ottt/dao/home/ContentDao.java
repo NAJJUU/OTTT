@@ -1,6 +1,7 @@
 package com.ottt.ottt.dao.home;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ContentDTO;
@@ -12,4 +13,6 @@ public interface ContentDao {
 	List<ContentOTTDTO> ottNameSelect(Integer content_no) throws Exception;
 	List<ContentDTO> movieSelect(SearchItem sc) throws Exception;
 	int movieCount(SearchItem sc) throws Exception;
+	List<ContentDTO> searchSelect(Map<String, Object> map) throws Exception;
+	int searchCount(Map<String, Object> map) throws Exception;
 }

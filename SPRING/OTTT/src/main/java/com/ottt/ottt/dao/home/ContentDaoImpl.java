@@ -1,6 +1,7 @@
 package com.ottt.ottt.dao.home;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class ContentDaoImpl implements ContentDao {
 	public int movieCount(SearchItem sc) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+"movieCount", sc);
+	}
+
+	@Override
+	public List<ContentDTO> searchSelect(Map<String, Object> map) throws Exception {
+		return session.selectList(namespace+"searchSelect", map);
+	}
+
+	@Override
+	public int searchCount(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+"searchCount", map);
 	}
 	
 }

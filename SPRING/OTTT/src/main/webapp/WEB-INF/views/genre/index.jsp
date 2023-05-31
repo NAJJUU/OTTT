@@ -125,10 +125,21 @@
         	  })
         })       
         </script>
+        
+        
+    <section class="sec00-1">
+        <div class="dropdown-filter">
+          <li>
+            <select name="button" id="button">
+             <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
+             <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
+            </select>
+          </li>
+      </div>
+    </section>
     
-    
-      <section class="sec01" style="margin: 0 auto;">
-      <c:forEach var="contentDTO" items="${movieList}">
+      <section class="sec01" style="margin: 30px auto;">
+      <c:forEach var="contentDTO" items="${searchList}">
 	      <div class="work-info">
 	          <a href="<c:url value="/detailPage${pr.sc.queryString}?content_no=${contentDTO.content_no }" />">
 	          	  <input id="noInput" type="hidden" value="${contentDTO.content_no }" />

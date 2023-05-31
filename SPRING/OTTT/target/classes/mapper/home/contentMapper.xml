@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.ottt.ottt.controller.ContentMapper">
+  
+  <select id="ratingSelect" resultType="ContentDTO">
+		SELECT a.content_no, a.thumbnail, a.country, a.rating, c.category_nm 
+		FROM tb_content a, tb_content_category b, tb_category c
+		where a.content_no = b.content_no and b.category_no = c.category_no
+		order by a.rating desc
+		limit 14
+  </select>
+  
+	<select id="ottNameSelect" parameterType="int" resultType="ContentOTTDTO">
+		SELECT a.content_no, b.ott_img 
+		FROM tb_content_ott a, tb_ott b 
+		where a.ott_no = b.ott_no 
+		and a.content_no = #{content_no}	
+	</select>
+	
+	<select id="movieSelect" parameterType="SearchItem" resultType="ContentDTO">
+		SELECT a.content_no, a.thumbnail, a.country, a.rating, c.category_nm 
+		FROM tb_content a, tb_content_category b, tb_category c
+		where a.content_no = b.content_no and b.category_no = c.category_no
+		and b.category_no = 1
+		order by a.content_no desc
+		limit #{pageSize} offset #{offset}
+  	</select>
+  	
+  	<select id="movieCount" parameterType="SearchItem" resultType="int">
+  		select count(*) 
+		from tb_content
+  	</select>
+  	
+  	<select id="searchSelect" parameterType="map" resultType="ContentDTO">
+		SELECT a.content_no, a.content_nm, a.country, a.rating, a.thumbnail
+		FROM tb_content a, tb_genre b, tb_content_genre c
+		, tb_content_ott d, tb_ott e, tb_content_category f, tb_category g 
+		where a.content_no = c.content_no
+		   and b.genre_no = c.genre_no
+		   and a.content_no = f.content_no
+		   and a.content_no = d.content_no
+		   and d.ott_no = e.ott_no
+		   and f.category_no = g.category_no
+		   <if test="content_nm != null and !content_nm.isEmpty()">
+		   		and (a.content_nm like concat('%', #{content_nm}, '%'))		   		
+		   </if> 
+		   <if test="ott_no != null and !ott_no.isEmpty()">
+		   		or e.ott_no in
+		   		<foreach collection="ott_no" item="ottno" separator="," open="(" close=")">
+		   			#{ottno}
+		   		</foreach>		   
+		   </if>
+		   <if test="gerne_no != null and !gerne_no.isEmpty()">
+		   		or c.genre_no in
+		   		<foreach collection="gerne_no" item="gerneno" separator="," open="(" close=")">
+		   			#{gerneno}
+		   		</foreach>		   
+		   </if>
+		   <if test="category_no != null and !category_no.isEmpty()">
+		   		or f.category_no in
+		   		<foreach collection="category_no" item="categoryno" separator="," open="(" close=")">
+		   			#{categoryno}
+		   		</foreach>		   
+		   </if>
+		   
+		group by a.content_no  
+		<include refid="searchOption" />	
+		limit #{SearchItem.pageSize} offset #{SearchItem.offset}	
+  	</select>
+  	
+  	<sql id="searchOption">
+  		<choose>
+  			<when test='option=="date"'>
+  				order by a.content_no desc
+  			</when>
+  			<otherwise>
+  				order by a.rating desc
+  			</otherwise>
+  		</choose>  	
+  	</sql>
+  	
+  	<select id="searchCount" parameterType="map" resultType="int">
+	    SELECT COUNT(DISTINCT a.content_no)
+	    FROM tb_content a, tb_genre b, tb_content_genre c, tb_content_ott d, tb_ott e, tb_content_category f, tb_category g
+	    WHERE a.content_no = c.content_no
+	        AND b.genre_no = c.genre_no
+	        AND a.content_no = f.content_no
+	        AND a.content_no = d.content_no
+	        AND d.ott_no = e.ott_no
+	        AND f.category_no = g.category_no
+	        <if test="content_nm != null and !content_nm.isEmpty()">
+	            AND (a.content_nm LIKE CONCAT('%', #{content_nm}, '%'))
+	        </if> 
+	        <if test="ott_no != null and !ott_no.isEmpty()">
+	            OR e.ott_no IN
+	            <foreach collection="ott_no" item="ottno" separator="," open="(" close=")">
+	                #{ottno}
+	            </foreach>		   
+	        </if>
+	        <if test="genre_no != null and !genre_no.isEmpty()">
+	            OR c.genre_no IN
+	            <foreach collection="gerne_no" item="gerneno" separator="," open="(" close=")">
+	                #{gerneno}
+	            </foreach>		   
+	        </if>
+	        <if test="category_no != null and !category_no.isEmpty()">
+	            OR f.category_no IN
+	            <foreach collection="category_no" item="categoryno" separator="," open="(" close=")">
+	                #{categoryno}
+	            </foreach>		   
+	        </if>
+	</select>
+
+ 
+  </mapper>

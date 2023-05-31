@@ -27,13 +27,103 @@ public class ContentDTO {
 
 	public ContentDTO() {}
 	
-	public float getRating() {
-		return rating;
+	
+
+	public Integer getContent_no() {
+		return content_no;
 	}
 
-	public void setRating(float rating) {
-		this.rating = rating;
+
+
+	public void setContent_no(Integer content_no) {
+		this.content_no = content_no;
 	}
+
+
+
+	public String getContent_nm() {
+		return content_nm;
+	}
+
+
+
+	public void setContent_nm(String content_nm) {
+		this.content_nm = content_nm;
+	}
+
+
+
+	public String getContent_info() {
+		return content_info;
+	}
+
+
+
+	public void setContent_info(String content_info) {
+		this.content_info = content_info;
+	}
+
+
+
+	public Integer getContent_runtime() {
+		return content_runtime;
+	}
+
+
+
+	public void setContent_runtime(Integer content_runtime) {
+		this.content_runtime = content_runtime;
+	}
+
+
+
+	public String getPreviewUrl() {
+		return previewUrl;
+	}
+
+
+
+	public void setPreviewUrl(String previewUrl) {
+		this.previewUrl = previewUrl;
+	}
+
+
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+
+
+	public Integer getAge() {
+		return age;
+	}
+
+
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
 
 	public String getCategory_nm() {
 		return category_nm;
@@ -47,69 +137,17 @@ public class ContentDTO {
 
 
 
-	public Integer getContent_no() {
-		return content_no;
+	public float getRating() {
+		return rating;
 	}
 
-	public void setContent_no(Integer content_no) {
-		this.content_no = content_no;
+
+
+	public void setRating(float rating) {
+		this.rating = rating;
 	}
 
-	public String getContent_nm() {
-		return content_nm;
-	}
 
-	public void setContent_nm(String content_nm) {
-		this.content_nm = content_nm;
-	}
-
-	public String getContent_info() {
-		return content_info;
-	}
-
-	public void setContent_info(String content_info) {
-		this.content_info = content_info;
-	}
-
-	public Integer getContent_runtime() {
-		return content_runtime;
-	}
-
-	public void setContent_runtime(Integer content_runtime) {
-		this.content_runtime = content_runtime;
-	}
-
-	public String getPreviewUrl() {
-		return previewUrl;
-	}
-
-	public void setPreviewUrl(String previewUrl) {
-		this.previewUrl = previewUrl;
-	}
-
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
 
 	@Override
 	public int hashCode() {

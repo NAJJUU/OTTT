@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ottt.ottt.domain.PageResolver;
 import com.ottt.ottt.domain.SearchItem;
@@ -33,19 +34,33 @@ public class SearchController {
 	}
 	
 	@GetMapping("/searchList")
-	public String searthList(Model m, HttpSession session, SearchItem sc) {
+	public String searthList(@RequestParam(value="content_nm", required = false) String content_nm,
+							 @RequestParam(value="ott_no", required = false) List<Integer> ott_no,
+							 @RequestParam(value="gerne_no", required = false) List<Integer> gerne_no,
+							 @RequestParam(value="category_no", required = false) List<Integer> category_no,
+							 Model m, SearchItem sc, HttpSession session) {
 		
 		sc.setPageSize(24);
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("content_nm", content_nm);
+		searchMap.put("ott_no", ott_no);
+		searchMap.put("gerne_no", gerne_no);
+		searchMap.put("category_no", category_no);
+		searchMap.put("SearchItem", sc);
+				
 
 		try {
-			int totalCount = contentService.getMovieTotalCount(sc);
+			
+			List<ContentDTO> searchList = contentService.getSearchSelect(searchMap);
+			    
+			int totalCount = contentService.getSearchTotalCount(searchMap);
 			PageResolver pageResolver = new PageResolver(totalCount, sc);
-			List<ContentDTO> movieList = contentService.getMovieList(sc);
-			m.addAttribute("movieList", movieList);
+			m.addAttribute("searchList", searchList);
 			m.addAttribute("pr", pageResolver);
 			
 			Map<Integer, List<ContentOTTDTO>> map = new HashMap<Integer, List<ContentOTTDTO>>();
-			for(ContentDTO contentDTO : movieList) {				
+			for(ContentDTO contentDTO : searchList) {				
 				List<ContentOTTDTO> ottList = contentService.getOttImg(contentDTO.getContent_no());
 				map.put(contentDTO.getContent_no(), ottList);
 			}
