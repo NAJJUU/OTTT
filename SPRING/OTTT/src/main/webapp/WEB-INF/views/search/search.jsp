@@ -85,8 +85,16 @@
             </span>
         </div>
         <div class="search01">
-          <div style="position: relative; left: 200px;">최근검색어</div>
-          <div class="search-box" style="position: relative; left: 500px; top: -30px;">
+	        <div style="width: 400px;">
+	        	<div style="width: 350px;">최근검색어</div>	
+	        	<c:if test="${sessionScope.id != 'null' }">
+					<c:forEach var="SearchWorldDTO" items="${searchWordList }">
+		        		<div style="margin-top: 10px; margin-left: 10px; margin-right:20px; font-weight: normal;"><a href='<c:url value="/searchList?content_nm=${SearchWorldDTO.search_content}" />' style="color: #fff; text-decoration: none; width: 100%">${SearchWorldDTO.search_content}</a></div>
+		        	</c:forEach> 	        	
+	        	</c:if>       		        	
+	        </div>
+          
+          <div class="search-box">
             <div >검색가이드</div>
     
               <div class="search-style search-mid">OTT</div>

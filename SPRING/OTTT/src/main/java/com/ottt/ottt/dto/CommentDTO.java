@@ -30,11 +30,7 @@ public class CommentDTO {
 	private int		report_cnt;
 	
 	
-	
 	public CommentDTO() {}
-
-	
-	
 
 
 	public Integer getCmt_no() {
@@ -83,8 +79,8 @@ public class CommentDTO {
 	}
 
 
-	public void setCmt_content(String cmt_content) {
-		this.cmt_content = cmt_content;
+	public void setCmt_content(String cmm_content) {
+		this.cmt_content = cmm_content;
 	}
 
 
@@ -93,8 +89,8 @@ public class CommentDTO {
 	}
 
 
-	public void setCmt_writer(String cmt_writer) {
-		this.cmt_writer = cmt_writer;
+	public void setCmt_writer(String cmm_writer) {
+		this.cmt_writer = cmm_writer;
 	}
 
 

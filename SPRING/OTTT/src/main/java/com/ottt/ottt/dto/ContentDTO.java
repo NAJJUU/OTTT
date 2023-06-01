@@ -63,25 +63,17 @@ public class ContentDTO {
 		this.content_info = content_info;
 	}
 
-
-
 	public Integer getContent_runtime() {
 		return content_runtime;
 	}
-
-
 
 	public void setContent_runtime(Integer content_runtime) {
 		this.content_runtime = content_runtime;
 	}
 
-
-
 	public String getPreviewUrl() {
 		return previewUrl;
 	}
-
-
 
 	public void setPreviewUrl(String previewUrl) {
 		this.previewUrl = previewUrl;

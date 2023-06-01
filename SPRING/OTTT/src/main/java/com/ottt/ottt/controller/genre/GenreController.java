@@ -23,8 +23,8 @@ import com.ottt.ottt.domain.SearchItem;
 import com.ottt.ottt.dto.ContentDTO;
 import com.ottt.ottt.dto.ContentOTTDTO;
 import com.ottt.ottt.dto.WishlistDTO;
-import com.ottt.ottt.service.home.ContentService;
-import com.ottt.ottt.service.home.WishlistService;
+import com.ottt.ottt.service.content.ContentService;
+import com.ottt.ottt.service.content.WishlistService;
 
 @Controller
 @RequestMapping("/genre")

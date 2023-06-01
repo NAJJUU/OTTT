@@ -185,8 +185,8 @@ header{ width: 1200px; height: 130px;box-sizing: border-box;margin: 0 auto;posit
     height: 32px;
 }
 
-.h-icon > ul > li:last-child > a{
-    background:url("../../images/img/profile.png");
+.h-icon > ul > li > .logout{
+	background: url("../../images/icon/user01.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32px;
@@ -194,28 +194,22 @@ header{ width: 1200px; height: 130px;box-sizing: border-box;margin: 0 auto;posit
     height: 32px;
 }
 
-
-/* .h-icon > ul > li:last-child > a:hover{
-    background: url("../images/user-h.png");
+.h-icon > ul > li > .logout:hover{
+    background: url("../../images/icon/user-h.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32px;
     width: 32px;
     height: 32px;
-} */
+}
 
-/* header End */
-
-
-
-/* .h-icon > ul > li:last-child > a:hover{
-    background: url("./image/icon/user-h.png");
+.h-icon > ul > li > a > .login{
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32px;
     width: 32px;
     height: 32px;
-} */
+}
 
 .sec_2{
     width: 1200px;
@@ -448,7 +442,10 @@ input[type="text"] {
     color: #ffffff;
     font-weight: bold;
     font-size: 25px;
-    margin-top: 10px;       
+    display: flex; 
+    margin: 10px auto; 
+    position: relative;
+    left: 200px;
 }
 
 .search-style{

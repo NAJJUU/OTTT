@@ -1,15 +1,12 @@
 package com.ottt.ottt.controller;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ottt.ottt.dto.ContentDTO;
 import com.ottt.ottt.dto.ContentOTTDTO;
 import com.ottt.ottt.dto.WishlistDTO;
-import com.ottt.ottt.service.home.ContentServiceImpl;
-import com.ottt.ottt.service.home.WishlistService;
+import com.ottt.ottt.service.content.ContentServiceImpl;
+import com.ottt.ottt.service.content.WishlistService;
 
 
 

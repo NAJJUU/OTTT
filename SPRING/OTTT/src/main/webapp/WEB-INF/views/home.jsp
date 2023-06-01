@@ -144,16 +144,28 @@
               </a>
             </li>
             <li>
-              <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
-                <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
-              </a>
-            </li>
-          </ul>
-            </div>
-        </header>
-        
+                <a href="<c:url value='/mypage' /> " class="${loginout}" >
+                    <c:if test="${sessionScope.id != null}">
+                        <img src="" id="profile" class="${loginout}" alt="내정보">              	
+                    </c:if>              	
+                </a>
+              </li>
+            </ul>
+              </div>
+          </header>
+                  
         <script type="text/javascript">
         $(document).ready(function() {
+        	
+        	let img = function() {
+                if ('${userDTO.user_id}' != '') {
+                    $('#profile').attr("src", '${userDTO.image}')
+                }     				
+                return true
+            }
+            
+            img()
+            
         	  $(document).on("click", "#tonojjim", function(event) {
         	    event.preventDefault();
         	    // 버튼을 클릭했을 때 실행되는 코드

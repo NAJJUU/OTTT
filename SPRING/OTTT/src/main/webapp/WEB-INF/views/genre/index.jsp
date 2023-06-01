@@ -8,9 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>genre</title>
-    <script src="./script/jquery-3.6.1.min.js"></script>
     <script src="./script/script.js"></script>
     <link rel="stylesheet" href="${path}/resources/css/genre/main.css" />
+    <script src="${path}/resources/js/home/jquery-3.6.1.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -75,7 +75,7 @@
     			let user_no = '${sessionScope.no}'
         	    $.ajax({
         	      type: 'DELETE',
-        	      url: '/ottt/genre/genrejjim?content_no=' + content_no + '&user_no=' + user_no,
+        	      url: '/ottt/searchjjim?content_no=' + content_no + '&user_no=' + user_no,
         	      headers: {"content-type":"application/json"},
         	      data: JSON.stringify({content_no:content_no, user_no:user_no}),
         	      success: function(result){
@@ -100,7 +100,7 @@
     			let user_no = '${sessionScope.no}'
         	    $.ajax({
         	      type: 'PATCH',
-        	      url: '/ottt/genre/genrejjim?content_no=' + content_no + '&user_no=' + user_no,
+        	      url: '/ottt/searchjjim?content_no=' + content_no + '&user_no=' + user_no,
         	      headers: {"content-type":"application/json"},
         	      data: JSON.stringify({content_no:content_no, user_no:user_no}),
         	      success: function(result){
@@ -126,19 +126,26 @@
         })       
         </script>
         
-        
-    <section class="sec00-1">
-        <div class="dropdown-filter">
-          <li>
-            <select name="button" id="button">
-             <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
-             <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
-            </select>
-          </li>
-      </div>
-    </section>
-    
-      <section class="sec01" style="margin: 30px auto;">
+ 
+ 
+	  <c:if test="${empty searchList}">
+    		<div style="font-size: 25px;  padding-top: 40px; text-align: center; border-top: 2px solid #fff; width: 1200px; margin: 30px auto;">검색된 작품이 없습니다.</div>
+      </c:if>  
+      
+      <c:if test="${not empty searchList}">
+	    <section class="sec00-1">
+	        <div class="dropdown-filter">
+	          <li>
+	            <select name="button" id="button">
+	             <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
+	             <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
+	            </select>
+	          </li>
+	      </div>
+	    </section>
+      </c:if>     
+
+      <section class="sec01" style="margin: 30px auto;">     
       <c:forEach var="contentDTO" items="${searchList}">
 	      <div class="work-info">
 	          <a href="<c:url value="/detailPage${pr.sc.queryString}?content_no=${contentDTO.content_no }" />">
