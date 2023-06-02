@@ -72,19 +72,18 @@
         	    event.preventDefault();
         	    // 버튼을 클릭했을 때 실행되는 코드
         	    let content_no = $(this).closest(".work-info").find("#noInput").val()
-    			let user_no = '${sessionScope.no}'
+    			let user_no = '${sessionScope.user_no}'
         	    $.ajax({
         	      type: 'DELETE',
         	      url: '/ottt/searchjjim?content_no=' + content_no + '&user_no=' + user_no,
         	      headers: {"content-type":"application/json"},
         	      data: JSON.stringify({content_no:content_no, user_no:user_no}),
         	      success: function(result){
-        	    	  document.location.reload(true)
         	        $(".body").html("찜 해제 되었습니다.")
         	        $('#Modal').modal('show')
-        	        /* $('#checkBtn').on('click', function() {
+        	        $('#checkBtn').on('click', function() {
         	        	document.location.reload(true)
-					})*/ 	        
+					}) 	        
         	      },
         	      error: function() {
         	        $(".body").html("찜해제에 실패했습니다. 다시 시도해주세요.")
@@ -97,19 +96,18 @@
         	    event.preventDefault();
         	    // 버튼을 클릭했을 때 실행되는 코드
         	    let content_no = $(this).closest(".work-info").find("#noInput").val()
-    			let user_no = '${sessionScope.no}'
+    			let user_no = '${sessionScope.user_no}'
         	    $.ajax({
         	      type: 'PATCH',
         	      url: '/ottt/searchjjim?content_no=' + content_no + '&user_no=' + user_no,
         	      headers: {"content-type":"application/json"},
         	      data: JSON.stringify({content_no:content_no, user_no:user_no}),
         	      success: function(result){
-        	    	  document.location.reload(true)
         	        $(".body").html("찜 등록 되었습니다.")
         	        $('#Modal').modal('show') 
-        	        /* $('#checkBtn').on('click', function() {
+        	        $('#checkBtn').on('click', function() {
         	        	document.location.reload(true)
-					}) */ 
+					})
         	      },
         	      error: function() {
         	        $(".body").html("찜등록에 실패했습니다. 다시 시도해주세요.")
@@ -120,8 +118,8 @@
 
         	  $(document).on("click", "#nojjim", function(event) {
         		event.preventDefault()
-        	    $(".body2").html("로그인이 필요합니다.")
-        	    $('#Modal2').modal('show')
+        	    $(".body").html("로그인이 필요합니다.")
+        	    $('#Modal').modal('show')
         	  })
         })       
         </script>
@@ -169,7 +167,7 @@
 							        <c:when test="${sessionScope.id != null}">
 						            <c:set var="isInWishlist" value="false" />
 							            <c:forEach var="wishlistDTO" items="${wishList}">
-							                <c:if test="${wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no) && sessionScope.no == wishlistDTO.user_no}">
+							                <c:if test="${wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no) && sessionScope.user_no == wishlistDTO.user_no}">
 							                    <c:set var="isInWishlist" value="true" />
 							                </c:if>
 							            </c:forEach>
@@ -232,24 +230,7 @@
 	              </div>
 	              <div class="modal-body body">
 	              </div>
-	              <div class="modal-footer" id="modal-footer" style="height: 60px;">
-	                <!-- <button type="button" id="checkBtn" class="btn btn-secondary" data-bs-dismiss="modal">확인</button> -->
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	        <!-- Modal -->
-	        <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	          <div class="modal-dialog modal-dialog-centered">
-	            <div class="modal-content">
-	              <div class="modal-header">
-	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
-	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	              </div>
-	              <div class="modal-body body2">
-	              </div>
-	              <div class="modal-footer" id="modal-footer2">
+	              <div class="modal-footer" id="modal-footer">
 	                <button type="button" id="checkBtn" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 	              </div>
 	            </div>

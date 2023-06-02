@@ -51,5 +51,12 @@ public class ContentDaoImpl implements ContentDao {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+"searchCount", map);
 	}
+
+	@Override
+	public List<ContentDTO> selectSearchWord(String content_nm) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"selectSearchWord", content_nm);
+	}
+
 	
 }

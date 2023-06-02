@@ -48,8 +48,8 @@ public class HomeController {
 			}
 			m.addAttribute("ottList", map);
 			
-			if(session.getAttribute("no") != null) {
-				Integer user_no = (Integer) session.getAttribute("no");
+			if(session.getAttribute("id") != null) {
+				Integer user_no = (Integer) session.getAttribute("user_no");
 				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
 				m.addAttribute("wishList", wishList);
 			}

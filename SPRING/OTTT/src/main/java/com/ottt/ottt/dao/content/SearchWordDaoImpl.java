@@ -32,4 +32,16 @@ public class SearchWordDaoImpl implements SearchWordDao {
 		return session.selectList(namespace+"searchWorldSelect", user_no);
 	}
 
+	@Override
+	public int searchWordDelete(Integer search_word_no) throws Exception {
+		// TODO Auto-generated method stub
+		return session.delete(namespace+"searchWordDelete", search_word_no);
+	}
+
+	@Override
+	public SearchWordDTO searchWorldOneSelect(Integer search_word_no) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+"searchWorldOneSelect", search_word_no);
+	}
+
 }

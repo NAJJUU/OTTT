@@ -1,3 +1,4 @@
+<%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -61,28 +62,71 @@
         </div>
     </header>
     
-    <script type="text/javascript">
-    	function frmCheck(frm) {
-			let msg = ''
-			const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-			
-			if(frm.content_nm.value.length == 0 && checkboxes.length === 0){
-				$(".body2").html("검색어를 입력하거나,<br>최소한 하나의 옵션을 선택해주세요.")
-        	    $('#Modal2').modal('show')
-				return false;
-			}			
-			return true;
-		}
-    </script>
-    
+	<script type="text/javascript">
+	  /* 검색 form 체크 */
+	  function frmCheck(frm) {
+	    let msg = '';
+	    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+	    
+	    if (frm.content_nm.value.length == 0 && checkboxes.length === 0) {
+	      $(".body").html("검색어를 입력하거나,<br>최소한 하나의 옵션을 선택해주세요.");
+	      $('#Modal').modal('show');
+	      return false;
+	    }
+	    return true;
+	  }
+	
+	  /* 검색 자동완성 */
+	  $(document).ready(function() {
+	
+		  let showList = function(content_nm) {
+			    if (content_nm !== "") {
+			      $.ajax({
+			        type: "GET",
+			        url: "/ottt/search/auto?content_nm=" + encodeURIComponent(content_nm),
+			        success: function(result) {
+			          $(".autocomplete").html(toHtml(result));
+			        },
+			        error: function() {
+			          alert("error");
+			        }
+			      });
+			    } else {
+			      $(".autocomplete").html(""); // 입력값이 없을 때 자동완성 리스트를 비움
+			    }
+			  };
+	
+	    let toHtml = function(searchList) {
+	      let html = ""; // 생성한 HTML을 저장할 변수
+	
+	      searchList.forEach(function(search) {
+	    	  let tmp = '<div><a href="<c:url value="/searchList?content_nm=' + search.content_nm + '"/>">' + search.content_nm + '</a></div>';
+	        html += tmp; // 생성한 HTML을 변수에 추가
+	      });
+	
+	      return html; // 생성한 HTML 반환
+	    };
+	
+	    const $search = $("#search"); // 검색 입력 요소
+	    const $autocomplete = $(".autocomplete"); // 자동완성 리스트 요소
+	
+	    $search.on("input", function() {
+	      const content_nm = $search.val().trim();
+	      showList(content_nm);
+	    });	
+	  });
+	
+	</script>
+
     <form action='<c:url value='/searchList' />' id="searchForm" method="get" onsubmit="return frmCheck(this)">
     <section class="sec_3">
-        <div class="search">
-        
-            <span><input type="text" name="content_nm" placeholder="제목을 입력해주세요." /></span>
+        <div class="search">        
+            <span><input type="text" name="content_nm" id="search" placeholder="제목을 입력해주세요." /></span>           
             <span><button style="width: 70px; height: 70px; cursor: pointer; background-color: rgb(0,0,0,0); border: none"></button>
               <!-- <img src="./image/icon/search02.png" /> -->
             </span>
+        </div>
+        <div class="autocomplete" style="border: 2px solie red;">     	
         </div>
         <div class="search01">
 	        <div style="width: 400px;">
@@ -233,16 +277,16 @@
     
     
     <!-- Modal -->
-	        <div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	          <div class="modal-dialog modal-dialog-centered">
 	            <div class="modal-content">
 	              <div class="modal-header">
 	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	              </div>
-	              <div class="modal-body body2">
+	              <div class="modal-body body">
 	              </div>
-	              <div class="modal-footer" id="modal-footer2">
+	              <div class="modal-footer" id="modal-footer">
 	                <button type="button" id="checkBtn" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
 	              </div>
 	            </div>

@@ -52,6 +52,11 @@ public class ContentServiceImpl implements ContentService {
 		return contentDao.searchCount(map);
 	}
 
+	@Override
+	public List<ContentDTO> getSelectWord(String content_nm) throws Exception {
+		// TODO Auto-generated method stub
+		return contentDao.selectSearchWord(content_nm);
+	}
 
 	
 }

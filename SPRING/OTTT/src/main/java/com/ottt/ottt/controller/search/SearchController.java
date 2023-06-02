@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,12 +39,19 @@ public class SearchController {
 	SearchWordService searchWordService;
 
 	@GetMapping("/search")
-	public String search(HttpSession session, Model m) {
-		
+	public String search(HttpSession session, Model m) {		
 		
 			try {
 				if(session.getAttribute("id") != null) {
 				List<SearchWordDTO> searchWordList = searchWordService.getSearchWordList((int)session.getAttribute("user_no"));
+				
+				
+				if(searchWordList.size() > 5) {
+					SearchWordDTO searchWord = searchWordService.getOneSearchWord(searchWordList.get(5).getSearch_word_no());
+					searchWordService.removeSearchWord(searchWord.getSearch_word_no());
+					return "redirect:/search";
+				}
+				
 				m.addAttribute("searchWordList", searchWordList);
 				}
 				
@@ -133,5 +141,17 @@ public class SearchController {
 			return new ResponseEntity<String>("찜 헤제 실패 에러", HttpStatus.BAD_REQUEST);
 		}
 		
+	}
+	
+	@GetMapping("/search/auto")
+	@ResponseBody
+	public ResponseEntity<List<ContentDTO>> searchAuto(String content_nm, Model m) {
+		try {
+			List<ContentDTO> selectSearchWord = contentService.getSelectWord(content_nm);
+			return new ResponseEntity<List<ContentDTO>>(selectSearchWord, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<ContentDTO>>(HttpStatus.BAD_REQUEST);
+		}		
 	}
 }

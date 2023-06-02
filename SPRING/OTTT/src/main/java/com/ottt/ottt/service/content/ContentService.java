@@ -15,4 +15,5 @@ public interface ContentService {
 	int getMovieTotalCount(SearchItem sc) throws Exception;
 	List<ContentDTO> getSearchSelect(Map<String, Object> map) throws Exception;
 	int getSearchTotalCount(Map<String, Object> map) throws Exception;
+	List<ContentDTO> getSelectWord(String content_nm) throws Exception;
 }

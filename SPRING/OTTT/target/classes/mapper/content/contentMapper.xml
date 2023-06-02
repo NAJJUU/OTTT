@@ -196,6 +196,14 @@
 	        )
 	    </if>
 	</select>
+	
+	<select id="selectSearchWord" parameterType="String" resultType="ContentDTO">
+		SELECT a.content_nm
+		FROM tb_content a
+		where a.content_nm LIKE CONCAT('%', #{content_nm}, '%')	
+		order by rating desc
+		limit 8
+	</select>
 
  
   </mapper>

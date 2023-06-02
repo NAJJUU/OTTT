@@ -8,4 +8,6 @@ public interface SearchWordDao {
 
 	int searchWordInsert(Integer user_no, String content_nm) throws Exception;
 	List<SearchWordDTO> searchWorldSelect(Integer user_no) throws Exception;
+	int searchWordDelete(Integer search_word_no) throws Exception;
+	SearchWordDTO searchWorldOneSelect(Integer search_word_no) throws Exception;
 }

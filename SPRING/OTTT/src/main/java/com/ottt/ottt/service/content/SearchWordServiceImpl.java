@@ -27,4 +27,16 @@ public class SearchWordServiceImpl implements SearchWordService {
 		return searchWordDao.searchWordInsert(user_no, content_nm);
 	}
 
+	@Override
+	public int removeSearchWord(Integer search_word_no) throws Exception {
+		// TODO Auto-generated method stub
+		return searchWordDao.searchWordDelete(search_word_no);
+	}
+
+	@Override
+	public SearchWordDTO getOneSearchWord(Integer search_word_no) throws Exception {
+		// TODO Auto-generated method stub
+		return searchWordDao.searchWorldOneSelect(search_word_no);
+	}
+
 }
