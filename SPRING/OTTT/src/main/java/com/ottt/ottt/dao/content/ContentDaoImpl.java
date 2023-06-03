@@ -58,5 +58,7 @@ public class ContentDaoImpl implements ContentDao {
 		return session.selectList(namespace+"selectSearchWord", content_nm);
 	}
 
+
+
 	
 }

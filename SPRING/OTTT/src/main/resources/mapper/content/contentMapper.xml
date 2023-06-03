@@ -28,13 +28,17 @@
 		ON a.content_no = b.content_no 
 		JOIN tb_category c
 		ON b.category_no = c.category_no
+		where b.category_no = 1
 		order by a.content_no desc
 		limit #{pageSize} offset #{offset}
   	</select>
   	
   	<select id="movieCount" parameterType="SearchItem" resultType="int">
   		select count(*) 
-		from tb_content
+		from tb_content a
+		FROM tb_content a JOIN tb_content_category b 
+		ON a.content_no = b.content_no 
+		where b.category_no = 1
   	</select>
   	
   	<!-- <select id="searchSelect" parameterType="map" resultType="ContentDTO">
@@ -117,11 +121,11 @@
   	
   	<sql id="searchOption">
   		<choose>
-  			<when test='option=="date"'>
-  				order by a.content_no desc
+  			<when test='option=="rate"'>				
+  				order by a.rating desc
   			</when>
   			<otherwise>
-  				order by a.rating desc
+  				order by a.content_no desc
   			</otherwise>
   		</choose>  	
   	</sql>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>  
 <!DOCTYPE html>
 <html>
@@ -121,7 +122,11 @@
         	    $(".body").html("로그인이 필요합니다.")
         	    $('#Modal').modal('show')
         	  })
-        })       
+        	  
+        	
+        })  
+        
+        
         </script>
         
  
@@ -132,14 +137,16 @@
       
       <c:if test="${not empty searchList}">
 	    <section class="sec00-1">
-	        <div class="dropdown-filter">
-	          <li>
-	            <select name="button" id="button">
-	             <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
-	             <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
-	            </select>
-	          </li>
-	      </div>
+	    <form action='<c:url value="/searchList" />' method="get">
+	    	<div class="dropdown-filter">
+			    <li>
+			      <select name="button" id="searchSelect" onchange="this.form.submit()">
+			        <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
+			        <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
+			      </select>	          	          
+			    </li>
+			  </div>
+	    </form>		  
 	    </section>
       </c:if>     
 

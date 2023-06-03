@@ -65,7 +65,7 @@ public class SearchController {
 	}
 	
 	@GetMapping("/searchList")
-	public String searthList(@RequestParam(value="content_nm", required = false) String content_nm,
+	public String searchList(@RequestParam(value="content_nm", required = false) String content_nm,
 							 @RequestParam(value="ott_no", required = false) List<Integer> ott_no,
 							 @RequestParam(value="gerne_no", required = false) List<Integer> gerne_no,
 							 @RequestParam(value="category_no", required = false) List<Integer> category_no,
@@ -79,6 +79,57 @@ public class SearchController {
 		searchMap.put("gerne_no", gerne_no);
 		searchMap.put("category_no", category_no);
 		searchMap.put("SearchItem", sc);			
+
+		try {
+			
+			if(session.getAttribute("id") != null && content_nm != null) {
+				searchWordService.putSearchWord((int)session.getAttribute("user_no"), content_nm);
+			}
+			
+			List<ContentDTO> searchList = contentService.getSearchSelect(searchMap);
+			    
+			int totalCount = contentService.getSearchTotalCount(searchMap);
+			PageResolver pageResolver = new PageResolver(totalCount, sc);
+			m.addAttribute("searchList", searchList);
+			m.addAttribute("pr", pageResolver);
+			
+			Map<Integer, List<ContentOTTDTO>> map = new HashMap<Integer, List<ContentOTTDTO>>();
+			for(ContentDTO contentDTO : searchList) {				
+				List<ContentOTTDTO> ottList = contentService.getOttImg(contentDTO.getContent_no());
+				map.put(contentDTO.getContent_no(), ottList);
+			}
+			m.addAttribute("ottList", map);
+			
+			if(session.getAttribute("no") != null) {
+				Integer user_no = (Integer) session.getAttribute("no");
+				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
+				m.addAttribute("wishList", wishList);
+			}
+	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "/genre/index";
+	}
+	
+	@PostMapping("/searchList")
+	public String searchOptionList(@RequestParam(value="content_nm", required = false) String content_nm,
+			 @RequestParam(value="ott_no", required = false) List<Integer> ott_no,
+			 @RequestParam(value="gerne_no", required = false) List<Integer> gerne_no,
+			 @RequestParam(value="button", required = false) String option, 
+			 @RequestParam(value="category_no", required = false) List<Integer> category_no,
+			 Model m, SearchItem sc, HttpSession session) {
+		
+		sc.setPageSize(24);
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("content_nm", content_nm);
+		searchMap.put("ott_no", ott_no);
+		searchMap.put("gerne_no", gerne_no);
+		searchMap.put("category_no", category_no);
+		searchMap.put("SearchItem", sc);		
+		searchMap.put("option", option);
 
 		try {
 			
