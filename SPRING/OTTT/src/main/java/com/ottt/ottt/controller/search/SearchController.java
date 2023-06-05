@@ -67,18 +67,22 @@ public class SearchController {
 	@GetMapping("/searchList")
 	public String searchList(@RequestParam(value="content_nm", required = false) String content_nm,
 							 @RequestParam(value="ott_no", required = false) List<Integer> ott_no,
-							 @RequestParam(value="gerne_no", required = false) List<Integer> gerne_no,
+							 @RequestParam(value="genre_no", required = false) List<Integer> genre_no,
 							 @RequestParam(value="category_no", required = false) List<Integer> category_no,
+							 @RequestParam(value="option", required = false) String option,
+			/* @RequestParam(value="page", required = false) Integer page, */
 							 Model m, SearchItem sc, HttpSession session) {
 		
 		sc.setPageSize(24);
+		/* sc.setPage(page); */
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("content_nm", content_nm);
 		searchMap.put("ott_no", ott_no);
-		searchMap.put("gerne_no", gerne_no);
+		searchMap.put("genre_no", genre_no);
 		searchMap.put("category_no", category_no);
-		searchMap.put("SearchItem", sc);			
+		searchMap.put("SearchItem", sc);	
+		searchMap.put("option", option);
 
 		try {
 			
@@ -116,17 +120,19 @@ public class SearchController {
 	@PostMapping("/searchList")
 	public String searchOptionList(@RequestParam(value="content_nm", required = false) String content_nm,
 			 @RequestParam(value="ott_no", required = false) List<Integer> ott_no,
-			 @RequestParam(value="gerne_no", required = false) List<Integer> gerne_no,
-			 @RequestParam(value="button", required = false) String option, 
+			 @RequestParam(value="genre_no", required = false) List<Integer> genre_no,
+			 @RequestParam(value="option", required = false) String option,
 			 @RequestParam(value="category_no", required = false) List<Integer> category_no,
+			/* @RequestParam(value="page", required = false) Integer page, */
 			 Model m, SearchItem sc, HttpSession session) {
 		
 		sc.setPageSize(24);
+		/* sc.setPage(page); */
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("content_nm", content_nm);
 		searchMap.put("ott_no", ott_no);
-		searchMap.put("gerne_no", gerne_no);
+		searchMap.put("genre_no", genre_no);
 		searchMap.put("category_no", category_no);
 		searchMap.put("SearchItem", sc);		
 		searchMap.put("option", option);
@@ -194,6 +200,7 @@ public class SearchController {
 		
 	}
 	
+	// 자동완성
 	@GetMapping("/search/auto")
 	@ResponseBody
 	public ResponseEntity<List<ContentDTO>> searchAuto(String content_nm, Model m) {

@@ -196,73 +196,73 @@
               <div class="search-style search-mid">장르</div>
               <div class="search-style">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox11" name="gerne" value="1">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox11" name="genre_no" value="1">
                   <label class="form-check-label" for="inlineCheckbox11">액션</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox12" name="gerne" value="2">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox12" name="genre_no" value="2">
                   <label class="form-check-label" for="inlineCheckbox12">어드벤처</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox13" name="gerne" value="3">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox13" name="genre_no" value="3">
                   <label class="form-check-label" for="inlineCheckbox13">SF</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox14" name="gerne" value="4">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox14" name="genre_no" value="4">
                   <label class="form-check-label" for="inlineCheckbox14">판타지</label>
                 </div> 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox15" name="gerne" value="5">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox15" name="genre_no" value="5">
                   <label class="form-check-label" for="inlineCheckbox15">드라마</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox16" name="gerne" value="6">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox16" name="genre_no" value="6">
                   <label class="form-check-label" for="inlineCheckbox16">코미디</label>
                 </div>
               </div>
     
                 <div class="search-style">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox17" name="gerne" value="7">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox17" name="genre_no" value="7">
                   <label class="form-check-label" for="inlineCheckbox17">시대극</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox18" name="gerne" value="8">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox18" name="genre_no" value="8">
                   <label class="form-check-label" for="inlineCheckbox18">로맨스/멜로</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox19" name="gerne" value="9">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox19" name="genre_no" value="9">
                   <label class="form-check-label" for="inlineCheckbox19">공포/스릴러</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox20" name="gerne" value="10">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox20" name="genre_no" value="10">
                   <label class="form-check-label" for="inlineCheckbox20">미스터리</label>
                 </div> 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox21" name="gerne" value="11">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox21" name="genre_no" value="11">
                   <label class="form-check-label" for="inlineCheckbox21">범죄</label>
                 </div>
               </div>
     
               <div class="search-style">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox22" name="gerne" value="12">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox22" name="genre_no" value="12">
                   <label class="form-check-label" for="inlineCheckbox22">음악/뮤지컬</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox23" name="gerne" value="13">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox23" name="genre_no" value="13">
                   <label class="form-check-label" for="inlineCheckbox23">스포츠</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox24" name="gerne" value="14">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox24" name="genre_no" value="14">
                   <label class="form-check-label" for="inlineCheckbox24">다큐멘터리</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" id="inlineCheckbox25" name="gerne" value="15">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox25" name="genre_no" value="15">
                   <label class="form-check-label" for="inlineCheckbox25">가족</label>
               </div> 
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox26" name="gerne" value="16">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox26" name="genre_no" value="16">
                 <label class="form-check-label" for="inlineCheckbox26">역사</label>
               </div>
             </div>

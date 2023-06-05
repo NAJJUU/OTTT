@@ -46,7 +46,7 @@
               <a href="<c:url value="/genre/animation" />">애니</a>
             </li>
             <li>
-              <a href="<c:url value="/community" />">게시판</a>
+              <a href="<c:url value="/community/freecommunity" />">게시판</a>
             </li>
           </ul>
         </nav>
@@ -137,16 +137,16 @@
       
       <c:if test="${not empty searchList}">
 	    <section class="sec00-1">
-	    <form action='<c:url value="/searchList" />' method="get">
+	    <%-- <form action='<c:url value="/searchList" />' method="get"> --%>
 	    	<div class="dropdown-filter">
 			    <li>
-			      <select name="button" id="searchSelect" onchange="this.form.submit()">
-			        <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
-			        <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
+			      <select name="option" id="searchSelect" onchange="this.form.submit()">
+			        <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}><a href="'<c:url value="/searchList" />'">최신순</a></option>
+			        <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}><a href="'<c:url value="/searchList" />'">별점순</a></option>
 			      </select>	          	          
 			    </li>
 			  </div>
-	    </form>		  
+	    <!-- </form> -->		  
 	    </section>
       </c:if>     
 
@@ -199,23 +199,25 @@
       </c:forEach>				
     </section>
     
+    </form>
+    
     <!-- 페이지 번호 배너-->
 		        <div class="page-num" style="margin-top: 20px;">
 		          <nav aria-label="Page navigation example" class="d-flex flex-row justify-content-center">
 		            <ul class="pagination">
 		            <c:if test="${pr.showPrev}">
 			            <li class="page-item">
-			                <a class="page-link" href='<c:url value="/genre/movie${pr.sc.getQueryString(pr.beginPage-1)}" />' aria-label="Previous">
+			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(pr.beginPage-1)}" />' aria-label="Previous">
 			                  <span aria-hidden="true">&laquo;</span>
 			                </a>
 			              </li>
 		            </c:if>
 		            <c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-		            	<li class="page-item"><a class="page-link" href='<c:url value="/genre/movie${pr.sc.getQueryString(i)}" />'>${i}</a></li>
+		            	<li class="page-item"><a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(i)}" />'>${i}</a></li>
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">
-			                <a class="page-link" href='<c:url value="/genre/movie${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
+			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
 			                  <span aria-hidden="true">&raquo;</span>
 			                </a>
 			              </li>
@@ -249,7 +251,7 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-  </form>
+  
   <script>
     const logos = document.querySelectorAll('.ott-logo-img');
     logos.forEach(function(logo) {
