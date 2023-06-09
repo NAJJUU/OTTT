@@ -73,19 +73,14 @@
     background-color: transparent;
     border-style: solid;
     color: #33FF33; 
-}    
+}
+
     </style>
 
 </head>
 <body style="background-color: #202020; color: #fff;">
     <div class="wrap"> 
         <div style="background-color: black; text-align: center; height: 850px;">
-
-        	<%-- <div class="user">
-                <a href="<c:url value='${loginoutlink}' /> " class="${loginout}">
-                    <img src="${path}/resources/images/img/profile.png" class="user-img">
-                </a>
-            </div> --%>
             <img src="${path}/resources/images/logo/메인이미지.png" style="width: 1200px; background-position: center; margin-top: 150px;"/>
             
             <div>
@@ -111,64 +106,13 @@
 
         <div style="height: 230px; background: linear-gradient(to top, #202020, black);"></div>
 
-        <header class="header" style="position: sticky; top: 0;">
-            <div class="logo">
-            <a href="<c:url value="/" />">
-				  <img src="${path}/resources/images/logo/OTTT.png" alt="로고">
-				</a>
-			</div>
-			<nav class="gnb">
-				<ul>
-            <li>
-              <a href="<c:url value="/genre/movie" />">영화</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/drama" />">드라마</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/interest" />">예능</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/animation" />">애니</a>
-            </li>
-            <li>
-              <a href="<c:url value="/community" />">게시판</a>
-            </li>
-          </ul>
-        </nav>
-        <div class="h-icon">
-          <ul>
-            <li>
-              <a href="<c:url value='/search' />">
-                <!-- <img src="./images/icon/search02.png" alt="검색"> -->
-              </a>
-            </li>
-            <li>
-                <a href="<c:url value='/mypage' /> " class="${loginout}" >
-                    <c:if test="${sessionScope.id != null}">
-                        <img src="" id="profile" class="${loginout}" alt="내정보">              	
-                    </c:if>              	
-                </a>
-              </li>
-            </ul>
-              </div>
-          </header>
+        <%@ include file="fix/header.jsp" %>
                   
         <script type="text/javascript">
         $(document).ready(function() {
-        	
-        	let img = function() {
-                if ('${userDTO.user_id}' != '') {
-                    $('#profile').attr("src", '${userDTO.image}')
-                }     				
-                return true
-            }
-            
-            img()
             
         	  $(document).on("click", "#tonojjim", function(event) {
-        	    event.preventDefault();
-        	    // 버튼을 클릭했을 때 실행되는 코드
+          	    event.preventDefault();
         	    let content_no = $(this).closest(".work-info").find("#noInput").val()
     			let user_no = '${sessionScope.user_no}'
         	    $.ajax({
@@ -191,8 +135,7 @@
         	  })
         	  
         	  $(document).on("click", "#tojjim", function(event) {
-        	    event.preventDefault();
-        	    // 버튼을 클릭했을 때 실행되는 코드
+          	    event.preventDefault();
         	    let content_no = $(this).closest(".work-info").find("#noInput").val()
     			let user_no = '${sessionScope.user_no}'
         	    $.ajax({
@@ -218,8 +161,7 @@
         		event.preventDefault()
         	    $(".body").html("로그인이 필요합니다.")
         	    $('#Modal').modal('show')
-        	  });
-        	  
+        	  });        	  
         })       
         </script>
 

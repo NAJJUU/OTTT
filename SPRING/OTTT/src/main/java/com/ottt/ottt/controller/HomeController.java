@@ -52,9 +52,7 @@ public class HomeController {
 				Integer user_no = (Integer) session.getAttribute("user_no");
 				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
 				m.addAttribute("wishList", wishList);
-			}
-			
-			
+			}	
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -76,8 +74,7 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>("찜 등록 실패 에러", HttpStatus.BAD_REQUEST);
-		}
-		
+		}		
 	}
 	
 	@DeleteMapping("/jjim")
@@ -90,7 +87,6 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<String>("찜 헤제 실패 에러", HttpStatus.BAD_REQUEST);
-		}
-		
+		}		
 	}
 }
