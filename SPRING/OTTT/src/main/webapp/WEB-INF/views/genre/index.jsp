@@ -125,7 +125,10 @@
         	  
         	
         })  
-        
+        function submitForm() {
+        var selectedOption = document.getElementById("searchSelect").value;
+        location.href = "/ottt/searchList?content_nm=${param.content_nm}&ott_no=${param.ott_no}&genre_no=${param.genre_no}&category_no=${param.category_no}&option=" + selectedOption;
+    }
         
         </script>
         
@@ -137,23 +140,22 @@
       
       <c:if test="${not empty searchList}">
 	    <section class="sec00-1">
-	    <%-- <form action='<c:url value="/searchList" />' method="get"> --%>
 	    	<div class="dropdown-filter">
 			    <li>
-			      <select name="option" id="searchSelect" onchange="this.form.submit()">
-			        <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}><a href="'<c:url value="/searchList" />'">최신순</a></option>
-			        <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}><a href="'<c:url value="/searchList" />'">별점순</a></option>
+			      <select name="option" id="searchSelect" onchange="submitForm()">
+			        <option value="date" class="dropdown-itemtemp" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>최신순</option>
+			        <option value="rate" class="dropdown-itemtemp" ${pr.sc.option=='rate' ? "selected" : ""}>별점순</option>
 			      </select>	          	          
 			    </li>
 			  </div>
-	    <!-- </form> -->		  
+		  
 	    </section>
       </c:if>     
 
       <section class="sec01" style="margin: 30px auto;">     
       <c:forEach var="contentDTO" items="${searchList}">
 	      <div class="work-info">
-	          <a href="<c:url value="/detailPage${pr.sc.queryString}?content_no=${contentDTO.content_no }" />">
+	          <a href="<c:url value="/detailPage${pr.sc.getSearchString(sc.getPage())}&content_no=${contentDTO.content_no }" />">
 	          	  <input id="noInput" type="hidden" value="${contentDTO.content_no }" />
 	              <img src="${contentDTO.thumbnail.toString() }" class="poster"/>
 	              <div class="work-review">
@@ -207,17 +209,17 @@
 		            <ul class="pagination">
 		            <c:if test="${pr.showPrev}">
 			            <li class="page-item">
-			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(pr.beginPage-1)}" />' aria-label="Previous">
+			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getSearchString(pr.beginPage-1)}" />' aria-label="Previous">
 			                  <span aria-hidden="true">&laquo;</span>
 			                </a>
 			              </li>
 		            </c:if>
 		            <c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-		            	<li class="page-item"><a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(i)}" />'>${i}</a></li>
+		            	<li class="page-item"><a class="page-link" href='<c:url value="/searchList${pr.sc.getSearchString(i)}" />'>${i}</a></li>
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">
-			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
+			                <a class="page-link" href='<c:url value="/searchList${pr.sc.getSearchString(pr.endPage-1)}" />' aria-label="Next">
 			                  <span aria-hidden="true">&raquo;</span>
 			                </a>
 			              </li>

@@ -1,6 +1,8 @@
 package com.ottt.ottt.domain;
 import static java.util.Objects.requireNonNullElse;
 
+import java.util.List;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static java.lang.Math.*;
@@ -14,10 +16,14 @@ public class SearchItem {
 	private Integer page = 1;
 	private Integer pageSize = DEFAULT_PAGE_SIZE;
 	private String keyword = "";
-	private String option = "";
+	private String option;
 	private String user;
 	private Integer user_no;
 	private Integer content_no;
+	private String content_nm;
+	private List<Integer> ott_no;
+	private List<Integer> genre_no;
+	private List<Integer> category_no;
 	
 	public SearchItem() {};
 	
@@ -50,6 +56,40 @@ public class SearchItem {
 
 	public Integer getPageSize() {
 		return pageSize;
+	}
+	
+	
+
+	public String getContent_nm() {
+		return content_nm;
+	}
+
+	public void setContent_nm(String content_nm) {
+		this.content_nm = content_nm;
+	}
+
+	public List<Integer> getOtt_no() {
+		return ott_no;
+	}
+
+	public void setOtt_no(List<Integer> ott_no) {
+		this.ott_no = ott_no;
+	}
+
+	public List<Integer> getGenre_no() {
+		return genre_no;
+	}
+
+	public void setGenre_no(List<Integer> genre_no) {
+		this.genre_no = genre_no;
+	}
+
+	public List<Integer> getCategory_no() {
+		return category_no;
+	}
+
+	public void setCategory_no(List<Integer> category_no) {
+		this.category_no = category_no;
 	}
 
 	public void setPageSize(Integer pageSize) {
@@ -99,6 +139,19 @@ public class SearchItem {
 		return UriComponentsBuilder.newInstance()
 				.queryParam("user", user)
 				.queryParam("page", page)
+				.build().toString();
+	}
+	
+	public String getSearchString(Integer page) {
+		
+		return UriComponentsBuilder.newInstance()
+				.queryParam("content_nm", content_nm)
+				.queryParam("ott_no", ott_no)
+				.queryParam("genre_no", genre_no)
+				.queryParam("category_no", category_no)
+				.queryParam("option", option)
+				.queryParam("page", page)
+				.queryParam("pageSize", pageSize)				
 				.build().toString();
 	}
 	
