@@ -194,7 +194,7 @@ header{ width: 1200px; height: 130px;box-sizing: border-box;margin: 0 auto;posit
     border-color: #ffffff;
   }
     
-  .page-link:focus, .page-link:hover {
+  .page-link:focus, .page-link:hover{
     color: #33ff33;
     background-color: #202020; 
     border-color: #33ff33;

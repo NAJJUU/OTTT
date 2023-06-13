@@ -56,7 +56,6 @@
 }
 
 
-
 </style>
 </head>
 <body style="background-color: #202020;">
@@ -99,7 +98,8 @@
 			$("#writeBtn").on("click", function() {
 				location.href="<c:url value='/community/notice/write' />"
 			})
-		})
+		});
+   		
    	</script>
 
 
@@ -155,7 +155,7 @@
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">
-			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
+			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.endPage+1)}" />' aria-label="Next">
 			                  <span aria-hidden="true">&raquo;</span>
 			                </a>
 			              </li>

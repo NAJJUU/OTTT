@@ -171,7 +171,7 @@
                 <button class="left-button1"><img src="${path}/resources/images/img/왼쪽 화살표.png" /></button>
                 <div class="cont01">
                     <div class="posterzip1">
-                    <c:forEach var="contentDTO" items="${contentList}">
+                    <c:forEach var="contentDTO" items="${ratingContentList}">
                     	<div class="work-info">
                             <a href="<c:url value="/detailPage?content_no=${contentDTO.content_no }" />">
                             	<input id="noInput" type="hidden" value="${contentDTO.content_no }" />
@@ -241,349 +241,59 @@
                 <button class="right-button1"><img src="resources/images/img/오른쪽화살표.png"/></button>
             </div>
             <br />
-            <div style="font-size: 23px; margin-left: 20px;">지금 HOT한 작품들</div>
+            <div style="font-size: 23px; margin-left: 20px;">관심 많은 작품들</div>
             <div class="main-work">
                 <button class="left-button2"><img src="${path}/resources/images/img/왼쪽 화살표.png" /></button>
                 <div class="cont01">
                     <div class="posterzip2">
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
+                    <c:forEach var="contentDTO" items="${jjimContentList}">
+                    	<div class="work-info">
+                            <a href="<c:url value="/detailPage?content_no=${contentDTO.content_no }" />">
+                            	<input id="noInput" type="hidden" value="${contentDTO.content_no }" />
+                                <img src="${contentDTO.thumbnail.toString() }" class="poster"/>
                                 <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
+                                    <div class="ott-img"  style="cursor: default;">
+                                    <c:forEach var="contentOttDTO" items="${jjimList[contentDTO.content_no]}">
+									    <c:if test="${contentOttDTO.content_no == contentDTO.content_no}">									    	
+									        <span><img src="${contentOttDTO.ott_img.toString()}"></span>
+									    </c:if>
+									</c:forEach> 
                                     </div>
-                                    
                                     <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
+                                        <div class="star-img">
+                                            <div><img src="${path}/resources/images/img/onestar.png" style="cursor: default;"></div>
+                                            <div class="score" style="cursor: default;">${contentDTO.rating}</div>
+                                        </div>
+                                        <div id="jjim">
+										    <c:choose>
+										        <c:when test="${sessionScope.id != null}">
+										            <c:set var="isInWishlist" value="false" />
+										            <c:forEach var="wishlistDTO" items="${wishList}">
+										                <c:if test="${wishlistDTO.content_no == Integer.parseInt(contentDTO.content_no) && sessionScope.user_no == wishlistDTO.user_no}">
+										                    <c:set var="isInWishlist" value="true" />
+										                </c:if>
+										            </c:forEach>
+										            <c:choose>
+										                <c:when test="${isInWishlist}">
+										                    <button type="button" id="tonojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/jjim.png" style="width: 17px; cursor: pointer;"></button>
+										                </c:when>
+										                <c:otherwise>
+										                    <button type="button" id="tojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										                </c:otherwise>
+										            </c:choose>
+										        </c:when>
+										        <c:otherwise>
+										            <button type="button" id="nojjim" style="width: 25px; height: 30px;"><img alt="찜" src="${path}/resources/images/img/nojjim.png" style="width: 17px; cursor: pointer;"></button>
+										        </c:otherwise>
+										    </c:choose>
+										</div>                                        
+                                    </div>                                    
+                                </div>  
                             </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="work-info">
-                            <a href="../채경철/index.html">
-                                <img src="${path}/resources/images/poster/subu.jpg" class="poster"/>
-                                <div class="work-review">
-                                    <div class="ott-img">
-                                        <span><img src="${path}/resources/images/icon/netplix.png"></span>
-                                    </div>
-                                    
-                                    <div class="work-cat">
-                                        <div>영화</div>    
-                                        <div>전쟁</div>
-                                        <div>독일</div>
-                                    </div>
-                                    <div>
-                                        <img src="${path}/resources/images/img/3star.png" class="star-img"/>
-                                    </div>                           
-                                    <div class="work-my">
-                                        <div><a href="#">찜</a></div>
-                                        <div><a href="../OTTT_review_page유찬희/review.html">리뷰쓰기</a></div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        </div>                                                   
+                    </c:forEach>                       
                     </div>
-                </div>
-                
+                </div>               
                 <button class="right-button2"><img src="resources/images/img/오른쪽화살표.png"/></button>
             </div>
             <br/>

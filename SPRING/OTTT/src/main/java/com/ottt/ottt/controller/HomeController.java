@@ -38,15 +38,28 @@ public class HomeController {
 	public String home(Model m, HttpSession session) {	
 		
 		try {
-			List<ContentDTO> contentList = contentServiceImpl.getRating();
-			m.addAttribute("contentList", contentList);
 			
-			Map<Integer, List<ContentOTTDTO>> map = new HashMap<Integer, List<ContentOTTDTO>>();
-			for(ContentDTO contentDTO : contentList) {				
+			// 별점 높은 순 작품 불러오기
+			List<ContentDTO> ratingContentList = contentServiceImpl.getRating();
+			m.addAttribute("ratingContentList", ratingContentList);
+			
+			Map<Integer, List<ContentOTTDTO>> ottmap = new HashMap<Integer, List<ContentOTTDTO>>();
+			for(ContentDTO contentDTO : ratingContentList) {				
 				List<ContentOTTDTO> ottList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
-				map.put(contentDTO.getContent_no(), ottList);
+				ottmap.put(contentDTO.getContent_no(), ottList);
 			}
-			m.addAttribute("ottList", map);
+			m.addAttribute("ottList", ottmap);
+			
+			// 찜 많은 순 작품 불러오기
+			List<ContentDTO> jjimContentList = contentServiceImpl.getJjim();
+			m.addAttribute("jjimContentList", jjimContentList);
+			
+			Map<Integer, List<ContentOTTDTO>> jjimmap = new HashMap<Integer, List<ContentOTTDTO>>();
+			for(ContentDTO contentDTO : jjimContentList) {				
+				List<ContentOTTDTO> jjimList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
+				jjimmap.put(contentDTO.getContent_no(), jjimList);
+			}
+			m.addAttribute("jjimList", jjimmap);
 			
 			if(session.getAttribute("id") != null) {
 				Integer user_no = (Integer) session.getAttribute("user_no");
