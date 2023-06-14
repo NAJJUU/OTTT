@@ -2,6 +2,9 @@ package com.ottt.ottt.controller.login;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ottt.ottt.dao.login.LoginUserDao;
+import com.ottt.ottt.dao.user.UserDao;
 import com.ottt.ottt.dto.UserDTO;
 import com.ottt.ottt.dto.UserOTTDTO;
 import com.ottt.ottt.service.login.LoginUserOTTService;
+import com.ottt.ottt.service.user.UserService;
 
 import jakarta.validation.Valid;
 
@@ -35,7 +41,7 @@ public class SigninController {
 	@Autowired
 	LoginUserDao userDao;
 	@Autowired
-	LoginUserOTTService loginUserOTTService;
+	UserService userService;
 
 	//약간동의 페이지 
 	@GetMapping(value = "/term")
@@ -57,8 +63,15 @@ public class SigninController {
 	@PostMapping(value = "/register")
 	public String registerPost(UserDTO user, BindingResult result, Model m) {
 		if(!result.hasErrors()) {
-			int rowCnt = userDao.insert(user);
-			if(rowCnt != 0) return "redirect:/signin/addInfo";
+			int rowCnt;
+			try {
+				rowCnt = userDao.insert(user);
+				if(rowCnt != 0) return "redirect:/signin/complete";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 	return "/login/register";		
@@ -78,26 +91,15 @@ public class SigninController {
 	//추가정보 입력
 	@GetMapping(value = "/addInfo")
 	public String addInfo() {
-	return "/login/addInfo";		
+		return "/login/addInfo";		
 	}
 	
-	@PostMapping(value = "/addInfo", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	@ResponseBody
-	public String addInfoPost(@Valid @RequestBody MultiValueMap<String, String> formData, HttpServletRequest request) {
-	    Integer ott_no = Integer.parseInt(formData.getFirst("ott_no"));
-	  HttpSession session = request.getSession();
-	  UserDTO userDTO = userDao.select((String) session.getAttribute("id"));
-	  UserOTTDTO userOTTDTO = new UserOTTDTO();
-	  userOTTDTO.setUser_no(userDTO.getUser_no());
-	  userOTTDTO.setOtt_no(ott_no);
-	  loginUserOTTService.addOTT(userOTTDTO);
-	  return "/";
-	}
-	
+
 	//가입성공 페이지
 	@GetMapping(value = "/complete")
 	public String signinComplete() {
-	return "/login/registerComple";		
+		
+		return "/login/registerComple";				
 	}
 	
 	@PostMapping(value = "/complete")
@@ -110,11 +112,13 @@ public class SigninController {
 		return "redirect:/signin/complete?msg="+msg;
 		}
 					
-		//3. 세션
-		//	세션 객체 얻어오기
+		UserDTO userDTO = userDao.select(user_id);		
 		HttpSession session = request.getSession();
-		//	세션 객체에 id를 저장
 		session.setAttribute("id", user_id);
+		session.setAttribute("admin", userDTO.getAdmin());
+		session.setAttribute("user_no", userDTO.getUser_no());
+		session.setAttribute("user_nicknm", userDTO.getUser_nicknm());
+		session.setAttribute("user_img", userDTO.getImage());
 		return "redirect:/signin/addInfo";		
 	}
 	
@@ -122,9 +126,15 @@ public class SigninController {
 	@RequestMapping(value = "/nnameIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String nnameIdChk(String user_nicknm) {
-		UserDTO user = userDao.selectNickname(user_nicknm);	
+		try {
+			UserDTO user = userDao.selectNickname(user_nicknm);
+			if(user != null && user.getUser_nicknm().equals(user_nicknm)) return "success";		
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
-		if(user != null && user.getUser_nicknm().equals(user_nicknm)) return "success";		
 		return "fail";		
 	}
 	
@@ -132,10 +142,17 @@ public class SigninController {
 	@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
 	@ResponseBody
 	public String memberIdChk(String user_id) {
-		UserDTO user = userDao.select(user_id);	
-		
-		if(user != null && user.getUser_id().equals(user_id)) return "success";		
-		return "fail";		
+		UserDTO user;
+		try {
+			user = userDao.select(user_id);
+			if(user != null && user.getUser_id().equals(user_id)) return "success";		
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "fail";	
+			
 	}
 	
 	//DB꺼 가져와서 CHECK해야함

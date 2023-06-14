@@ -24,6 +24,68 @@
 		input[name="ott_no"] + label {
 		  display: inline-block;
 		}
+		
+		      /* 모달 */
+.modal-content{
+    background-color: #202020;
+}
+
+.modal-body{
+    font-size: 26px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.modal-header{
+    border: 1px solid #fff;
+}
+
+.modal-footer{
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+.modi-del{
+	display: flex;
+    justify-content: flex-end;
+}
+
+
+.qa-main p{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
+.btn{
+    color: #fff;
+    background-color: transparent;
+    border-style: none;
+    border-color: #fff; 
+    font-size: 23px; 
+    text-decoration: none;
+}
+
+
+.btn:hover{
+    border-color: #33FF33;
+    background-color: transparent;
+    border-style: solid;
+    color: #33FF33; 
+}    
+
+.page-link {
+    color: #ffffff; 
+    background-color: #202020;
+    border-color: #ffffff;
+  }
+    
+  .page-link:focus, .page-link:hover {
+    color: #33ff33;
+    background-color: #202020; 
+    border-color: #33ff33;
+  }
     </style>
     <title>추가 정보 입력</title>
 </head>
@@ -76,12 +138,11 @@
 			  let msg = '';
 			  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 			
-			  if (frm.content_nm.value.length == 0 && checkboxes.length === 0) {
+			  if (checkboxes.length === 0) {
 			    $(".body").html("최소한 하나의 옵션을 선택해주세요.");
 			    $('#Modal').modal('show');
 			    return false;
 			  }
-			  
 			  return true;
 			}
 		
@@ -98,7 +159,7 @@
 			}
 		</script>
 		
-		<form method="get" action="<c:url value="/signin/complete" />" id="membership">
+		<form method="get" action="<c:url value="/inserInfo" />" id="membership" onsubmit="return frmCheck(this)">
 			<div class="main">
 				<h1 style="font-size: 21px; display: inline-block;">추가 정보 입력</h1>
 				<div class="OTTcheck" style="border: 1px; padding: 3px;">OTT 선택</div>
@@ -207,13 +268,13 @@
 		  		</section>
 		  	
 			  	<div class="back" style="display: inline-block; pointer-events: none;">
-					<a href="<c:url value="/signin/complete" />" style="pointer-events: none;">
+					<a href="<c:url value="/" />" style="pointer-events: none;">
 						<input type="button" value="건너뛰기" style="pointer-events: auto;">
 		  			</a>
 				</div>
 				
 				<div class="complate">
-					<input type="submit" value="완료"  onsubmit="return frmCheck(this)">
+					<input type="submit" value="완료">
 				</div>
 				
 				<script>

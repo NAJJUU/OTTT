@@ -23,6 +23,7 @@ import com.ottt.ottt.dto.ContentOTTDTO;
 import com.ottt.ottt.dto.WishlistDTO;
 import com.ottt.ottt.service.content.ContentServiceImpl;
 import com.ottt.ottt.service.content.WishlistService;
+import com.ottt.ottt.service.user.UserService;
 
 
 
@@ -33,6 +34,8 @@ public class HomeController {
 	ContentServiceImpl contentServiceImpl;
 	@Autowired
 	WishlistService wishlistService;
+	@Autowired
+	UserService userService;
 
 	@GetMapping(value = "/")
 	public String home(Model m, HttpSession session) {	
@@ -73,6 +76,26 @@ public class HomeController {
 		}
 		
 	return "home";
+	}
+	
+	@GetMapping("/inserInfo")
+	public String toHome(@RequestParam(value="ott_no", required = false) List<Integer> ott_no,
+			 @RequestParam(value="genre_no", required = false) List<Integer> genre_no, HttpSession session) {
+		Map<String, Object> ottMap = new HashMap<String, Object>();
+		ottMap.put("ott_no", ott_no);
+		ottMap.put("user_no", session.getAttribute("user_no"));
+		Map<String, Object> genreMap = new HashMap<String, Object>();
+		genreMap.put("genre_no", genre_no);
+		genreMap.put("user_no", session.getAttribute("user_no"));
+
+		try {
+			userService.putUserOTT(ottMap);
+			userService.putUserGenre(genreMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return "redirect:/";		
 	}
 	
 	@PatchMapping("/jjim")

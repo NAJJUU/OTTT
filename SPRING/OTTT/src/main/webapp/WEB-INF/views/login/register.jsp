@@ -64,7 +64,7 @@
 		</header>
         
 		<section class="sec00">
-		    <form:form modelAttribute="userDTO" method="post" >
+		    <form action='<c:url value="/signin/register" />' modelAttribute="userDTO" method="post" >
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
@@ -319,7 +319,7 @@
 	          			<input type="submit" value="회원가입">
           			</div>
        			</div>
-   			</form:form>
+   			</form>
 		</section>
 	</div>
 	

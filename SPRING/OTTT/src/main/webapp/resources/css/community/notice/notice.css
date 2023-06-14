@@ -199,4 +199,11 @@ header{ width: 1200px; height: 130px;box-sizing: border-box;margin: 0 auto;posit
     background-color: #202020; 
     border-color: #33ff33;
   }
+  
+  .page-item.active .page-link {
+	z-index: 1;
+	color: #33ff33;
+    background-color: #202020; 
+    border-color: #33ff33;
+}
 

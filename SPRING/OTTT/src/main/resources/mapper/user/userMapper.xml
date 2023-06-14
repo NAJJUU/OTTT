@@ -80,5 +80,25 @@
   		delete from tb_user
 		where user_no = #{user_no} and user_id = #{user_id}  	
   	</delete>
+  	
+  	<!-- 회원 추가 정보(OTT) INSERT -->
+  	<insert id="userOTT" parameterType="map">
+	  	INSERT INTO tb_user_ott
+		(user_no, ott_no)
+		VALUES
+		<foreach collection="ott_no" item="ott" separator=",">
+		(#{user_no}, #{ott})
+		</foreach>		
+  	</insert>
+  	
+  	<!-- 회원 추가 정보(genre) INSERT -->
+  	<insert id="userGenre" parameterType="map">
+  		INSERT INTO tb_user_genre
+		(user_no, genre_no)
+		VALUES
+		<foreach collection="genre_no" item="genre" separator=",">
+		(#{user_no}, #{genre})
+		</foreach>
+  	</insert>
   
   </mapper>

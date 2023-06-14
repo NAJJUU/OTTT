@@ -147,7 +147,9 @@
 			              </li>
 		            </c:if>
 		            <c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-		            	<li class="page-item"><a class="page-link" href='<c:url value="/community/QnA${pr.sc.getQueryString(i)}" />'>${i}</a></li>
+		            	<li class="page-item ${i == pr.sc.page ? 'active' : ''}">
+		            	<a class="page-link" href='<c:url value="/community/QnA${pr.sc.getQueryString(i)}" />'>${i}</a>
+		            	</li>
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">

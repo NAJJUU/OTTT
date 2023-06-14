@@ -472,3 +472,9 @@ select{
   border-color: #202020;
 }
 
+    .page-item.active .page-link {
+	z-index: 1;
+	color: #33ff33;
+    background-color: #202020; 
+    border-color: #33ff33;
+}

@@ -85,4 +85,14 @@ public class UserDaoImpl implements UserDao {
 		return session.selectOne(namespace + "selectNo", user_no);
 	}
 
+	@Override
+	public int insertUserOTT(Map map) throws Exception {
+		return session.insert(namespace+"userOTT", map);
+	}
+
+	@Override
+	public int insertUserGenre(Map map) throws Exception {
+		return session.insert(namespace+"userGenre", map);
+	}
+
 }
