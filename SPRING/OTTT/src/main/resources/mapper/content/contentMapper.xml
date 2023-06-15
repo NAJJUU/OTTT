@@ -34,6 +34,32 @@
 	LIMIT 14  
   </select>
   
+  <select id="watchedSelect" resultType="ContentDTO">
+	SELECT a.content_no, a.content_nm, a.thumbnail,
+	       COALESCE((SELECT ROUND(AVG(c.rating))/2 FROM tb_review c WHERE c.content_no = a.content_no), 0) AS rating,
+	       COUNT(d.content_no) as watchedcount
+	FROM tb_content a
+	FULL OUTER JOIN tb_review c ON a.content_no = c.content_no
+	FULL OUTER JOIN tb_watched d ON a.content_no = d.content_no
+	group  by a.content_no 
+	ORDER BY watchedcount desc, rating desc
+	LIMIT 14  
+  </select>
+  
+  <select id="recomSelect" resultType="ContentDTO" parameterType="int">
+	select distinct a.content_no, a.thumbnail, 
+		COALESCE((SELECT ROUND(AVG(f.rating))/2 FROM tb_review f WHERE f.content_no = a.content_no), 0) AS rating
+	FROM tb_content a
+	full OUTER join tb_content_genre b on a.content_no = b.content_no 
+	full OUTER join tb_user_genre c on b.genre_no = c.genre_no 
+	full OUTER join tb_content_ott d on a.content_no = d.content_no 
+	full OUTER join tb_user_ott e on d.ott_no = e.ott_no 
+	FULL OUTER JOIN tb_review f ON a.content_no = f.content_no
+	where c.user_no = #{user_no} and e.user_no = #{user_no}
+	order by rating desc, content_no desc
+	limit 14   
+  </select>
+  
 	<select id="ottNameSelect" parameterType="int" resultType="ContentOTTDTO">
 		SELECT a.content_no, b.ott_img 
 		FROM tb_content_ott a

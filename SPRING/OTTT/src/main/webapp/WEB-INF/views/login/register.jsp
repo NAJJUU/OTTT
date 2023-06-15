@@ -3,6 +3,7 @@
 <%@ page import= "java.net.URLDecoder"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!doctype html>
 <html lang="ko">
@@ -12,11 +13,62 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" href="${path}/resources/css/login/register.css" >
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
     	.ott-logo-img:hover,
 		.ott-logo-img.active {
 			outline: 3px solid #33ff33;
 		}
+		
+		/* 모달 */
+.modal-content{
+    background-color: #202020;
+}
+
+.modal-body{
+    font-size: 26px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.modal-header{
+    border: 1px solid #fff;
+}
+
+.modal-footer{
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+.modi-del{
+	display: flex;
+    justify-content: flex-end;
+}
+
+
+.qa-main p{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
+.btn{
+    color: #fff;
+    background-color: transparent;
+    border-style: none;
+    border-color: #fff; 
+    font-size: 23px; 
+    text-decoration: none;
+}
+
+
+.btn:hover{
+    border-color: #33FF33;
+    background-color: transparent;
+    border-style: solid;
+    color: #33FF33; 
+}
     </style>
     <title>회원가입</title>
 </head>
@@ -62,13 +114,37 @@
           </ul>
         	</div>
 		</header>
+		
+		<!-- <script type="text/javascript">
+		$(document).ready(function() {			
+			let formCheck = function() {
+				let form = document.getElementById("form")
+				
+				if(form.email.value==""){
+					$(".body").html("이메일을 입력해 주세요.")
+		   	    	$('#Modal').modal('show');
+					form.article_title.focus()
+					return false
+				}
+				
+				if(form.article_content.value==""){
+					$(".body").html("내용을 입력해 주세요.")
+		   	    	$('#Modal').modal('show');
+					form.article_content.focus()
+					return false
+				}
+				return true
+			}
+		})				
+		</script> -->
+		
         
 		<section class="sec00">
-		    <form action='<c:url value="/signin/register" />' modelAttribute="userDTO" method="post" >
+		    <form action='<c:url value="/signin/register" />' method="post" id="form" onsubmit="return validatePassword()">
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
-							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" required pattern="^[a-zA-Z0-9]+$">
+							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$">
 					    <span class="errorMsg" id="idErrorMsg" style="position: absolute; left: 910px;"></span> 
 					    <div class="idChk">
 					    	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
@@ -83,12 +159,12 @@
 					</div>
 					
 					<div class="passwordCheck">
-					    <input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인" required>
+					    <input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인" required >
 					    <span class="errorMsg" id="passwordCheckErrorMsg"></span>
 					</div>
 				</div>
 				
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				
 				
 				<script>
 		    	//아이디 중복검사
@@ -160,6 +236,19 @@
 		        			$('#passwordCheckErrorMsg').text('');
 	        			}
 		        	});
+			        
+			        // 비밀번호 확인(입력한 값이 동일하지 않으면 회원가입 안되게)
+			        function validatePassword(){
+			        	var password = document.getElementById("password").value
+			        	var passwordCheck = document.getElementById("passwordCheck").value
+			        	
+			        	if(password != passwordCheck){
+			        		$(".body").html("비밀번호가 일치하지 않스빈다.");
+				   	     	$('#Modal').modal('show');
+				   	     	return false;
+			        	}
+			        	return true;
+			        }
 		        	
 			        //이름 유효성검사
 			        $("#name").on("blur",function(){
@@ -173,11 +262,13 @@
 	            			$('#nameErrorMsg').text('');
             			}
 	            	});
+			        
+			        
 		        });
 		        </script>
 		        
 		        <div class="name">
-		        	<input type="text" name="user_nm" id="name" title="NM" maxlength="10" placeholder="이름" >
+		        	<input type="text" name="user_nm" id="name" title="NM" maxlength="10" placeholder="이름" pattern="^[가-힣a-zA-Z]{2,15}$" required>
 		        	<span>
 		        		<select name="user_gen">
 				            <option value="">선택</option>
@@ -194,13 +285,14 @@
 			            form.addEventListener('submit', (event) => {
 			            	if (genderSelect.value === '') {
 			            		event.preventDefault(); // 폼 제출을 막습니다.
-			                	alert('성별을 선택해주세요.');
+			            		$(".body").html("성별을 선택해주세요.");
+			    	   	     	$('#Modal').modal('show');
 		            		}
 		            	});
 					</script>
 		
 					<div class="nname">
-						<input type="text" name="user_nicknm" class="nnmame_input" id="nname" title="NNM" maxlength="10" placeholder="닉네임" >
+						<input type="text" name="user_nicknm" class="nnmame_input" id="nname" title="NNM" maxlength="8" placeholder="닉네임" pattern="^[가-힣a-zA-Z]{2,8}$" required>
 						
 						<div class="nicknameChk">
 							<span class="errorMsg" id="nnameErrorMsg" style="position: absolute; left: 910px;"></span>
@@ -250,7 +342,7 @@
 					});
 		
 		     
-		        $(document).ready(function(){
+		       /*  $(document).ready(function(){
 		        	
 		        	$(".join_button").click(function(){
 		        		//회원가입 버튼(회원가입 기능 작동)
@@ -261,31 +353,14 @@
 		        		
 		        		return false;
 	        		});
-	        	});
+	        	}); */
 		        
 		        </script>
 					
-					
-					<script>
-			            const form2 = document.querySelector('form2');
-			            const emailInput = document.querySelector('#email');
-			            
-			            function validateEmail(email) {
-			            	const re = /\S+@\S+\.\S+/;
-			            	return re.test(email);
-		            	}
-			            
-			            form.addEventListener('submit', function(event) {
-			            	const email = emailInput.value.trim();
-			            	if (!validateEmail(email)) {
-			            		alert('유효한 이메일 주소를 입력해주세요.');
-			            		event.preventDefault();
-		            		}
-		            	});
-		            </script>
+				
 		
 		          	<div class="email">
-		           		<input type="email" name="user_email" id="email" title="EM" maxlength="20"  placeholder="이메일" >
+		           		<input type="email" name="user_email" id="email" title="EM" maxlength="20"  placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required >
 		           		<span>
 		            		<select id="domain" name="직접입력">
 								<option value="select">직접입력</option>
@@ -293,15 +368,6 @@
 								<option value="gmail.com">구글</option>
 							</select>
 						</span>
-					
-			           	<script>
-			           		document.getElementById('domain').addEventListener('change', function() {
-			           			var domain = this.value;
-			           			if (domain !== 'select') {
-			           				document.getElementById('email').value += '@' + domain;
-	           					}
-		           			});
-		           		</script>
 		           		
 		           		<button id="send-verification-code">인증번호 발송</button>
            			</div>
@@ -322,6 +388,23 @@
    			</form>
 		</section>
 	</div>
+	
+		<!-- Modal -->
+	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	          <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content">
+	              <div class="modal-header">
+	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body body">
+	              </div>
+	              <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
 	
 </body>
 </html>

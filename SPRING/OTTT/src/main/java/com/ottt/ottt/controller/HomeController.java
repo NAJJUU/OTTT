@@ -45,7 +45,7 @@ public class HomeController {
 			// 별점 높은 순 작품 불러오기
 			List<ContentDTO> ratingContentList = contentServiceImpl.getRating();
 			m.addAttribute("ratingContentList", ratingContentList);
-			
+			// 별점 높은 순 작품들 ottList
 			Map<Integer, List<ContentOTTDTO>> ottmap = new HashMap<Integer, List<ContentOTTDTO>>();
 			for(ContentDTO contentDTO : ratingContentList) {				
 				List<ContentOTTDTO> ottList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
@@ -56,7 +56,7 @@ public class HomeController {
 			// 찜 많은 순 작품 불러오기
 			List<ContentDTO> jjimContentList = contentServiceImpl.getJjim();
 			m.addAttribute("jjimContentList", jjimContentList);
-			
+			// 찜 많은 순 작품들 ottList
 			Map<Integer, List<ContentOTTDTO>> jjimmap = new HashMap<Integer, List<ContentOTTDTO>>();
 			for(ContentDTO contentDTO : jjimContentList) {				
 				List<ContentOTTDTO> jjimList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
@@ -68,8 +68,29 @@ public class HomeController {
 				Integer user_no = (Integer) session.getAttribute("user_no");
 				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
 				m.addAttribute("wishList", wishList);
+				
+				// login되어 있을 때 추가정보 이용해서 추천작 가져오기
+				List<ContentDTO> recomContentList = contentServiceImpl.getrecomSelect((Integer)session.getAttribute("user_no"));
+				m.addAttribute("recomContentList", recomContentList);
+				// 추천작 ottList				
+				Map<Integer, List<ContentOTTDTO>> recommap = new HashMap<Integer, List<ContentOTTDTO>>();
+				for(ContentDTO contentDTO : recomContentList) {				
+					List<ContentOTTDTO> recomList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
+					recommap.put(contentDTO.getContent_no(), recomList);
+				}
+				m.addAttribute("recomList", recommap);
+			}else {
+				// 봤어요 많은순 가져오기(login이 안되어있을 때 추천작품에 띄울거)
+				List<ContentDTO> watchedContentList = contentServiceImpl.getWatchedSelect();
+				m.addAttribute("watchedContentList", watchedContentList);
+				//봤어요 많은순 작품들 ottList
+				Map<Integer, List<ContentOTTDTO>> watchedmap = new HashMap<Integer, List<ContentOTTDTO>>();
+				for(ContentDTO contentDTO : watchedContentList) {				
+					List<ContentOTTDTO> watchedList = contentServiceImpl.getOttImg(contentDTO.getContent_no());
+					watchedmap.put(contentDTO.getContent_no(), watchedList);
+				}
+				m.addAttribute("watchedList", watchedmap);
 			}	
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

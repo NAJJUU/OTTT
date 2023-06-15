@@ -21,4 +21,6 @@ public interface ContentService {
 	List<GenreDTO> getGenrenm(Integer content_no) throws Exception;
 	List<ContentOTTDTO> getOTT(Integer content_no) throws Exception;
 	List<ContentDTO> getJjim() throws Exception;
+	List<ContentDTO> getWatchedSelect() throws Exception;
+	List<ContentDTO> getrecomSelect(Integer user_no) throws Exception;
 }
