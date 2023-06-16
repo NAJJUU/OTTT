@@ -140,11 +140,11 @@
 		
         
 		<section class="sec00">
-		    <form action='<c:url value="/signin/register" />' method="post" id="form" onsubmit="return validatePassword()">
+		    <form action='<c:url value="/signin/register" />' method="post" id="form" onsubmit="return check_pw()">
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
-							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$">
+							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$" required>
 					    <span class="errorMsg" id="idErrorMsg" style="position: absolute; left: 910px;"></span> 
 					    <div class="idChk">
 					    	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
@@ -159,7 +159,7 @@
 					</div>
 					
 					<div class="passwordCheck">
-					    <input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인" required >
+					    <input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인">
 					    <span class="errorMsg" id="passwordCheckErrorMsg"></span>
 					</div>
 				</div>
@@ -167,6 +167,16 @@
 				
 				
 				<script>
+				//비밀번호 재확인이랑 비밀번호랑 같지 않을 때 회원가입 안되게 하기
+				function check_pw(){
+					  if(document.getElementById('password').value != document.getElementById('passwordCheck').value){
+						  $(".body").html("비밀번호가 일치하지 않습니다.<br>다시 입력해주세요.");
+				   	      $('#Modal').modal('show');
+				   	      return false;
+					  }
+					  return true;
+				}
+				
 		    	//아이디 중복검사
 				$('.id_input').on("propertychange change keyup paste input", function(){
 					
@@ -225,7 +235,7 @@
 				  	});
 		        
 			        // 비밀번호 재확인
-			        $('#passwordCheck').on('blur', function() {
+			       $('#passwordCheck').on('blur', function() {
 			        	
 			        	var passwordValue = $('#password').val();
 			        	var passwordCheckValue = $(this).val();
@@ -237,19 +247,6 @@
 	        			}
 		        	});
 			        
-			        // 비밀번호 확인(입력한 값이 동일하지 않으면 회원가입 안되게)
-			        function validatePassword(){
-			        	var password = document.getElementById("password").value
-			        	var passwordCheck = document.getElementById("passwordCheck").value
-			        	
-			        	if(password != passwordCheck){
-			        		$(".body").html("비밀번호가 일치하지 않스빈다.");
-				   	     	$('#Modal').modal('show');
-				   	     	return false;
-			        	}
-			        	return true;
-			        }
-		        	
 			        //이름 유효성검사
 			        $("#name").on("blur",function(){
 			        	
@@ -261,9 +258,7 @@
 	            		} else{
 	            			$('#nameErrorMsg').text('');
             			}
-	            	});
-			        
-			        
+	            	});		        
 		        });
 		        </script>
 		        
@@ -281,6 +276,8 @@
 		            <script>
 			            const form = document.querySelector('form');
 			            const genderSelect = form.querySelector('select[name="user_gen"]');
+			            /* var password = document.getElementById("password").value
+			        	var passwordCheck = document.getElementById("passwordCheck").value */
 			
 			            form.addEventListener('submit', (event) => {
 			            	if (genderSelect.value === '') {
@@ -288,6 +285,11 @@
 			            		$(".body").html("성별을 선택해주세요.");
 			    	   	     	$('#Modal').modal('show');
 		            		}
+			            	/* else if(password != passwordCheck){
+		            			event.preventDefault();
+		            			$(".body").html("비밀번호가 일치하지 않습니다.<br>다시 확인해주세요.");
+			    	   	     	$('#Modal').modal('show');
+		            		} */
 		            	});
 					</script>
 		
@@ -340,20 +342,6 @@
 					        $('#nnameErrorMsg').text('');
 					    }
 					});
-		
-		     
-		       /*  $(document).ready(function(){
-		        	
-		        	$(".join_button").click(function(){
-		        		//회원가입 버튼(회원가입 기능 작동)
-		        		if(user_id&&idValue&&passwordValue&&passwordCheckValue&&passwordRegex&&nameValue&&nameRegex){
-		        			$("#membership").attr("action", "/member/join");
-		        			$("#membership").submit();
-	        			}
-		        		
-		        		return false;
-	        		});
-	        	}); */
 		        
 		        </script>
 					
