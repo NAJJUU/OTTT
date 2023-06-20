@@ -248,7 +248,9 @@
 	            		} else{
 	            			$('#nameErrorMsg').text('');
             			}
-	            	});		        
+	            	});	
+			        
+			        
 		        });
 		        </script>
 		        
@@ -321,17 +323,57 @@
 				
 				});// function 종료
 				
-			        //닉네임 유효성검사
-			        $("#nname").on("blur",function(){
-					    var nameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/;
-					    var nameValue = $(this).val();
-					    
-					    if(!nameRegex.test(nameValue)){
-					        $('#nnameErrorMsg').text('1글자 이상 8글자 이하의 한글, 영문, 숫자만 사용 가능합니다.');
-					    } else{
-					        $('#nnameErrorMsg').text('');
-					    }
-					});
+				//닉네임 유효성검사
+		        $("#nname").on("blur",function(){
+				    var nameRegex = /^[가-힣a-zA-Z0-9]{1,8}$/;
+				    var nameValue = $(this).val();
+				    
+				    if(!nameRegex.test(nameValue)){
+				        $('#nnameErrorMsg').text('1글자 이상 8글자 이하의 한글, 영문, 숫자만 사용 가능합니다.');
+				    } else{
+				        $('#nnameErrorMsg').text('');
+				    }
+				});
+				
+				//이메일 중복검사
+				$('#email').on("propertychange change keyup paste input", function(){
+					
+					var user_email = $('#email').val();			// .id_input에 입력되는 값
+				  	var data = {user_email : user_email};				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+				  
+				  	$.ajax({
+				  		type : "post",
+					    url : "/ottt/signin/emailChk",
+					    data : data,
+					    success : function(result){
+					    	
+					    	console.log("성공 여부" + result);					    	
+							if(result != 'success'){
+								$('.email_input_re_1').css("display","inline-block");
+								$('.email_input_re_2').css("display", "none");
+							} else {
+								$('.email_input_re_2').css("display","inline-block");
+								$('.email_input_re_1').css("display", "none");	
+							}
+				     
+						}// success 종료
+				
+					}); // ajax 종료
+				
+				});// function 종료
+		        
+				//이메일 유효성검사
+		        $("#email").on("blur",function(){
+				    var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+				    var emailValue = $(this).val();
+				    
+				    if(!emailRegex.test(emailValue)){
+				        $('#emailErrorMsg').text('올바른 이메일 형식으로 입력해주세요.');
+				    } else{
+				        $('#emailErrorMsg').text('');
+				    }
+				});
+			        
 		        
 		        </script>
 					
@@ -349,6 +391,7 @@
 		           		
 		           		<button id="send-verification-code" type="button">인증번호 발송</button>
            			</div>
+           			
            			
 		          	<div class="Certification">
 		          		<input type="text" id="Certification" title="EM" maxlength="20"  placeholder="인증번호" pattern="\d{6}" required>
@@ -368,6 +411,13 @@
 	</div>
 	
 	<script type="text/javascript">
+	document.getElementById('domain').addEventListener('change', function() {
+			var domain = this.value;
+			if (domain !== 'select') {
+				document.getElementById('email').value += '@' + domain;
+			}
+		});
+	
 	var code = "";
 	
 	/* 인증번호 이메일 전송 */
@@ -380,10 +430,15 @@
 			url: "/ottt/signin/mailCheck?email="+email,
 			success:function(data){
 				
-				//console.log("data : "+data)
-				$(".body").html("인증번호를 발송했습니다.");
-		   	    $('#Modal').modal('show');
-				code=data				
+				if (!/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/.test(email) || email == null) {
+					    $(".body").html("올바른 이메일을 입력해주세요.");
+					    $('#Modal').modal('show');
+					}else{
+					//console.log("data : "+data)
+					$(".body").html("인증번호를 발송했습니다.");
+			   	    $('#Modal').modal('show');
+					code=data
+				}							
 			}
 		})
 	})
@@ -392,7 +447,7 @@
 	/* 인증번호 비교 */
 	$("#completion").click(function(){
 		var inputCode = $("#Certification").val()		// 입력코드		
-		if(inputCode == code){
+		if(inputCode == code && inputCode != ''){
 			$(".body").html("인증번호가 일치합니다.");
 	   	    $('#Modal').modal('show');
 		}else{

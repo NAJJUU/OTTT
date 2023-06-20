@@ -95,4 +95,20 @@ public class UserDaoImpl implements UserDao {
 		return session.insert(namespace+"userGenre", map);
 	}
 
+	//아이디찾기
+	@Override
+	public UserDTO selectEmail(String user_email) throws Exception {
+		return session.selectOne(namespace+"selectUserEmail", user_email);
+	}
+
+	//비밀번호찾기
+	@Override
+	public UserDTO selectPwd(String user_email, String user_id) throws Exception {
+		Map map = new HashMap();
+		map.put("user_email", user_email);
+		map.put("user_id", user_id);
+		return session.selectOne(namespace+"findPwd", map);
+	}
+
+
 }

@@ -12,6 +12,59 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="${path}/resources/css/login/pwdreset.css" >
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<style type="text/css">
+		/* 모달 */
+.modal-content{
+    background-color: #202020;
+}
+
+.modal-body{
+    font-size: 26px;
+    text-align: center;
+    border: 1px solid #fff;
+}
+
+.modal-header{
+    border: 1px solid #fff;
+}
+
+.modal-footer{
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+ 
+.modi-del{
+	display: flex;
+    justify-content: flex-end;
+}
+
+
+.qa-main p{
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
+.btn{
+    color: #fff;
+    background-color: transparent;
+    border-style: none;
+    border-color: #fff; 
+    font-size: 23px; 
+    text-decoration: none;
+}
+
+
+.btn:hover{
+    border-color: #33FF33;
+    background-color: transparent;
+    border-style: solid;
+    color: #33FF33; 
+}
+</style>
 </head>
 
 <!--  body  --------------------->
@@ -59,10 +112,10 @@
 		</header>
 		
 		<section class="sec00">			
-			<form method="get" action="<c:url value='/login' />" id="membership">
+			<form method="post" action="<c:url value='/login/checkPwd?user_id=${UserDTO.user_id}&user_email=${UserDTO.user_email}' />" id="membership" onsubmit="return check_pw()">
 			<h1 style="font-size: 21px; display: inline-block;">비밀번호 재설정</h1>
 				<div class="password">
-					<input type="password" id="password" title="PW" maxlength="20"  placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z])(.{8,20})$">
+					<input type="password" name="user_pwd" id="password" title="PW" maxlength="20"  placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z])(.{8,20})$">
 					<span class="errorMsg" id="passwordErrorMsg"></span>
 				</div>
 				<div class="passwordCheck">
@@ -70,7 +123,7 @@
 					<span class="errorMsg" id="passwordCheckErrorMsg"></span>
 				</div>
 				
-				<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+				
 				<script>
        				$(document).ready(function() {
        					
@@ -96,10 +149,20 @@
 				            }
 				          });
 				        });
+       				
+       			//비밀번호 재확인이랑 비밀번호랑 같지 않을 때 회원가입 안되게 하기
+       				function check_pw(){
+       					var inputCode = $("#Certification").val()		// 입력코드
+       					  if(document.getElementById('password').value != document.getElementById('passwordCheck').value){
+       						  $(".body").html("비밀번호가 일치하지 않습니다.<br>다시 입력해주세요.");
+       				   	      $('#Modal').modal('show');
+       				   	      return false;
+       					  }
+       					  return true;
+       				}
 				</script>
- 
-           
-               	<div class="complate" style="display: inline-block; Spointer-events: none;;">
+
+               	<div class="complate" style="display: inline-block; Spointer-events: none;">
                    	<input type="submit" value="완료">
 
                    </div>
@@ -107,6 +170,24 @@
                    
 			</form>	
 		</section>
+		
+		
+		<!-- Modal -->
+	        <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	          <div class="modal-dialog modal-dialog-centered">
+	            <div class="modal-content">
+	              <div class="modal-header">
+	                <h1 class="modal-title fs-5" id="exampleModalLabel">알림</h1>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	              </div>
+	              <div class="modal-body body">
+	              </div>
+	              <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
 	</div>
     
   </body>

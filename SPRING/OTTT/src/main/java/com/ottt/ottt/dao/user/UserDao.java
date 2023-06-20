@@ -20,4 +20,9 @@ public interface UserDao {
 	UserDTO select(Integer user_no) throws Exception;
 	int insertUserOTT(Map map) throws Exception; 
 	int insertUserGenre(Map map) throws Exception; 
+	
+	// 아이디찾기
+	UserDTO selectEmail(String user_email) throws Exception;
+	//비밀번호찾기
+	UserDTO selectPwd(String user_email, String user_id) throws Exception;
 }

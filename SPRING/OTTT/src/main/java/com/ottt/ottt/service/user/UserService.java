@@ -18,4 +18,8 @@ public interface UserService {
 	UserDTO getUser(Integer user_no) throws Exception;
 	int putUserOTT(Map map) throws Exception; 
 	int putUserGenre(Map map) throws Exception; 
+	//아이디 찾기
+	UserDTO getUserEmail(String user_email) throws Exception;
+	//비밀번호찾기
+	UserDTO getFindPwd(String user_email, String user_id) throws Exception;
 }

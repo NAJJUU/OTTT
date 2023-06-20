@@ -115,6 +115,24 @@ public class SigninController {
 		return "redirect:/signin/addInfo";		
 	}
 	
+	// 이메일 중복검사
+	@RequestMapping(value = "/emailChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String emailChk(String user_email) {
+		try {
+			UserDTO user = userService.getUserEmail(user_email);
+			if(user != null && user.getUser_email().equals(user_email)) {
+				System.out.println("==========================이메일 확인");
+				return "success";	
+			} 	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		return "fail";		
+	}
+	
 	//닉네임 중복검사
 	@RequestMapping(value = "/nnameIdChk", method = RequestMethod.POST)
 	@ResponseBody
@@ -167,7 +185,7 @@ public class SigninController {
 		/* 인증번호(난수) 생성 */
 		Random random = new Random();
 		int checkNum = random.nextInt(888888)+111111;
-		System.out.println("인증번호 "+ checkNum);
+		/* System.out.println("인증번호 "+ checkNum); */
 		
 		/* 이메일 보내기 */
 		String setForm = "otttmailcheck@gmail.com";		// root-context.xml에 삽입한 자신의 이메일 계정의 이메일 주소
