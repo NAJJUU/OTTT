@@ -34,10 +34,9 @@ public class LoginController {
 	}
 	
 	@PostMapping("/login")
-	public String login(String user_id, String user_pwd, String toURL, boolean rememberId, 
+	public String login(String user_id, String user_pwd, String toURL, boolean rememberId,
 			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		
 		if(!loginCheck(user_id, user_pwd)) {
 		String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다", "utf-8");
 		return "redirect:/login?msg="+msg;
