@@ -55,6 +55,8 @@
     color: #33FF33; 
 }
 
+
+
 </style>
 </head>
 <body style="background-color: #202020;">
@@ -63,16 +65,8 @@
     	<%@ include file="../../fix/header.jsp" %>
 
         <div id="line-1" >
-          <nav class="nav">
-          <a class="nav-link1" href="<c:url value='/community/freecommunity' />">자유게시판</a>
-          <a class="nav-link1" href="<c:url value='/community/endmovie/tving' />">종료예정작</a>
-          <a class="nav-link1" href="<c:url value='/community/priceInfoTving' />">가격정보</a>
-          <a class="nav-link1" href="<c:url value='/community/QnA' />">Q&A</a>
-          <a class="nav-link1" href="<c:url value='/community/notice' />" style="color: #33ff33;">공지사항</a>
-        </nav>
+          <%@ include file="../../fix/nav.jsp" %>
         </div>
-
-
 
 	<script type="text/javascript">
 	   	$(document).ready(function() {
@@ -97,8 +91,7 @@
 			$("#writeBtn").on("click", function() {
 				location.href="<c:url value='/community/notice/write' />"
 			})
-		});
-   		
+		})
    	</script>
 
 
@@ -150,13 +143,11 @@
 			              </li>
 		            </c:if>
 		            <c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-		            	<li class="page-item ${i == pr.sc.page ? 'active' : ''}">
-		            		<a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(i)}" />'>${i}</a>
-		            	</li>
+		            	<li class="page-item"><a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(i)}" />'>${i}</a></li>
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">
-			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.endPage+1)}" />' aria-label="Next">
+			                <a class="page-link" href='<c:url value="/community/notice${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
 			                  <span aria-hidden="true">&raquo;</span>
 			                </a>
 			              </li>

@@ -89,5 +89,10 @@ public class ContentDaoImpl implements ContentDao {
 		return session.selectList(namespace+"recomSelect", user_no);
 	}
 
+	//카테고리 영화 선택
+	@Override
+	public List<ContentDTO> getSelectMovieList(Map<String, Object> map) throws Exception {
+		return session.selectList(namespace+"getSelectMovieList", map);
+	}
 	
 }

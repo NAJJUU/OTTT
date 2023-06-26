@@ -112,20 +112,21 @@
 		</header>
 		
 		<section class="sec00">			
-			<form method="post" action="<c:url value='/login/checkPwd?user_id=${UserDTO.user_id}' />" id="membership" onsubmit="return check_pw()">
+			<form method="post" action="<c:url value='/login/checkPwd' />" id="membership" onsubmit="return check_pw()">
+			<input type="hidden" value="${user_id}" name="user_id" >
 			<h1 style="font-size: 21px; display: inline-block;">비밀번호 재설정</h1>
 				<div class="password">
-					<input type="password" name="user_pwd" id="password" title="PW" maxlength="20"  placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\da-zA-Z])(.{8,20})$">
+					<input type="password" name="user_pwd" id="password" title="password" maxlength="20"  placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[^\da-zA-Z])(.{8,20})$">
 					<span class="errorMsg" id="passwordErrorMsg"></span>
 				</div>
 				<div class="passwordCheck">
-					<input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인" required>
+					<input type="password" id="passwordCheck" title="password check" maxlength="20" placeholder="비밀번호 재확인" required>
 					<span class="errorMsg" id="passwordCheckErrorMsg"></span>
 				</div>
 				
 				
 				<script>
-       				$(document).ready(function() {
+				$(document).ready(function() {
        					
        					// 비밀번호 유효성 검사
 				        $('#password').on('blur', function() {
@@ -152,7 +153,6 @@
        				
        			//비밀번호 재확인이랑 비밀번호랑 같지 않을 때 회원가입 안되게 하기
        				function check_pw(){
-       					var inputCode = $("#Certification").val()		// 입력코드
        					  if(document.getElementById('password').value != document.getElementById('passwordCheck').value){
        						  $(".body").html("비밀번호가 일치하지 않습니다.<br>다시 입력해주세요.");
        				   	      $('#Modal').modal('show');
@@ -163,7 +163,7 @@
 				</script>
 
                	<div class="complate" style="display: inline-block; Spointer-events: none;">
-                   	<input type="submit" value="완료">
+                   	<input type="submit"  value="완료" id="change_btn">
 
                    </div>
                      	

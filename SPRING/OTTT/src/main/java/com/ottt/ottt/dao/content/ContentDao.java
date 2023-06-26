@@ -26,4 +26,7 @@ public interface ContentDao {
 	
 	
 	ContentDTO select(Integer content_no) throws Exception;
+	
+	//카테고리 영화 선택
+	List<ContentDTO> getSelectMovieList(Map<String, Object> map) throws Exception;
 }

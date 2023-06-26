@@ -86,6 +86,11 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public int selectNoId(String user_nicknm) throws Exception {
+		return session.selectOne(namespace+ "selectNoId", user_nicknm);
+	}
+
+	@Override
 	public int insertUserOTT(Map map) throws Exception {
 		return session.insert(namespace+"userOTT", map);
 	}
@@ -112,11 +117,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int resetPwd(String user_id, String user_pwd) throws Exception {
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id", user_id);
 		map.put("user_pwd", user_pwd);
-		return session.selectOne(namespace+"resetPwd", map);
+		return session.update(namespace+"resetPwd", map);
 	}
-
 
 }

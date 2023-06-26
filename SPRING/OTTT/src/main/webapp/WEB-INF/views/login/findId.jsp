@@ -131,7 +131,7 @@
                	</div>
                 
                 <div class="Certification">
-                	<input type="text" id="Certification" title="EM" maxlength="20"  placeholder="인증번호"  pattern="\d{6}" required>
+                	<input type="text" id="Certification" title="인증번호" maxlength="20"  placeholder="인증번호"  pattern="\d{6}" required>
                 	<button id="completion" type="button">인증확인</button>
                 </div>
                 

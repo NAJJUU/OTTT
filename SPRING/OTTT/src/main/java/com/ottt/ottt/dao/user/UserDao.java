@@ -18,6 +18,7 @@ public interface UserDao {
 	int up_pwd(UserDTO userDTO) throws Exception;
 	int up_profile(UserDTO userDTO) throws Exception;
 	UserDTO select(Integer user_no) throws Exception;
+	int selectNoId(String user_nicknm) throws Exception;
 	int insertUserOTT(Map map) throws Exception; 
 	int insertUserGenre(Map map) throws Exception; 
 	

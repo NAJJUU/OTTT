@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,7 @@ import com.ottt.ottt.dto.ContentDTO;
 import com.ottt.ottt.dto.ContentOTTDTO;
 import com.ottt.ottt.dto.WishlistDTO;
 import com.ottt.ottt.service.content.ContentService;
-import com.ottt.ottt.service.content.WishlistService;
+import com.ottt.ottt.service.mypage.WishlistService;
 
 @Controller
 @RequestMapping("/genre")
@@ -81,6 +82,26 @@ public class GenreController {
 		}
 		return "/genre/movie";
 	}
+	
+	@PostMapping("/movie")
+	public String moviePost(@RequestParam(value="ott_no", required = false) List<Integer> ott_no,
+					@RequestParam(value="genre_no", required = false) List<Integer> genre_no,
+					Model m) {
+		Map<String, Object> movieMap = new HashMap<String, Object>();
+		movieMap.put("ott_no", ott_no);
+		movieMap.put("genre_no", genre_no);
+		
+		try {
+			contentService.getSelectMovieList(movieMap);
+			m.addAttribute("movieMap", movieMap);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/genre/movie";
+	}
+	
 	
 	@PatchMapping("/genrejjim")
 	@ResponseBody

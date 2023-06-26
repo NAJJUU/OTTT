@@ -127,13 +127,7 @@
     	<%@ include file="../../fix/header.jsp" %>
 
         <div id="line-1" >
-          <nav class="nav">
-          <a class="nav-link1" href="<c:url value='/community/freecommunity' />">자유게시판</a>
-          <a class="nav-link1" href="<c:url value='/community/endmovie/tving' />">종료예정작</a>
-          <a class="nav-link1" href="<c:url value='/community/priceInfoTving' />">가격정보</a>
-          <a class="nav-link1" href="<c:url value='/community/QnA' />" style="color: #33ff33;">Q&A</a>
-          <a class="nav-link1" href="<c:url value='/community/notice' />">공지사항</a>
-        </nav>
+          <%@ include file="../../fix/nav.jsp" %>
         </div>
 
 		<script type="text/javascript">
@@ -242,10 +236,15 @@
 					type: 'GET',
 					url: '/ottt/community/QnA/QnAcomments?article_no='+article_no,
 					success: function(result) {
-						
 						if(result && result.length > 0){
 							$("#commentList").html(toHtml(result))
-						}																			
+						}							
+						else{
+							let tmp = '<div style="margin-bottom: 100px;"><div style="margin-left: 55px; margin-bottom: 10px; font-size:20px;">댓글</div>';
+					          tmp += "<div style='margin-left: 55px; margin-bottom: 10px; font-size:16px;'>작성된 댓글이 없습니다.</div>";
+					        $("#commentList").html(tmp+'</div>');
+						}
+							
 					},
 					error: function() {alter("error")}
 				})
@@ -465,7 +464,7 @@
         </div>
         </form>  
 	    
-	    <!--댓글-->  	    
+	    <!--댓글-->  
 		<c:if test="${sessionScope.id != null && userDTO.admin.toString() == 'Y'}">	
 	    	<div class="comment_write_box" style="margin-top: 50px;">
 	    	<div style="display: flex; justify-content: space-between; width: 1100px;">
@@ -483,9 +482,7 @@
             </div>	    	
 		</c:if>
               	
-        <c:if test="${mode != 'new'}">
-	    	<div id="commentList" style="background-color: #202020;"></div>
-	    </c:if>
+        <div id="commentList" style="background-color: #202020;"></div>
         	       	
         
 

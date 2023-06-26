@@ -83,5 +83,10 @@ public class ContentServiceImpl implements ContentService {
 		return contentDao.recomSelect(user_no);
 	}
 
+	//카테고리 영화 선택
+	@Override
+	public List<ContentDTO> getSelectMovieList(Map<String, Object> map) throws Exception {
+		return contentDao.getSelectMovieList(map);
+	}
 	
 }

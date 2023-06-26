@@ -122,7 +122,7 @@
               	</div>
               	
                 <div class="email">
-                	<input type="email" name="user_email" class="email_input" id="email" title="EM" maxlength="20"  placeholder="이메일" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
+                	<input type="email" name="user_email" class="email_input" id="email" title="EM" placeholder="이메일" pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
 	                 	<span>
 		                  	<select id="domain" name="직접입력">
 			                    <option value="select">직접입력</option>
@@ -136,7 +136,7 @@
 							<span class="email_input_re_2">등록되어 있는 이메일입니다.</span>
 					    </div>
 					<div class="Certification">
-	                	<input type="text" id="Certification" title="EM" maxlength="20" placeholder="인증번호" pattern="\d{6}" required>
+	                	<input type="text" id="Certification" title="인증번호" maxlength="20" placeholder="인증번호" pattern="\d{6}" required>
 	                	<button id="completion" type="button">인증확인</button>
                		</div>
                	</div>

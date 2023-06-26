@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.ottt.ottt.dao.user.UserDao;
 import com.ottt.ottt.dto.UserDTO;
-import com.ottt.ottt.dto.UserOTTDTO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -76,14 +75,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public int getUserNoId(String user_nicknm) throws Exception {
+		return userDao.selectNoId(user_nicknm);
+	}
+
+	@Override
 	public int putUserOTT(Map map) throws Exception {
-		// TODO Auto-generated method stub
 		return userDao.insertUserOTT(map);
 	}
 
 	@Override
 	public int putUserGenre(Map map) throws Exception {
-		// TODO Auto-generated method stub
 		return userDao.insertUserGenre(map);
 	}
 
@@ -101,4 +103,5 @@ public class UserServiceImpl implements UserService {
 	public int resetPwd(String user_id, String user_pwd) throws Exception {
 		return userDao.resetPwd(user_id, user_pwd);
 	}
+
 }

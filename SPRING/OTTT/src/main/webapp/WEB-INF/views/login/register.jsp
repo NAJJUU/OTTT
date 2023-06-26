@@ -388,7 +388,7 @@
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
-							<input type="text" name="user_id" class="id_input" id="id" title="ID" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$" required>
+							<input type="text" name="user_id" class="id_input" id="id" title="id" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$" required>
 					    <span class="errorMsg" id="idErrorMsg" style="position: absolute; left: 910px;"></span> 
 					    <div class="idChk">
 					    	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
@@ -398,18 +398,18 @@
 					</div>
 					
 					<div class="password">
-					    <input type="password" name="user_pwd" id="password" title="PW" maxlength="20" placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[^\da-zA-Z])(.{8,20})$">
+					    <input type="password" name="user_pwd" id="password" title="password" maxlength="20" placeholder="비밀번호 입력" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[^\da-zA-Z])(.{8,20})$">
 					    <span class="errorMsg" id="passwordErrorMsg"></span>
 					</div>
 					
 					<div class="passwordCheck">
-					    <input type="password" id="passwordCheck" title="PWC" maxlength="20" placeholder="비밀번호 재확인">
+					    <input type="password" id="passwordCheck" title="password check" maxlength="20" placeholder="비밀번호 재확인">
 					    <span class="errorMsg" id="passwordCheckErrorMsg"></span>
 					</div>
 				</div>
 		        
 		        <div class="name">
-		        	<input type="text" name="user_nm" id="name" title="NM" maxlength="10" placeholder="이름" pattern="^[가-힣a-zA-Z]{2,15}$" required>
+		        	<input type="text" name="user_nm" id="name" title="name" maxlength="10" placeholder="이름" pattern="^[가-힣a-zA-Z]{2,15}$" required>
 		        	<span>
 		        		<select name="user_gen">
 				            <option value="">선택</option>
@@ -420,7 +420,7 @@
 		            </span>
 
 					<div class="nname">
-						<input type="text" name="user_nicknm" class="nnmame_input" id="nname" title="NNM" maxlength="8" placeholder="닉네임" pattern="^[가-힣a-zA-Z]{2,8}$" required>
+						<input type="text" name="user_nicknm" class="nnmame_input" id="nname" title="nickname" maxlength="8" placeholder="닉네임" pattern="^[가-힣a-zA-Z]{2,8}$" required>
 						
 						<div class="nicknameChk">
 							<span class="errorMsg" id="nnameErrorMsg" style="position: absolute; left: 910px;"></span>
@@ -430,7 +430,7 @@
 					</div>
 		
 		          	<div class="email">
-		           		<input type="email" name="user_email" class="email_input" id="email" title="EM" maxlength="20"  placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required >
+		           		<input type="email" name="user_email" class="email_input" id="email" title="email" maxlength="20"  placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required >
 		           		<span>
 		            		<select id="domain" name="직접입력">
 								<option value="select">직접입력</option>
@@ -449,7 +449,7 @@
            			
            			
 		          	<div class="Certification">
-		          		<input type="text" id="Certification" title="EM" maxlength="20"  placeholder="인증번호" pattern="\d{6}" required>
+		          		<input type="text" id="Certification" title="인증번호" maxlength="20"  placeholder="인증번호" pattern="\d{6}" required>
 			          	<button id="completion" type="button">인증확인</button>
 		          	</div>
 		          	

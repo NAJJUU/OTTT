@@ -17,125 +17,120 @@
  
 <!--  body  --------------------->
   <body>
-    <form action="#" method="post">
+    <form action="<c:url value='/genre/movie' />" method="post" onsubmit="return frmCheck(this)">
     <div class="wrap">
 		<%@ include file="../fix/header.jsp" %>
 		
       <br />
       <section class="sec00">
         <div class="ott-logo-box">
-          <a href="#">
-            <img 
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/티빙.png"
-            />
-          </a>
-          <a href="#">
-            <img
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/netplix.png"
-            />
-          </a>
-          <a href="#">
-            <img
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/웨이브.png"
-            />
-          </a>
-          <a href="#">
-            <img
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/쿠팡플레이.png"
-            />
-          </a>
-          <a href="#">
-            <img
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/왓챠.png"
-            />
-          </a>
-          <a href="#">
-            <img
-              class="ott-logo-img"
-              src="${path}/resources/images/icon/디즈니플러스.png"
-            />
-          </a>
-        </div>
+						
+			<input class="ott" id="ott1" name="ott_no" value="1" type="checkbox" onchange="showImage()">
+			<label for="ott1">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/tving.png" />
+			</label>
+
+			<input class="ott" id="ott2" name="ott_no" value="2" type="checkbox" onchange="showImage()">
+			<label for="ott2">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/netplix.png"	/>
+			</label>
+			
+			<input class="ott" id="ott3" name="ott_no" value="3" type="checkbox" onchange="showImage()">
+			<label for="ott3">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/wave.png" />
+			</label>
+			
+			<input class="ott" id="ott4" name="ott_no" value="4" type="checkbox" onchange="showImage()">
+			<label for="ott4">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/couple.png" />
+			</label>
+			
+			<input class="ott" id="ott5" name="ott_no" value="5" type="checkbox" onchange="showImage()">
+			<label for="ott5">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/watcha.png" />
+			</label>
+			
+			<input class="ott" id="ott6" name="ott_no" value="6" type="checkbox" onchange="showImage()">
+			<label for="ott6">
+				<img class="ott-logo-img" src="https://myottt.s3.ap-northeast-2.amazonaws.com/ott/disney.png" />
+			</label>
+			
+		</div>
+		
         <hr class="ott-logo-divider" />
-        <ul class="ott-logo-text">
-          <li>
-            <input id="movie" type="checkbox" value="movie">
-            <a href="#"><label for="movie">액션</a></label>
-          </li>
-          <li>
-            <input id="movie1" type="checkbox" value="movie">
-            <a href="#"><label for="movie1">어드벤쳐</a></label>
-          </li>
-          <li>
-            <input id="movie2" type="checkbox" value="movie">
-            <a href="#"><label for="movie2">SF</a></label>
-          </li>
-          <li>
-            <input id="movie3" type="checkbox" value="movie">
-            <a href="#"><label for="movie3">판타지</a></label>
-          </li>
-          <li>
-            <input id="movie4" type="checkbox" value="movie">
-            <a href="#"><label for="movie4">드라마</a></label>
-          </li>
-          <li>
-            <input id="movie5" type="checkbox" value="movie">
-            <a href="#"><label for="movie5">코미디</a></label>
-          </li>
-          <li>
-            <input id="movie6" type="checkbox" value="movie">
-            <a href="#"><label for="movie6">시대극</a></label>
-          </li>
-          <li>
-            <input id="movie7" type="checkbox" value="movie">
-            <a href="#"><label for="movie7">로맨스/멜로</a></label>
-          </li>
-          <li>
-            <input id="movie8" type="checkbox" value="movie">
-            <a href="#"><label for="movie8">공포/스릴러</a></label>
-          </li>
-          <li>
-            <input id="movie9" type="checkbox" value="movie">
-            <a href="#"><label for="movie9">미스터리</a></label>
-          </li>
-          <li>
-            <input id="movie10" type="checkbox" value="movie">
-            <a href="#"><label for="movie10">범죄</a></label>
-          </li>
-          <li>
-            <input id="movie11" type="checkbox" value="movie">
-            <a href="#"><label for="movie11">음악/뮤지컬</a></label>
-          </li>
-          <li>
-            <input id="movie12" type="checkbox" value="movie">
-            <a href="#"><label for="movie12">스포츠</a></label>
-          </li>
-          <li>
-            <input id="movie13" type="checkbox" value="movie">
-            <a href="#"><label for="movie13">다큐멘터리</a></label>
-          </li>
-          <li>
-            <input id="movie14" type="checkbox" value="movie">
-            <a href="#"><label for="movie14">가족</a></label>
-          </li>
-          <li>
-            <input id="movie15" type="checkbox" value="movie">
-            <a href="#"><label for="movie15">역사</a></label>
-          </li>
-          <button class="submit">Click</button>
-        </ul>
+        <ul class="ott-logo-text" >
+			<li>
+		    	<input id="movie" type="checkbox" name="genre_no" value="1">&nbsp;&nbsp;
+		    	<label for="movie">액션</label>
+		  	</li>
+		  	<li>
+		    	<input id="movie1" type="checkbox" name="genre_no" value="2">&nbsp;&nbsp;
+		    	<label for="movie1">어드벤쳐</label>
+		  	</li>
+		  	<li>
+			    <input id="movie2" type="checkbox" name="genre_no" value="3">&nbsp;&nbsp;
+			    <label for="movie2">SF</label>
+		  	</li>
+		  	<li>
+		    	<input id="movie3" type="checkbox" name="genre_no" value="4">&nbsp;&nbsp;
+		    	<label for="movie3">판타지</label>
+		  	</li>
+	  		<li>
+	    		<input id="movie4" type="checkbox" name="genre_no" value="5">&nbsp;&nbsp;
+		    	<label for="movie4">드라마</label>
+		  	</li>
+		  	<li>
+		    	<input id="movie5" type="checkbox" name="genre_no" value="6">&nbsp;&nbsp;
+		    	<label for="movie5">코미디</label>
+		  	<li>
+			    <input id="movie6" type="checkbox" name="genre_no" value="7">&nbsp;&nbsp;
+		    	<label for="movie6">시대극</label>
+		  	</li>
+		  	<li>
+		    	<input id="movie7" type="checkbox" name="genre_no" value="8">&nbsp;&nbsp;
+		    	<label for="movie7">로맨스/멜로</label>
+		  	</li>
+		  	<li>
+			    <input id="movie8" type="checkbox" name="genre_no" value="9">&nbsp;&nbsp;
+		    	<label for="movie8">공포/스릴러</label>
+		  	</li>
+		  	<li>
+			    <input id="movie9" type="checkbox" name="genre_no" value="10">&nbsp;&nbsp;
+		    	<label for="movie9">미스터리</label>
+		  	</li>
+		  	<li>
+			    <input id="movie10" type="checkbox" name="genre_no" value="11">&nbsp;&nbsp;
+		    	<label for="movie10">범죄</label>
+		  	</li>
+		  	<li>
+			    <input id="movie11" type="checkbox" name="genre_no" value="12">&nbsp;&nbsp;
+		    	<label for="movie11">음악/뮤지컬</label>
+		  	</li>
+		  	<li>
+			    <input id="movie12" type="checkbox" name="genre_no" value="13">&nbsp;&nbsp;
+		    	<label for="movie12">스포츠</label>
+		  	</li>
+		  	<li>
+			    <input id="movie13" type="checkbox" name="genre_no" value="14">&nbsp;&nbsp;
+		    	<label for="movie13">다큐멘터리</label>
+		  	</li>
+		  	<li>
+			    <input id="movie14" type="checkbox" name="genre_no" value="15">&nbsp;&nbsp;
+		    	<label for="movie14">가족</label>
+		  	</li>
+		  	<li>
+			    <input id="movie15" type="checkbox" name="genre_no" value="16">&nbsp;&nbsp;
+		    	<label for="movie15">역사</label>
+		  	</li>
+		  	<button class="submit">Click</button>
+	  	</ul>
       </section>
       <section class="sec00-1">
         <div class="dropdown-filter">
           <li>
             <select name="button" id="button">
-             <a class="dropdown-itemtemp" href="#"><option value="최신순" >최신순</a></option>
-             <a class="dropdown-itemtemp" href="#"><option value="별점순" >별점순</a></option>
+             <option class="dropdown-itemtemp" value="최신순" >최신순</option>
+             <option class="dropdown-itemtemp" value="별점순" >별점순</option>
             </select>
           </li>
         </ul>
@@ -144,6 +139,32 @@
     
     
     <script type="text/javascript">
+
+	/* 추가 정보 입력 체크 */
+	  function frmCheck(frm) {
+		  let msg = '';
+		  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+		
+		  if (checkboxes.length === 0) {
+		    $(".body").html("최소한 하나의 옵션을 선택해주세요.");
+		    $('#Modal').modal('show');
+		    return false;
+		  }
+		  return true;
+		}
+	
+	  function showImage() {
+			var checkboxes = document.getElementsByName("ott_no"); // 체크박스 요소들을 가져옵니다.
+			
+			checkboxes.forEach(function(checkbox) {
+				var image = checkbox.nextElementSibling.querySelector(".ott-logo-img"); // 체크박스 다음에 오는 이미지 요소를 가져옵니다.
+				
+				if (checkbox.checked) {
+					image.style.display = "inline-block"; // 체크된 상태일 때 이미지를 보여줍니다.
+				} 
+			});
+		}
+
         $(document).ready(function() {
         	  $(document).on("click", "#tonojjim", function(event) {
         	    event.preventDefault();
@@ -269,7 +290,7 @@
 		            </c:forEach>
 		              <c:if test="${pr.showNext}">
 			              <li class="page-item">
-			                <a class="page-link" href='<c:url value="/genre/movie${pr.sc.getQueryString(pr.endPage-1)}" />' aria-label="Next">
+			                <a class="page-link" href='<c:url value="/genre/movie${pr.sc.getQueryString(pr.endPage+1)}" />' aria-label="Next">
 			                  <span aria-hidden="true">&raquo;</span>
 			                </a>
 			              </li>
@@ -401,6 +422,12 @@
   .movie {
   	color: #33ff33;
   }
+  
+  input[name="ott_no"] {
+  display: none;
+}
+
+  
     </style>
     
 

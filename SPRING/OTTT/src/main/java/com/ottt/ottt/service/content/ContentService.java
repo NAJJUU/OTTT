@@ -23,4 +23,7 @@ public interface ContentService {
 	List<ContentDTO> getJjim() throws Exception;
 	List<ContentDTO> getWatchedSelect() throws Exception;
 	List<ContentDTO> getrecomSelect(Integer user_no) throws Exception;
+	
+	//카테고리 영화 선택
+	List<ContentDTO> getSelectMovieList(Map<String, Object> map) throws Exception;
 }

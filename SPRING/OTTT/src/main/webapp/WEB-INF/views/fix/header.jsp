@@ -19,9 +19,22 @@
     <title>Document</title>
 </head>
 <body>
-   <script type="text/javascript">
+	<script type="text/javascript">
+		let path = window.location.href;
+	
+		function goLogin() {
+		    let toURL = '';
 
-       </script>
+		    if ('${sessionScope.id}' === '') {
+		        toURL = encodeURIComponent(path);
+		        location.href = "/ottt/mypage?toURL=" + toURL;
+		    } else {
+		        console.log(toURL);
+		        location.href = "/ottt/mypage?user=" + '${sessionScope.user_nicknm}';
+		    }
+		}
+			
+	</script>
    <header>
       <div class="logo">
          <a href="<c:url value="/" />">
@@ -30,30 +43,30 @@
       </div>
       <nav class="gnb">
          <ul>
-               <li>
-                  <a class="movie" href="<c:url value="/genre/movie" />">영화</a>
-               </li>
-               <li>
-                    <a class="drama" href="<c:url value="/genre/drama" />">드라마</a>
-               </li>
-               <li>
-                    <a class="inter" href="<c:url value="/genre/interest" />">예능</a>
-               </li>
-               <li>
-                    <a class="ani" href="<c:url value="/genre/animation" />">애니</a>
-               </li>
-               <li>
-                    <a class="community" href="<c:url value="/community/freecommunity" />">게시판</a>
-               </li>
-            </ul>
-        </nav>
+         	<li>
+				<a class="movie" href="<c:url value="/genre/movie" />">영화</a>
+             </li>
+             <li>
+                 <a class="drama" href="<c:url value="/genre/drama" />">드라마</a>
+             </li>
+             <li>
+                 <a class="inter" href="<c:url value="/genre/interest" />">예능</a>
+             </li>
+             <li>
+                 <a class="ani" href="<c:url value="/genre/animation" />">애니</a>
+             </li>
+             <li>
+                 <a class="community" href="<c:url value="/community/freecommunity" />">게시판</a>
+             </li>
+          </ul>
+		</nav>
            <div class="h-icon">
               <ul>
                  <li>
                     <a href="<c:url value='/search' />" class="searchnav"></a>
                   </li>                  
                <li>
-                  <a href="<c:url value='/mypage' /> " class="${loginout}" >
+                  <a href="javascript:goLogin()" class="${loginout}" >
                      <c:if test="${sessionScope.id != null}">
                         <img src="${user_img }" id="profile" class="${loginout}">
                      </c:if>
@@ -62,5 +75,31 @@
             </ul>
          </div>
       </header>
+      
+      <script type="text/javascript">
+		var socket = null;
+		connect();
+		
+		function connect() {
+			console.log("*************")
+			var ws = new WebSocket("ws://localhost:/ottt/replyEcho");	//포트 번호 확인
+			socket = ws;
+			
+			ws.onopen = function () {
+				console.log('Info: connection opened.');
+			};
+			ws.onmessage = function (event) {
+				console.log("받은 메시지: " + event.data + '\n');
+			};
+	
+			ws.onclose = function (event) {
+				console.log('Info: connection closed.');
+				//setTimeout( function(){ connect(); }, 1000); // retry connection!!
+			};
+			
+			ws.onerror = function (err) { console.log('Info: connection error.', err); };		
+		}
+	</script>
+      
 </body>
 </html>
