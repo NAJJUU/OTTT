@@ -83,7 +83,6 @@ public class ContentServiceImpl implements ContentService {
 		return contentDao.recomSelect(user_no);
 	}
 
-<<<<<<< HEAD
 	//카테고리 영화 선택 검색
 	@Override
 	public List<ContentDTO> getSelectCategoryList(Map<String, Object> map) throws Exception {
@@ -93,12 +92,6 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public int getCategoryCnt(Map<String, Object> map) throws Exception {
 		return contentDao.selectCategoryCnt(map);
-=======
-	//카테고리 영화 선택
-	@Override
-	public List<ContentDTO> getSelectMovieList(Map<String, Object> map) throws Exception {
-		return contentDao.getSelectMovieList(map);
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	}
 	
 }

@@ -124,7 +124,6 @@ public class UserDaoImpl implements UserDao {
 		return session.update(namespace+"resetPwd", map);
 	}
 
-<<<<<<< HEAD
 	//유저 OTT 추가정보 DELETE
 	@Override
 	public int deleteUserOTT(Integer user_no) throws Exception {
@@ -136,6 +135,4 @@ public class UserDaoImpl implements UserDao {
 	public int deleteUserGenre(Integer user_no) throws Exception {
 		return session.delete(namespace+"userGenreDelete", user_no);
 	}
-=======
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 }

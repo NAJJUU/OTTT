@@ -17,11 +17,7 @@
  
 <!--  body  --------------------->
   <body>
-<<<<<<< HEAD
     <form action="<c:url value='/genre/movie' />" method="get" onsubmit="return frmCheck(this)">
-=======
-    <form action="<c:url value='/genre/movie' />" method="post" onsubmit="return frmCheck(this)">
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
     <div class="wrap">
 		<%@ include file="../fix/header.jsp" %>
 		
@@ -126,26 +122,17 @@
 			    <input id="movie15" type="checkbox" name="genre_no" value="16">&nbsp;&nbsp;
 		    	<label for="movie15">역사</label>
 		  	</li>
-<<<<<<< HEAD
 		  	<button class="submit" onclick="saveSelections()">Click</button>
-=======
-		  	<button class="submit">Click</button>
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	  	</ul>
       </section>
       <section class="sec00-1">
         <div class="dropdown-filter">
           <li>
             <select name="button" id="button">
-<<<<<<< HEAD
              <option class="dropdown-itemtemp" value="date" ${pr.sc.option=='date' || pr.sc.option=='' ? "selected" : ""}>
              	<a href="">최신순</a></option>
              <option class="dropdown-itemtemp" value="rate" ${pr.sc.option=='rate' ? "selected" : ""}>
              	<a href="">별점순</a></option>
-=======
-             <option class="dropdown-itemtemp" value="최신순" >최신순</option>
-             <option class="dropdown-itemtemp" value="별점순" >별점순</option>
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
             </select>
           </li>
         </ul>
@@ -155,11 +142,7 @@
     
     <script type="text/javascript">
 
-<<<<<<< HEAD
 	/* 선택 박스 체크 유효성 */
-=======
-	/* 추가 정보 입력 체크 */
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	  function frmCheck(frm) {
 		  let msg = '';
 		  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
@@ -449,10 +432,7 @@
   display: none;
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
   
     </style>
     

@@ -220,13 +220,8 @@
 		  WHERE a.content_no = #{content_no}
  	</select>
  	
-<<<<<<< HEAD
  	<!-- 카테고리 영화 선택 검색 -->
  	<sql id="contentListSelect">
-=======
- 	<!-- 카테고리 영화 선택  -->
- 	<select id="getSelectMovieList" parameterType="map" resultType="ContentOTTDTO">
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
  		SELECT distinct a.content_no, a.content_nm, a.thumbnail
 		,coalesce((select round(avg(d.rating))/2 FROM tb_review d where d.content_no = a.content_no),0) as rating 
 	    FROM tb_content a
@@ -236,16 +231,10 @@
 	    full outer join tb_review g 
 		on a.content_no = g.content_no 
 	    WHERE 
-<<<<<<< HEAD
  	</sql>
  	
  	<select id="getSelectMovieList" parameterType="map" resultType="ContentOTTDTO">
  		<include refid="contentListSelect" />
-=======
-	    <if test="((ott_no != null and !ott_no.isEmpty()) || (genre_no != null and !genre_no.isEmpty()))">
-	        and (
-	    </if>
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	    <if test="ott_no != null and !ott_no.isEmpty()">
 	        d.ott_no in
 	        <foreach collection="ott_no" item="ottno" separator="," open="(" close=")">
@@ -262,7 +251,6 @@
 	        </foreach>		   
 	    </if>
 	    <if test="((ott_no != null and !ott_no.isEmpty()) || (genre_no != null and !genre_no.isEmpty()))">
-<<<<<<< HEAD
 	         and
 	    </if>
 	    f.category_no = 1
@@ -294,9 +282,6 @@
 	    </if>
 	    <if test="((ott_no != null and !ott_no.isEmpty()) || (genre_no != null and !genre_no.isEmpty()))">
 	         and
-=======
-	        ) and
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	    </if>
 	    f.category_no = 1
  	</select>

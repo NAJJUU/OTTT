@@ -93,7 +93,6 @@ public class GenreController {
 	}
 	
 	@PostMapping("/movie")
-<<<<<<< HEAD
 	@ResponseBody
 	public Map<String, Object> moviePost(@RequestParam("ott_no") List<Integer> ott_no, 
 							@RequestParam("genre_no") List<Integer> genre_no,
@@ -124,24 +123,6 @@ public class GenreController {
 		}
 		
 		return result;
-=======
-	public String moviePost(@RequestParam(value="ott_no", required = false) List<Integer> ott_no,
-					@RequestParam(value="genre_no", required = false) List<Integer> genre_no,
-					Model m) {
-		Map<String, Object> movieMap = new HashMap<String, Object>();
-		movieMap.put("ott_no", ott_no);
-		movieMap.put("genre_no", genre_no);
-		
-		try {
-			contentService.getSelectMovieList(movieMap);
-			m.addAttribute("movieMap", movieMap);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "redirect:/genre/movie";
->>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 	}
 	
 	
