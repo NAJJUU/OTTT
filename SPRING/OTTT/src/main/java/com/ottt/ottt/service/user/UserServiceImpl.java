@@ -104,6 +104,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.resetPwd(user_id, user_pwd);
 	}
 
+<<<<<<< HEAD
 	//유저 OTT 추가정보 DELETE
 	@Override
 	public int removeUserOTT(Integer user_no) throws Exception {
@@ -117,4 +118,6 @@ public class UserServiceImpl implements UserService {
 		return userDao.deleteUserGenre(user_no);
 	}
 
+=======
+>>>>>>> 6250e47587657bb6ff2809cee89cad5828f91dbc
 }
