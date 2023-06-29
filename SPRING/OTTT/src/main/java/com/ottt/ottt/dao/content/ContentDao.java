@@ -13,8 +13,8 @@ public interface ContentDao {
 	List<ContentDTO> ratingSelect() throws Exception;
 	List<ContentOTTDTO> ottNameSelect(Integer content_no) throws Exception;
 	List<ContentDTO> selectSearchWord(String content_nm) throws Exception;
-	List<ContentDTO> movieSelect(SearchItem sc) throws Exception;
-	int movieCount(SearchItem sc) throws Exception;
+	List<ContentDTO> contentSelect(SearchItem sc) throws Exception;
+	int contentCount(SearchItem sc) throws Exception;
 	List<ContentDTO> searchSelect(Map<String, Object> map) throws Exception;
 	int searchCount(Map<String, Object> map) throws Exception;
 	ContentDTO selectContent(Integer content_no) throws Exception;
@@ -26,8 +26,4 @@ public interface ContentDao {
 	
 	
 	ContentDTO select(Integer content_no) throws Exception;
-	
-	//카테고리 영화 선택 검색
-	List<ContentDTO> getSelectCategoryList(Map<String, Object> map) throws Exception;
-	int selectCategoryCnt(Map<String, Object> map) throws Exception;
 }

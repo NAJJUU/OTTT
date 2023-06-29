@@ -104,16 +104,13 @@ public class UserServiceImpl implements UserService {
 		return userDao.resetPwd(user_id, user_pwd);
 	}
 
-	//유저 OTT 추가정보 DELETE
 	@Override
 	public int removeUserOTT(Integer user_no) throws Exception {
 		return userDao.deleteUserOTT(user_no);
 	}
 
-	//유저 genre 추가정보 DELETE
 	@Override
 	public int removeUserGenre(Integer user_no) throws Exception {
-		// TODO Auto-generated method stub
 		return userDao.deleteUserGenre(user_no);
 	}
 

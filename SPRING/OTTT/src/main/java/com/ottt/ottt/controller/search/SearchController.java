@@ -106,8 +106,8 @@ public class SearchController {
 			}
 			m.addAttribute("ottList", map);
 			
-			if(session.getAttribute("usesr_no") != null) {
-				Integer user_no = (Integer) session.getAttribute("usesr_no");
+			if(session.getAttribute("no") != null) {
+				Integer user_no = (Integer) session.getAttribute("no");
 				List<WishlistDTO> wishList = wishlistService.getWishlist(user_no);
 				m.addAttribute("wishList", wishList);
 			}

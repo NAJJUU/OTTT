@@ -102,8 +102,8 @@
   	<delete id="userOTTDelete" parameterType="int">
 	  	DELETE FROM tb_user_ott
 		WHERE user_no=#{user_no}
-  	</delete> 	
-
+  	</delete>
+  	
   	<!-- 회원 추가 정보(genre) INSERT -->
   	<insert id="userGenre" parameterType="map">
   		INSERT INTO tb_user_genre

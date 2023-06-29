@@ -30,13 +30,13 @@ public class ContentDaoImpl implements ContentDao {
 	}
 
 	@Override
-	public List<ContentDTO> movieSelect(SearchItem sc) throws Exception {
-		return session.selectList(namespace+"movieSelect", sc);
+	public List<ContentDTO> contentSelect(SearchItem sc) throws Exception {
+		return session.selectList(namespace+"contentSelect", sc);
 	}
 
 	@Override
-	public int movieCount(SearchItem sc) throws Exception {
-		return session.selectOne(namespace+"movieCount", sc);
+	public int contentCount(SearchItem sc) throws Exception {
+		return session.selectOne(namespace+"contentCount", sc);
 	}
 
 	@Override
@@ -87,17 +87,6 @@ public class ContentDaoImpl implements ContentDao {
 	@Override
 	public List<ContentDTO> recomSelect(Integer user_no) throws Exception {
 		return session.selectList(namespace+"recomSelect", user_no);
-	}
-
-	//카테고리 영화 선택 검색
-	@Override
-	public List<ContentDTO> getSelectCategoryList(Map<String, Object> map) throws Exception {
-		return session.selectList(namespace+"getSelectMovieList", map);
-	}
-
-	@Override
-	public int selectCategoryCnt(Map<String, Object> map) throws Exception {
-		return session.selectOne(namespace+"getSelectCategoryList", map);
 	}
 	
 }

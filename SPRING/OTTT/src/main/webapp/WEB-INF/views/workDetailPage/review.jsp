@@ -82,7 +82,7 @@
       </div>      
       
       <div class="main-img">
-        <img src="${path}/resources/images/서부 전선 이상 없다.png" alt="서부 전선 이상 없다 이미지">
+        <img src="${contentDTO.main_img }" >
       </div>
 
       <div class="info">
@@ -147,7 +147,7 @@
 			<button id="wishlist-button">
 			  <img id="wishlist-image" class="mark" src="${path}/resources/images/img/mark.png" alt="찜하기">
 			</button>
-          <button id="diary-button">
+          <button id="diary-button" onclick="location.href='/ottt/mypage/mydiary/write?content=${contentDTO.content_no }'">
 			  <img id="diary-image" class="mark" src="${path}/resources/images/img/diary1.png" alt="찜하기">
 			</button>
           <button id="review-button">
@@ -176,16 +176,16 @@
                       <label for="starpoint_8" class="label_star" title="4"><span class="blind">4점</span></label>
                       <label for="starpoint_9" class="label_star" title="4.5"><span class="blind">4.5점</span></label>
                       <label for="starpoint_10" class="label_star" title="5"><span class="blind">5점</span></label>
-                      <input type="radio" name="rating" id="starpoint_1" class="star_radio" value="0.5" >
-                      <input type="radio" name="rating" id="starpoint_2" class="star_radio" value="1">
-                      <input type="radio" name="rating" id="starpoint_3" class="star_radio" value="1.5">
-                      <input type="radio" name="rating" id="starpoint_4" class="star_radio" value="2">
-                      <input type="radio" name="rating" id="starpoint_5" class="star_radio" value="2.5">
-                      <input type="radio" name="rating" id="starpoint_6" class="star_radio" value="3">
-                      <input type="radio" name="rating" id="starpoint_7" class="star_radio" value="3.5">
-                      <input type="radio" name="rating" id="starpoint_8" class="star_radio" value="4">
-                      <input type="radio" name="rating" id="starpoint_9" class="star_radio" value="4.5">
-                      <input type="radio" name="rating" id="starpoint_10" class="star_radio" value="5">
+                      <input type="radio" name="rating" id="starpoint_1" class="star_radio" value="1" >
+                      <input type="radio" name="rating" id="starpoint_2" class="star_radio" value="2">
+                      <input type="radio" name="rating" id="starpoint_3" class="star_radio" value="3">
+                      <input type="radio" name="rating" id="starpoint_4" class="star_radio" value="4">
+                      <input type="radio" name="rating" id="starpoint_5" class="star_radio" value="5">
+                      <input type="radio" name="rating" id="starpoint_6" class="star_radio" value="6">
+                      <input type="radio" name="rating" id="starpoint_7" class="star_radio" value="7">
+                      <input type="radio" name="rating" id="starpoint_8" class="star_radio" value="8">
+                      <input type="radio" name="rating" id="starpoint_9" class="star_radio" value="9">
+                      <input type="radio" name="rating" id="starpoint_10" class="star_radio" value="10">
                       <span class="starpoint_bg"></span>
                     </div>
                   </div>

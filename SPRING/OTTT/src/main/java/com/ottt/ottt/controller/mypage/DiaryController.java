@@ -1,5 +1,6 @@
 package com.ottt.ottt.controller.mypage;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -46,9 +47,7 @@ public class DiaryController {
 		
 		// 로그인 했는지 확인하면서 본인 다이어리 눌렀는지 확인 
 		if((session.getAttribute("user_nicknm") != null
-				&& session.getAttribute("user_nicknm").equals(user))
-					|| (session.getAttribute("user_nicknm") != null 
-							&& user == null)) {
+				&& session.getAttribute("user_nicknm").equals(user))) {
 			
 			m.addAttribute("userChk", true);
 			
@@ -108,7 +107,7 @@ public class DiaryController {
 
 			PageResolver pageResolver = new PageResolver(myDiaryCnt, sc);
 
-			List<MyDiaryDTO> listAll = ds.getMyDiary(sc);
+			List<MyDiaryDTO> listAll = ds.getDiaryList(user_no);
 			List<MyDiaryDTO> list = new ArrayList<>();
 			
 			for(MyDiaryDTO myDiaryDTO : listAll) {
@@ -116,6 +115,13 @@ public class DiaryController {
 					list.add(myDiaryDTO);
 				}
 			}
+			
+			int startIndex = (sc.getPage() - 1) * sc.getPageSize();
+			int endIndex = Math.min(startIndex + sc.getPageSize(), list.size());
+			List<MyDiaryDTO> diaryList = list.subList(startIndex, endIndex);
+			
+			System.out.println("============================ startIndex : " + startIndex);
+			System.out.println("============================ endIndex : " + endIndex);
 			
 			System.out.println("============================ list.size() : " + list.size());
 			
@@ -126,7 +132,7 @@ public class DiaryController {
 			System.out.println("============================ pageResolver.getTotalCnt() : " + pageResolver.getTotalCnt());
 			
 			m.addAttribute("myDiaryCnt", myDiaryCnt);
-			m.addAttribute("list", list);
+			m.addAttribute("list", diaryList);
 			m.addAttribute("pr", pageResolver);
 			m.addAttribute(userDTO);			
 			
@@ -141,7 +147,7 @@ public class DiaryController {
 
 	@GetMapping("/mydiary/write")
 	public String writeDiary(Integer content, HttpSession session, Model m
-								, HttpServletRequest request) {
+								, HttpServletRequest request) throws Exception {
 		
 		if (!loginCheck(request))
 			return "redirect:/login";
@@ -151,13 +157,13 @@ public class DiaryController {
 		System.out.println("=========================== content_no : " + content);
 		
 		Integer my_no = (Integer) session.getAttribute("user_no");
-		
+		String user = URLEncoder.encode((String)session.getAttribute("user_nicknm"), "UTF-8");
 		try {
 			// 나중에 수정
 			if(ds.diaryCnt(content, my_no)==1) {
 				
 				
-				return "redirect:/mypage/mydiary";
+				return "redirect:/mypage/mydiary?user="+user;
 			}
 			
 			UserDTO userDTO = us.getUser(my_no);
@@ -194,13 +200,14 @@ public class DiaryController {
 		
 		System.out.println("=========================== myDiaryDTO.getThumbnail() : " + myDiaryDTO.getThumbnail());
 
-		
+		;
 		try {
 			if(ds.write(myDiaryDTO) != 1)
 				throw new Exception("Write failed");
 			
 			rattr.addFlashAttribute("msg","WRT_OK");
-			return "redirect:/mypage/mydiary";
+			String user = URLEncoder.encode(us.getUser(myDiaryDTO.getUser_no()).getUser_nicknm(), "UTF-8");
+			return "redirect:/mypage/mydiary?user="+user;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -314,7 +321,7 @@ public class DiaryController {
 	
 	@PostMapping("/mydiary/remove")
 	public String rmvDiary (MyDiaryDTO myDiaryDTO, SearchItem sc, HttpServletRequest request
-			, RedirectAttributes rattr, Model m, HttpSession session) {
+			, RedirectAttributes rattr, Model m, HttpSession session) throws Exception {
 		
 		if (!loginCheck(request))
 			return "redirect:/login";
@@ -342,7 +349,9 @@ public class DiaryController {
 			rattr.addFlashAttribute("msg", "DEL_OK");
 		}
 		
-		return "redirect:/mypage/mydiary";
+		String user = URLEncoder.encode((String)session.getAttribute("user_nicknm"), "UTF-8");
+		
+		return "redirect:/mypage/mydiary?user="+user;
 	}
 	
 	

@@ -12,8 +12,8 @@ public interface ContentService {
 	
 	List<ContentDTO> getRating() throws Exception;
 	List<ContentOTTDTO> getOttImg(Integer content_no) throws Exception;
-	List<ContentDTO> getMovieList(SearchItem sc) throws Exception;
-	int getMovieTotalCount(SearchItem sc) throws Exception;
+	List<ContentDTO> getContentList(SearchItem sc) throws Exception;
+	int getContentTotalCount(SearchItem sc) throws Exception;
 	List<ContentDTO> getSearchSelect(Map<String, Object> map) throws Exception;
 	int getSearchTotalCount(Map<String, Object> map) throws Exception;
 	List<ContentDTO> getSelectWord(String content_nm) throws Exception;
@@ -23,8 +23,4 @@ public interface ContentService {
 	List<ContentDTO> getJjim() throws Exception;
 	List<ContentDTO> getWatchedSelect() throws Exception;
 	List<ContentDTO> getrecomSelect(Integer user_no) throws Exception;
-	
-	//카테고리 영화 선택 검색
-	List<ContentDTO> getSelectCategoryList(Map<String, Object> map) throws Exception;
-	int getCategoryCnt(Map<String, Object> map) throws Exception;
 }

@@ -115,7 +115,6 @@ public class UserDaoImpl implements UserDao {
 		return session.selectOne(namespace+"findPwd", map);
 	}
 
-	//비밀번호 재설정
 	@Override
 	public int resetPwd(String user_id, String user_pwd) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -124,15 +123,14 @@ public class UserDaoImpl implements UserDao {
 		return session.update(namespace+"resetPwd", map);
 	}
 
-	//유저 OTT 추가정보 DELETE
 	@Override
 	public int deleteUserOTT(Integer user_no) throws Exception {
 		return session.delete(namespace+"userOTTDelete", user_no);
 	}
 
-	//유저 genre 추가정보 DELETE
 	@Override
 	public int deleteUserGenre(Integer user_no) throws Exception {
 		return session.delete(namespace+"userGenreDelete", user_no);
 	}
+
 }
