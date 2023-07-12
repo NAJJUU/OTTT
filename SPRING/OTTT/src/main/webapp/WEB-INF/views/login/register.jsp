@@ -74,46 +74,7 @@
 </head>
 <body style="background-color: #202020;">
 	<div class="wrap">
-		<header>
-			<div class="logo">
-				 <a href="<c:url value="/" />">
-            <img src="${path}/resources/images/logo/OTTT.png" alt="로고">
-          </a>
-        </div>
-        <nav class="gnb">
-          <ul>
-            <li>
-              <a href="<c:url value="/genre/movie" />">영화</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/drama" />">드라마</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/interest" />">예능</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/animation" />">애니</a>
-            </li>
-            <li>
-              <a href="<c:url value="/community" />">게시판</a>
-            </li>
-          </ul>
-        </nav>
-        <div class="h-icon">
-          <ul>
-            <li>
-              <a href="<c:url value='/search' />">
-                <!-- <img src="./images/icon/search02.png" alt="검색"> -->
-              </a>
-            </li>
-            <li>
-              <a href="<c:url value='/mypage' />">
-                <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
-              </a>
-            </li>
-          </ul>
-        	</div>
-		</header>
+		<%@ include file="../fix/header.jsp" %>
 
 				<script>
 				
@@ -356,6 +317,7 @@
 					var email = $("#email").val()					// 이메일 입력란
 					var nickname = $("#nname").val()				// 닉네임 입력란
 					
+					
 					  if(document.getElementById('password').value != document.getElementById('passwordCheck').value){
 						  $(".body").html("비밀번호가 일치하지 않습니다.<br>다시 입력해주세요.");
 				   	      $('#Modal').modal('show');
@@ -377,6 +339,10 @@
 						  $(".body").html("이미 사용중인 닉네임입니다.");
 					   	  $('#Modal').modal('show');
 					   	  return false;
+					  }else if(!$('.agreeBox').prop('checked')){
+						  $(".body").html("약관에 동의해주세요.");
+					   	  $('#Modal').modal('show');
+					   	  return false;
 					  }
 					  return true;
 				}
@@ -388,7 +354,7 @@
 		    <h1 style="font-size: 21px; display: inline-block;">회원가입</h1>
 		    	<div>
 					<div class="Id">
-							<input type="text" name="user_id" class="id_input" id="id" title="id" maxlength="15"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$" required>
+							<input type="text" name="user_id" class="id_input" id="id" title="id" maxlength="20"  placeholder="아이디 입력" pattern="^[a-zA-Z0-9]{6,}$" required>
 					    <span class="errorMsg" id="idErrorMsg" style="position: absolute; left: 910px;"></span> 
 					    <div class="idChk">
 					    	<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
@@ -430,7 +396,7 @@
 					</div>
 		
 		          	<div class="email">
-		           		<input type="email" name="user_email" class="email_input" id="email" title="email" maxlength="20"  placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required >
+		           		<input type="email" name="user_email" class="email_input" id="email" title="email" placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required >
 		           		<span>
 		            		<select id="domain" name="직접입력">
 								<option value="select">직접입력</option>
@@ -449,9 +415,16 @@
            			
            			
 		          	<div class="Certification">
-		          		<input type="text" id="Certification" title="인증번호" maxlength="20"  placeholder="인증번호" pattern="\d{6}" required>
+		          		<input type="text" id="Certification" title="인증번호" maxlength="6"  placeholder="인증번호" pattern="\d{6}" required>
 			          	<button id="completion" type="button">인증확인</button>
 		          	</div>
+		          	
+		          	<div style="margin: 15px 0">
+					  <label for="agreeCheckbox" style="cursor: pointer;">
+					    <input type="checkbox" id="agreeCheckbox" class="agreeBox">
+					    회원가입 정보제공에 동의합니다.
+					  </label>
+					</div>
 		          	
 		          	<div class="back">
 		          		<input type="button" value="이전" onClick="location.href='<c:url value="/login" />'">

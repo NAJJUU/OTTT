@@ -69,52 +69,13 @@
 </head>
 <body style="background-color: #202020;">
 	<div class="wrap">
-		<header>
-			<div class="logo">
-				 <a href="<c:url value="/" />">
-            <img src="${path}/resources/images/logo/OTTT.png" alt="로고">
-          </a>
-        </div>
-        <nav class="gnb">
-          <ul>
-            <li>
-              <a href="<c:url value="/genre/movie" />">영화</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/drama" />">드라마</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/interest" />">예능</a>
-            </li>
-            <li>
-              <a href="<c:url value="/genre/animation" />">애니</a>
-            </li>
-            <li>
-              <a href="<c:url value="/community/freecommunity" />">게시판</a>
-            </li>
-          </ul>
-        </nav>
-        <div class="h-icon">
-          <ul>
-            <li>
-              <a href="<c:url value='/search' />">
-                <!-- <img src="./images/icon/search02.png" alt="검색"> -->
-              </a>
-            </li>
-            <li>
-              <a href="<c:url value='/mypage' />">
-                <!-- <img src="./images/icon/user01.png" alt="내 정보"> -->
-              </a>
-            </li>
-          </ul>
-        	</div>
-		</header>
+		<%@ include file="../fix/header.jsp" %>
 		
 		<section class="sec00">
 			<form method="get" action="<c:url value="/login/checkID" />" id="membership" onsubmit="return check_findId()">
 				<h1 style="font-size: 21px; display: inline-block;">아이디 찾기</h1>
                 <div class="email">
-                	<input type="email"name="user_email" class="email_input"  id="email" title="EM" maxlength="20" placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
+                	<input type="email"name="user_email" class="email_input"  id="email" title="EM" placeholder="이메일"  pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$" required>
                  	<span>
                   		<select id="domain" name="직접입력">
 		                    <option value="select">직접입력</option>
@@ -131,7 +92,7 @@
                	</div>
                 
                 <div class="Certification">
-                	<input type="text" id="Certification" title="인증번호" maxlength="20"  placeholder="인증번호"  pattern="\d{6}" required>
+                	<input type="text" id="Certification" title="인증번호" maxlength="6"  placeholder="인증번호"  pattern="\d{6}" required>
                 	<button id="completion" type="button">인증확인</button>
                 </div>
                 

@@ -82,6 +82,15 @@ public class CommentController {
 		
 		Map<String, Object> result = new HashMap<String,Object>();
 		
+		UserDTO userDTO = loginUserDao.select((String)session.getAttribute("id"));
+
+		if(userDTO != null) {
+			dto.setUser_no(userDTO.getUser_no());
+			dto.setCmt_writer(userDTO.getUser_nicknm());
+		}else {
+			logger.info("로그인이 필요합니다.");	//추후 예외처리
+		}
+		
 		if(commentService.deleteComment(dto.getCmt_no()) > 0) {
 			result.put("result", 1);
 			result.put("message", "삭제되었습니다.");

@@ -99,7 +99,14 @@
 					</c:if>
 					
 					<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-						<li class="page-item"><a class="page-link" href='<c:url value="/genre/content${pr.sc.getContentList(i)}" />'>${i}</a></li>
+						<c:choose>
+							<c:when test="${pr.sc.page == i }">
+								<li class="page-item"><a class="page-link selpage" href='<c:url value="/genre/content${pr.sc.getContentList(i)}" />'>${i}</a></li>
+							</c:when>
+					        <c:otherwise>
+					        	<li class="page-item"><a class="page-link" href='<c:url value="/genre/content${pr.sc.getContentList(i)}" />'>${i}</a></li>
+					        </c:otherwise>
+						</c:choose>
 					</c:forEach>
 					
 					<c:if test="${pr.showNext}">
