@@ -66,12 +66,6 @@
     border-style: solid;
     color: #33FF33; 
 }
-
-.kakao2 {
-    position: absolute;
-    top: calc(98% + 20px);
-    left: 110%;
-    transform: translateX(-50%);
 </style>
 </head>
 <body style="background-color: #202020;">

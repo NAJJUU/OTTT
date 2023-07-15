@@ -43,6 +43,12 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>javax.websocket</groupId>	      
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+	
 		<!-- 카카오 연동 -->
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 	    <dependency>
@@ -56,16 +62,8 @@
 			<groupId>com.github.scribejava</groupId>
 			<artifactId>scribejava-core</artifactId>
 			<version>2.8.1</version>
-		</dependency>
-
-		
-		
-		
-		<dependency>
-			<groupId>javax.websocket</groupId>	      
-			<artifactId>javax.websocket-api</artifactId>
-			<version>1.1</version>
-		</dependency>
+		</dependency>	
+	
 	
 		<dependency>
 		    <groupId>commons-io</groupId>

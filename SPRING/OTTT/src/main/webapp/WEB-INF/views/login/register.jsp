@@ -317,7 +317,6 @@
 					var email = $("#email").val()					// 이메일 입력란
 					var nickname = $("#nname").val()				// 닉네임 입력란
 					
-					
 					  if(document.getElementById('password').value != document.getElementById('passwordCheck').value){
 						  $(".body").html("비밀번호가 일치하지 않습니다.<br>다시 입력해주세요.");
 				   	      $('#Modal').modal('show');
@@ -339,7 +338,7 @@
 						  $(".body").html("이미 사용중인 닉네임입니다.");
 					   	  $('#Modal').modal('show');
 					   	  return false;
-					  }else if(!$('.agreeBox').prop('checked')){
+					  }}else if(!$('.agreeBox').prop('checked')){
 						  $(".body").html("약관에 동의해주세요.");
 					   	  $('#Modal').modal('show');
 					   	  return false;

@@ -39,73 +39,76 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class LoginController {
-
+	
 	@Autowired
 	LoginUserDao userDao;
-
+	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
-
+	
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	// 로그인 페이지
+	//로그인 페이지
 	@GetMapping(value = "/login")
 	public String login(String toURL) {
 		System.out.println("==========login=============== toURL : " + toURL);
-
-		return "/login/loginForm";
+		
+	return "/login/loginForm";		
 	}
-
+	
 	@PostMapping("/login")
-	public String login(String user_id, String user_pwd, String toURL, boolean rememberId, HttpServletRequest request,
-			HttpServletResponse response) throws UnsupportedEncodingException {
+	public String login(String user_id, String user_pwd, String toURL, boolean rememberId,
+			HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
-		if (!loginCheck(user_id, user_pwd)) {
-			String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다", "utf-8");
-			return "redirect:/login?msg=" + msg;
+		if(!loginCheck(user_id, user_pwd)) {
+		String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다", "utf-8");
+		return "redirect:/login?msg="+msg;
 		}
 
-		if (rememberId) {
-			Cookie cookie = new Cookie("id", user_id);
-			response.addCookie(cookie);
-		} else {
-			Cookie cookie = new Cookie("id", user_id);
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
+		if(rememberId) {
+		Cookie cookie = new Cookie("id", user_id);
+		response.addCookie(cookie);
+		}
+		else {
+		Cookie cookie = new Cookie("id", user_id);
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
 		}
 
-		UserDTO userDTO = userDao.select(user_id);
+		UserDTO userDTO = userDao.select(user_id);		
 		HttpSession session = request.getSession();
 		session.setAttribute("id", user_id);
 		session.setAttribute("admin", userDTO.getAdmin());
 		session.setAttribute("user_no", userDTO.getUser_no());
 		session.setAttribute("user_nicknm", userDTO.getUser_nicknm());
 		session.setAttribute("user_img", userDTO.getImage());
-
+		
 		System.out.println("==========login post=============== toURL : " + toURL);
 
 		toURL = (toURL == null || toURL.equals("") || toURL.equals("null")) ? "/" : toURL;
-
-		String encodedURL = URLEncoder.encode(toURL, "UTF-8").replace("%2F", "/").replace("%3A", ":")
-				.replace("%3F", "?").replace("%3D", "=");
-
+				
+		String encodedURL = URLEncoder.encode(toURL, "UTF-8")
+				.replace("%2F", "/")
+				.replace("%3A", ":")
+				.replace("%3F", "?")
+		        .replace("%3D", "=");
+		
 		System.out.println("==========encode=============== toURL : " + toURL);
 		return "redirect:" + encodedURL;
 	}
-
+	
 	private boolean loginCheck(String id, String pwd) {
 		UserDTO user = userDao.select(id);
-		if (user == null)
-			return false;
+		if(user == null) return false;
 		return user.getUser_pwd().equals(pwd);
 	}
-
+	
 	// 로그아웃 +(카카오 로그아웃 추가)
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
@@ -195,6 +198,19 @@ public class LoginController {
 			logger.info("===================== insert 전 userDto의 값 == > " + userDto.toString());
 
 			userDao.insert(userDto);
+			
+			UserDTO userInfo = userDao.selectKakao(kakaNo);
+
+			session.setAttribute("id", userInfo.getUser_id());
+			session.setAttribute("admin", userInfo.getAdmin());
+			session.setAttribute("user_no", userInfo.getUser_no());
+			session.setAttribute("user_nicknm", userInfo.getUser_nicknm());
+			session.setAttribute("user_img", userInfo.getImage());
+			/* 로그아웃 처리 시, 사용할 토큰 값 */
+			session.setAttribute("kakaoToken", kakaoToken);
+			
+			return "redirect:/signin/addInfo";
+			
 		}
 
 		// kakaNo로 회원정보 조회시 있으면 로그인 처리
@@ -395,16 +411,26 @@ public class LoginController {
 					
 					logger.info("===================== insert 후 userDto의 값 == > " + user.toString());
 					
-				}else {
-					//naverId로 회원정보 조회시 있으면 로그인 처리
-					logger.info("네이버로 로그인");
+					user = userDao.select(email);
 					
 					session.setAttribute("id", user.getUser_id());
 					session.setAttribute("admin", user.getAdmin());
 					session.setAttribute("user_no", user.getUser_no());
 					session.setAttribute("user_nicknm", user.getUser_nicknm());
 					session.setAttribute("user_img", user.getImage());
+					
+					return "redirect:/signin/addInfo";
 				}
+				
+				//naverId로 회원정보 조회시 있으면 로그인 처리
+				logger.info("네이버로 로그인");
+				
+				session.setAttribute("id", user.getUser_id());
+				session.setAttribute("admin", user.getAdmin());
+				session.setAttribute("user_no", user.getUser_no());
+				session.setAttribute("user_nicknm", user.getUser_nicknm());
+				session.setAttribute("user_img", user.getImage());
+			
 				
 				logger.info("member:: "+ user.toString());	
 			}
@@ -421,3 +447,11 @@ public class LoginController {
 	}
 
 }
+
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ public class LoginUserDaoImpl implements LoginUserDao {
 	@Autowired
 	private SqlSession session;
 	private static String namespace = "com.ottt.ottt.dao.login.LoginMapper.";
-
+	
 	@Override
 	public UserDTO select(String id) {
 		// TODO Auto-generated method stub
@@ -36,11 +36,10 @@ public class LoginUserDaoImpl implements LoginUserDao {
       // TODO Auto-generated method stub
       return session.selectOne(namespace + "selectNo", user_no);
    }
-
+   
 	//카카오가입여부
 	@Override
 	public UserDTO selectKakao(String kakao_no) throws Exception {
 		return session.selectOne(namespace+"selectKakao", kakao_no);		
 	}
-
 }
