@@ -35,6 +35,8 @@ public class MypageController {
 	public String mypage(Model m, String toURL, String user
 						, HttpServletRequest request, HttpSession session) throws Exception {
 		System.out.println("==========GET=============== toURL : " + toURL);
+		if(toURL != null)
+			toURL = URLEncoder.encode(toURL, "UTF-8");
 		
 		if(!loginCheck(request))
 			return "redirect:/login?toURL="+toURL;

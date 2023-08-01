@@ -232,16 +232,18 @@
               <li>
                 <div class="heart">        
                     <div>
+                    <input type="hidden" value="${Review.check_like_count}"/>
                     <c:choose>
 						<c:when test="${Review.check_like_count == 1}">
-	                      	<input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"  data-review-no="${Review.review_no}" >
+	                      	<input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"
+                          data-review-no="${Review.review_no}" data-content-no=${Review.content_no } >
 	                    </c:when>
 					<c:otherwise>
 						<input class="LikeBtn" id="heart-off" type="image" src="${path}/resources/images/img/heart_off.png"
-						width="35" height="80%" data-review-user-no="${Review.user_no }" data-review-no="${Review.review_no}" >
+						width="35" height="80%" data-review-user-no="${Review.user_no }" data-review-no="${Review.review_no}" data-content-no=${Review.content_no } >
 					</c:otherwise>
 					</c:choose>		
-                    </div>             
+                    </div>
                 </div>
               </li>
             </ul>
@@ -865,8 +867,11 @@
 	    $(".LikeBtn").click(function() {
 	        let btn = $(this);
 	        const review_no = $(this).data('review-no');
-	        const review_user_no = $(this).data('review-user-no');
 	        $('input[name="review_no"]').val(review_no);
+	        
+	        const review_user_no = $(this).data('review-user-no');
+	        const content_no = $(this).data('content-no');
+	        
 	        var likeCount = btn.closest('.review-box1').find(".review-box-footer #likeCount");
 
 	        if (LOGIN_YN == null || LOGIN_YN == "") {
@@ -889,7 +894,8 @@
 	                        "/reply/insertLike",
 	                        { "user_no": "${user_no}",
 	                        	"review_no": review_no,
-	        	            	"review_user_no": review_user_no },
+	        	            	"review_user_no": review_user_no,
+	        	            	"content_no": content_no},
 	                        function(data) {
 	                            btn.attr("src", PATH + "/resources/images/img/heart_on.png");
 	                            likeCount.text(parseInt(likeCount.text()) + 1 + '개');

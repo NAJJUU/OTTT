@@ -54,7 +54,7 @@
 	              		<li style="display: flex;">
 	                  		<div class="list-group">
 	                     		<a href="#" class="list-group-item list-group-item-action" onclick="javascript:fnCategory('myComment');">
-	                       			<img class="side_img" src="${path}/resources/images/img/comment.png" >댓글 작성 게시물
+	                       			<img class="side_img" src="${path}/resources/images/img/comment.png" >댓글 작성 게시글
 		                      	</a>
 	                 		</div>
 	             		</li>

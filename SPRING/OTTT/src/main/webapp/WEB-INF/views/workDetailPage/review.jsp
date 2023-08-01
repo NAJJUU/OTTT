@@ -742,7 +742,9 @@
 	        const review_no = $(this).data('review-no');
 	        const btn = $(this);
 	        var likeCount = btn.closest('.review-box').find('.review-box-footer #likeCount');
-
+			
+	        console.log('${user_no}')
+	        console.log(${user_no})
 	        $.post(
 	            '/review/selectLikeCount',
 	            { 'user_no': '${user_no}', 'review_no': review_no },

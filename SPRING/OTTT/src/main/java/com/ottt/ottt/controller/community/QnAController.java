@@ -218,7 +218,7 @@ public class QnAController {
 					notificationDTO.setQna_no(commentDTO.getArticle_no());
 					notificationDTO.setTarget_user_no(articleNo.getUser_no());
 					
-		 			String currentURL = "http://localhost/ottt/community/QnA/read?article_no=" + notificationDTO.getQna_no();
+		 			String currentURL = "/community/QnA/read?article_no=" + notificationDTO.getQna_no();
 					notificationDTO.setNoti_url(currentURL);
 					
 					

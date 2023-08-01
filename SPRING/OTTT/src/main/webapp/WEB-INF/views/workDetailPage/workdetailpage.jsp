@@ -341,6 +341,7 @@
 			<c:if test="${myReview != null || myReview.user_nicknm != null}">
         	<input type="hidden" name="user_no" value="${myReview.user_no }">
     		<input type="hidden" name="review_no" value="${myReview.review_no }"  />
+        <input type="hidden" name="review_user_no" value="${Review.user_no}" >
     		
         <div class="review-box">      
           <div class="review-box-header">
@@ -363,14 +364,16 @@
               <li>
                 <div class="heart1">        
                     <div>
-                    <c:choose>
-						<c:when test="${myReview.check_like_count == 1}">
-	                      	<input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"  data-review-no="${myReview.review_no}" >
-	                    </c:when>
-					<c:otherwise>
-						<input class="LikeBtn" id="heart-off" type="image" src="${path}/resources/images/img/heart_off.png" width="35" height="80%"  data-review-no="${myReview.review_no}" >
-					</c:otherwise>
-					</c:choose>		
+                      <c:choose>
+                        <c:when test="${myReview.check_like_count == 1}">
+                                      <input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"
+                                      data-review-no="${myReview.review_no}" data-review-user-no="${myReview.user_no }" data-content-no=${myReview.content_no } >
+                                  </c:when>
+                      <c:otherwise>
+                        <input class="LikeBtn" id="heart-off" type="image" src="${path}/resources/images/img/heart_off.png" width="35" height="80%"
+                        data-review-no="${myReview.review_no}" data-review-user-no="${myReview.user_no }" data-content-no=${myReview.content_no } >
+                      </c:otherwise>
+                      </c:choose>		
                     </div>             
                 </div>
               </li>
@@ -530,14 +533,16 @@
               <li>
                 <div class="heart">        
                     <div>
-                    <c:choose>
-						<c:when test="${ReviewDTO.check_like_count == 1}">
-	                      	<input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"  data-review-no="${ReviewDTO.review_no}" >
-	                    </c:when>
-					<c:otherwise>
-						<input class="LikeBtn" id="heart-off" type="image" src="${path}/resources/images/img/heart_off.png" width="35" height="80%"  data-review-no="${ReviewDTO.review_no}" >
-					</c:otherwise>
-					</c:choose>		
+                      <c:choose>
+                        <c:when test="${ReviewDTO.check_like_count == 1}">
+                                      <input class="LikeBtn" id="heart-on" type="image" src="${path}/resources/images/img/heart_on.png" width="35" height="80%"
+                                      data-review-no="${ReviewDTO.review_no}" data-review-user-no="${ReviewDTO.user_no }" data-content-no=${ReviewDTO.content_no } >
+                                  </c:when>
+                      <c:otherwise>
+                        <input class="LikeBtn" id="heart-off" type="image" src="${path}/resources/images/img/heart_off.png" width="35" height="80%"
+                        data-review-no="${ReviewDTO.review_no}" data-review-user-no="${ReviewDTO.user_no }" data-content-no=${ReviewDTO.content_no } >
+                      </c:otherwise>
+                      </c:choose>		
                     </div>             
                 </div>
               </li>
@@ -826,9 +831,13 @@
 	    });
 
 	    $(".LikeBtn").click(function() {
-	        let btn = $(this);
+          let btn = $(this);
 	        const review_no = $(this).data('review-no');
 	        $('input[name="review_no"]').val(review_no);
+	        
+	        const review_user_no = $(this).data('review-user-no');
+	        const content_no = $(this).data('content-no');
+	        
 	        var likeCount = btn.closest('.review-box').find(".review-box-footer #likeCount");
 	        var likeCount1 = btn.closest('.review-box1').find(".review-box-footer #likeCount");
 	        if (LOGIN_YN == null || LOGIN_YN == "") {
@@ -849,7 +858,10 @@
 	                    // 저장하는 post ajax
 	                    $.post(
 	                        "/insertLike",
-	                        { "user_no": "${user_no}", "review_no": review_no },
+                          { "user_no": "${user_no}",
+	                        	"review_no": review_no,
+	                        	"review_user_no": review_user_no,
+	                        	"content_no": content_no },
 	                        function(data) {
 	                            btn.attr("src", PATH + "/resources/images/img/heart_on.png");
 	                            likeCount.text(parseInt(likeCount.text()) + 1 + '개');

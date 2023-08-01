@@ -181,8 +181,10 @@ public class DetailReviewController {
 			Map<String, Object> result = new HashMap<String,Object>();
 			
 			UserDTO userDTO = loginUserDao.select((String)session.getAttribute("id"));
+			
 	    	if (userDTO == null) {	   
 	    		result.put("message", "로그인이 필요합니다.");
+	    		result.put("result", 0);
 	    		return result;
 	        }
 	
@@ -218,19 +220,21 @@ public class DetailReviewController {
 			result.put("success", reviewService.insertLike(dto));
 			
 			//알림함에 알림 집어넣기
- 			NotificationDTO notificationDTO = new NotificationDTO();
- 			notificationDTO.setUser_no(dto.getUser_no());
- 			notificationDTO.setReview_no(dto.getReview_no());
+ 			if(!review_user_no.equals(session.getAttribute("user_no"))) {
+	 			NotificationDTO notificationDTO = new NotificationDTO();
+	 			notificationDTO.setUser_no(dto.getUser_no());
+	 			notificationDTO.setReview_no(dto.getReview_no());
+	 			
+	 			notificationDTO.setTarget_user_no(review_user_no);
+	 			System.out.println("================== review_user_no : " +review_user_no);
+	 			//jsp단에서 <div id="reply-popup" class="popup11"> 이 부분에 인풋 태그 추가 후 불러옴
+	 			
+	 			String currentURL = "/detailPage/reply?content_no=" + reviewDTO.getContent_no() + "&review_no=" + reviewDTO.getReview_no();
+				notificationDTO.setNoti_url(currentURL);
+	 			
+	 			notificationService.putReviewLike(notificationDTO);
+ 			}
  			
- 			notificationDTO.setTarget_user_no(review_user_no);
- 			System.out.println("================== review_user_no : " +review_user_no);
- 			//jsp단에서 <div id="reply-popup" class="popup11"> 이 부분에 인풋 태그 추가 후 불러옴
- 			
- 			String currentURL = "http://localhost/ottt/detailPage/reply?content_no=" + reviewDTO.getContent_no() + "&review_no=" + reviewDTO.getReview_no();
-			notificationDTO.setNoti_url(currentURL);
- 			
- 			notificationService.putReviewLike(notificationDTO);
-			
 			return result;
 
 		}

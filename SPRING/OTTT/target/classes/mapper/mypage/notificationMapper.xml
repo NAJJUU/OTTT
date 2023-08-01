@@ -49,7 +49,7 @@
 		<insert id="insertMessage" parameterType="NotificationDTO">
 			INSERT INTO tb_notification
 			(user_no, target_user_no, noti_message, noti_url)
-			VALUES(#{user_no}, #{target_user_no}, ' 님이 쪽지를 보냈습니다.', 'http://localhost/ottt/mypage/message')
+			VALUES(#{user_no}, #{target_user_no}, ' 님이 쪽지를 보냈습니다.', '/mypage/message')
 		</insert>
 		
 		

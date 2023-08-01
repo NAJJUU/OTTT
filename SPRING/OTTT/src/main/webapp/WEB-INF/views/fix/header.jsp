@@ -23,8 +23,8 @@
 		let path = window.location.href;
 	
 		function goLogin() {
-		    let toURL = '';
-
+			let toURL = '';
+			
 		    if ('${sessionScope.id}' === '') {
 		        toURL = encodeURIComponent(path);
 		        location.href = "/mypage?toURL=" + toURL;

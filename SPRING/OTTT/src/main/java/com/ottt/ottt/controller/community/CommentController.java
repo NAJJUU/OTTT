@@ -62,7 +62,7 @@ public class CommentController {
 	
 	//댓글 저장
 	@PostMapping("/insertComment")
-	public Map<String,Object> insertComment(CommentDTO dto, HttpSession session) throws Exception {
+	public Map<String,Object> insertComment(CommentDTO dto, HttpSession session, Integer user_no) throws Exception {
 		
 		logger.info("/comment/insertComment >>>>>> 호출 ");
 		
@@ -88,20 +88,23 @@ public class CommentController {
 		//알림함에 알림 집어넣기
 		ArticleDTO articleDTO = new ArticleDTO();
 		articleDTO.setArticle_no(dto.getArticle_no());
-
-		ArticleDTO articleNo = communityService.select(articleDTO);
-		if(articleDTO != null) {
-			NotificationDTO notificationDTO = new NotificationDTO();
-			notificationDTO.setUser_no(dto.getUser_no());
-			notificationDTO.setArticle_no(articleDTO.getArticle_no());
-			notificationDTO.setTarget_user_no(articleNo.getUser_no());
-			
-		    String currentURL = "http://localhost/ottt/community/post?article_no=" + dto.getArticle_no();
-		    notificationDTO.setNoti_url(currentURL);
-			
-			notificationService.putArticleCmt(notificationDTO);
-		}
 		
+		System.out.println("======================user_no: " + user_no);
+		System.out.println("======================(Integer)session.getAttribute(\"user_no\"): " + (Integer)session.getAttribute("user_no"));
+		if(!user_no.equals(session.getAttribute("user_no"))) {
+			ArticleDTO articleNo = communityService.select(articleDTO);
+			if(articleDTO != null) {
+				NotificationDTO notificationDTO = new NotificationDTO();
+				notificationDTO.setUser_no(dto.getUser_no());
+				notificationDTO.setArticle_no(articleDTO.getArticle_no());
+				notificationDTO.setTarget_user_no(articleNo.getUser_no());
+				
+			    String currentURL = "/community/post?article_no=" + dto.getArticle_no();
+			    notificationDTO.setNoti_url(currentURL);
+				
+				notificationService.putArticleCmt(notificationDTO);
+			}
+		}
 		return result;
 	}
 	

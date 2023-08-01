@@ -84,7 +84,7 @@
 				
 				<input type="text" name="user_id" placeholder="ID를 입력해주세요" value="${cookie.id.value}" autofocus="autofocus" style="border:0 solid black" />
 				<input type="password" name="user_pwd" style="border:0 solid black" placeholder="비밀번호를 입력해주세요" />
-				<input type="hidden" name="toURL" value= "${param.toURL }" />
+				<input type="hidden" name="toURL" value= "${param.toURL }" class="toURL" />
 				
 				<button>로그인</button>
 				         
@@ -147,7 +147,7 @@
 	//카카오 로그인화면 요청
     function loginWithKakao() {
     	Kakao.Auth.authorize({ 
-        	redirectUri: 'http://ottt.ap-northeast-2.elasticbeanstalk.com//kakao_callback' // 등록한 리다이렉트uri 입력
+        	redirectUri: 'http://ottt.ap-northeast-2.elasticbeanstalk.com/kakao_callback' // 등록한 리다이렉트uri 입력
         	, prompts : 'login'	//기존 로그인 여부와 상관없이 로그인하기
         });
     }

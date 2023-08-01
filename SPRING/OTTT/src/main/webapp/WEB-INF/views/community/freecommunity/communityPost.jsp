@@ -54,7 +54,7 @@
            				<li style="display: flex;">
                				<div class="list-group">
                    				<a href="<c:url value='/community/freecommunity?category=myComment' />" class="list-group-item list-group-item-action">
-                     				<img class="side_img" src="${path}/resources/images/img/comment.png" >댓글 작성 게시물
+                     				<img class="side_img" src="${path}/resources/images/img/comment.png" >댓글 작성 게시글
                    				</a>
                				</div>
            				</li>
@@ -287,6 +287,7 @@
 			/********************************************************************************/
 			let LOGIN_YN = '${sessionScope.user_no}';	//로그인여부
 			let ARTICLE_NO = "${articleDTO.article_no}"
+			let ARTICLE_USER = '${articleDTO.user_no}'
 			let PATH = "<c:out value='${path}'/>"; 	//이미지 root 경로
 			
 			/********************************************************************************/
@@ -650,7 +651,13 @@
 					return
 				}
 				//코맨트 저장하기, 공통 ajax 함수 호출 
-				fnCallAjax("/comment/insertComment" ,{"article_no" : ARTICLE_NO, "cmt_content" : cmt_content}, fnSaveCallBack)
+				fnCallAjax("/comment/insertComment" ,
+							{
+								"article_no" : ARTICLE_NO,
+								"cmt_content" : cmt_content,
+								"user_no" : ARTICLE_USER
+							},
+							fnSaveCallBack)
 
 			}
 

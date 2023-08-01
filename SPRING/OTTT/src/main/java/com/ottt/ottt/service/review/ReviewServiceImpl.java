@@ -86,7 +86,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public int getReplyCount(Integer review_no) throws Exception {
-		// TODO Auto-generated method stub
 		return reviewDao.replyCount(review_no);
 	}
 
