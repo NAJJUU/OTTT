@@ -338,7 +338,7 @@
 						  $(".body").html("이미 사용중인 닉네임입니다.");
 					   	  $('#Modal').modal('show');
 					   	  return false;
-					  }}else if(!$('.agreeBox').prop('checked')){
+					  }else if(!$('.agreeBox').prop('checked')){
 						  $(".body").html("약관에 동의해주세요.");
 					   	  $('#Modal').modal('show');
 					   	  return false;
